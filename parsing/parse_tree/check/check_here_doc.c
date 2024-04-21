@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/19 00:38:43 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:45:09 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,22 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 
 	if (!delimiter)
 		return ;
-	write(1, ">", 1);
-	remain = NULL;
-	str = get_next_line(0, &remain, all);
-	while (ft_strcmp(str, delimiter))
+	signal(SIGINT, &handle_signal_doc);
+	while (1)
 	{
-		get_environment(all, &str);
-		i = 0;
-		write(1, ">", 1);
-		while (str[i])
+		str = readline(">");
+		if (!str)
+			break ;
+		if (!ft_strncmp(str, delimiter, ft_strlen(delimiter) - 1))
 		{
-			write(doc_fd, str + i, 1);
-			i++;
+			free(str);
+			break ;
 		}
-		remain = NULL;
-		str = get_next_line(0, &remain, all);
+		ft_write(str, doc_fd, 0);
+		ft_write("\n", doc_fd, 0);
+		free(str);
 	}
+	signal(SIGINT, &handle_signal);
 }
 
 static void	create_doc(unsigned int here_doc_i, char *str, \

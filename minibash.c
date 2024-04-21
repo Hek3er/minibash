@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/19 06:01:42 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:45:40 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	minibash_readline(char **str, t_all *all)
 	char	*input;
 
 	input = NULL;
-	if (!all->error && !exit_stat(0, 0) )
+	if (!all->error && !exit_stat(0, 0))
 		input = readline("minibash 🙌 > ");
 	else
 	{
@@ -35,18 +35,6 @@ static void	minibash_readline(char **str, t_all *all)
 	}
 }
 
-static void	handle_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		exit_stat(1, 1);
-		write(1, "\n", 1);
-		// rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
@@ -58,9 +46,9 @@ int	main(int argc, char *argv[], char *envp[])
 	all.error = NULL;
 	all.env = parse_env(envp, &all);
 	all.envp = linked_list_to_arr(&all);
-	// fprintf(stderr, "pid main 1 is : %d\n", getpid());
 	while (1)
 	{
+		set_delim(0, 1);
 		signal(SIGINT, &handle_signal);
 		signal(SIGQUIT, SIG_IGN);
 		all.tree = NULL;
@@ -81,6 +69,11 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			free(str);
 			continue ;
+		}
+		if (set_delim(0, 0))
+		{
+			free(str);
+			continue;
 		}
 		if (!all.tree->left && !all.tree->right && all.tree->oper == NONE)
 		{

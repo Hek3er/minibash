@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_wildcard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:53:51 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/20 04:19:42 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/20 07:41:56 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ t_all *all)
 	}
 }
 
-char	**get_wildcard(char **arr, t_all *all)
+
+
+char**	get_wildcard(char **arr, t_all *all)
 {
 	t_str_list	*all_files;
 	char		**wc_marker;

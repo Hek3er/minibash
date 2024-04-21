@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/20 04:20:07 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:55:17 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/ioctl.h>
 
 // # include "get_next_line/get_next_line.h"
 
@@ -134,6 +135,7 @@ typedef struct s_all
 	int		append;
 	int		original_in;
 	int		original_out;
+	int		delim_doc;
 	char	*error;
 	char	*tmp;
 	char	*tmp_val;
@@ -194,9 +196,6 @@ int		ft_isunder_alpha(int c);
 int		ft_isalnum(int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_tolower(char *c);
-void	arr_dup(char **src, char **dst, int max_size);
-int		arr_size(char **arr);
-void    fill_arr_with_str(char **arr, char *str, t_all *all);
 
 /*
  * Parse tree
@@ -226,7 +225,9 @@ int		split_by_space2(t_split *all_s, t_all *all);
 char	*split_by_parantheses(char *str, int *input, int *ouput, t_all *all);
 char	*adjust_redirectionals(char *str, t_all *all);
 int		get_cmd_info(t_tree *branch, t_all *all);
-
+int		arr_size(char **arr);
+void    fill_arr_with_str(char **arr, char *str, t_all *all);
+void	arr_dup(char **src, char **dst, int max_size);
 /*
  * Parse_env
 */
@@ -265,5 +266,9 @@ void	is_a_dir(char *path, int *perm);
 char	**linked_list_to_arr(t_all *all);
 void	execute_command(t_tree *node, char **envp, t_all *all);
 int		check_builtins(t_tree *node, t_all *all);
+int		set_delim(int flag, int set);
+void	handle_signal(int sig);
+int		set_delim(int flag, int set);
+void	handle_signal_doc(int sig);
 
 #endif

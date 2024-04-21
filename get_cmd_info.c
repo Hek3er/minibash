@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/20 04:22:58 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 01:31:55 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minibash.h"
+
 
 int	get_cmd_info(t_tree *branch, t_all *all)
 {
@@ -19,13 +20,12 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 
 	all->error = NULL;
 	str = branch->cmd_str;
-	branch->cmd = split_by_space(str, all);
-	branch->cmd = get_wildcard(branch->cmd, all);
 	pre_env_arr = split_by_space(str, all);
+	branch->cmd = split_by_space(str, all);
+//	branch->cmd = get_wildcard(branch->cmd, all);
 	get_environment(all, &str);
 	branch->input = get_input_output(branch->cmd, 0, pre_env_arr, all);
 	branch->output = get_input_output(branch->cmd, 1, pre_env_arr, all);
-	// fprintf(stderr, "branch->here_i : %d, brach->here_doc : %d\n", branch->doc_i, branch->here_doc);
 	if (branch->here_doc == 0)
 		branch->here_doc = get_here_doc(str, &branch->input, branch->doc_i, all);
 	all->envp = linked_list_to_arr(all);
@@ -33,3 +33,4 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 		return (1);
 	return (0);
 }
+

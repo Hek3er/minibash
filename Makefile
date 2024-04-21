@@ -1,70 +1,47 @@
 CC = cc
-
-PATH_F = functions
-C_FILES_F = $(PATH_F)/ft_strcmp.c $(PATH_F)/ft_strdup.c $(PATH_F)/ft_strjoin.c \
-$(PATH_F)/ft_strlen.c $(PATH_F)/ft_substr.c $(PATH_F)/ft_write.c $(PATH_F)/unsigned_to_str.c \
-$(PATH_F)/ft_malloc.c $(PATH_F)/remove_docs.c $(PATH_F)/ft_strncmp.c $(PATH_F)/ft_open.c \
-$(PATH_F)/exit_stat.c $(PATH_F)/ft_itoa.c $(PATH_F)/ft_isalnum.c $(PATH_F)/ft_isunder_alpha.c \
-$(PATH_F)/ft_split.c $(PATH_F)/ft_strlcpy.c $(PATH_F)/ft_strchr.c $(PATH_F)/ft_tolower.c \
-$(PATH_F)/ft_atoi.c $(PATH_F)/arr_dup.c $(PATH_F)/arr_size.c $(PATH_F)/fill_arr_with_str.c
-
-
-PATH_G = get_next_line
-C_FILES_G = $(PATH_G)/get_next_line.c $(PATH_G)/get_next_line_utils.c
-
-PATH_PT = parsing/parse_tree
-C_FILES_PT = $(PATH_PT)/build/adjust_redirectionals.c $(PATH_PT)/build/build_tree.c $(PATH_PT)/build/parse_tree.c \
-$(PATH_PT)/check/check_here_doc.c $(PATH_PT)/check/check_opers.c $(PATH_PT)/check/check_q_p.c \
-$(PATH_PT)/check/check_wildcard.c $(PATH_PT)/check/conditions.c $(PATH_PT)/get/get_environment.c \
-$(PATH_PT)/get/get_files.c $(PATH_PT)/get/get_here_doc.c $(PATH_PT)/get/get_input_output.c \
-$(PATH_PT)/get/get_wildcard.c $(PATH_PT)/split/split_by_oper.c $(PATH_PT)/split/split_by_parantheses.c \
-$(PATH_PT)/split/split_by_space.c $(PATH_PT)/split/split_by_space2.c $(PATH_PT)/split/split_cmds.c \
-
-
-PATH_PE = parsing/parse_env
-C_FILES_PE = $(PATH_PE)/get_value.c $(PATH_PE)/linked_list.c $(PATH_PE)/parse_env.c 
-
-PATH_BUIL = builtins
-C_FILES_BUIL = $(PATH_BUIL)/echo/echo.c $(PATH_BUIL)/export/change_val.c $(PATH_BUIL)/export/check_key.c \
-$(PATH_BUIL)/export/export.c $(PATH_BUIL)/export/sort_export.c $(PATH_BUIL)/pwd/pwd.c $(PATH_BUIL)/env/env.c \
-$(PATH_BUIL)/unset/unset.c $(PATH_BUIL)/cd/cd.c $(PATH_BUIL)/exit/exit.c
-
-PATH_EXEC = execution
-C_FILES_EXEC = $(PATH_EXEC)/get_cmd.c $(PATH_EXEC)/exec_try.c $(PATH_EXEC)/is_a_dir.c \
-$(PATH_EXEC)/execute_single_command.c $(PATH_EXEC)/linked_list_to_arr.c $(PATH_EXEC)/execute_command.c \
-$(PATH_EXEC)/check_builtins.c
-
-C_FILES = $(C_FILES_F) $(C_FILES_G) $(C_FILES_PT) $(C_FILES_PE) $(C_FILES_BUIL) $(C_FILES_EXEC) minibash.c get_cmd_info.c
-O_FILES = $(C_FILES:.c=.o)
-FLAGS = -Wall -Wextra -Werror
-NAME = minibash.a
-BONUS_NAME = minibash_bonus.a§
-EXE = minibash
-EXE_BONUS = minibash_bonus
+CFLAGS = -g
+LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
-LINKREADLINELIB1 = $(shell brew --prefix readline)/include
+LINKREADLINEINC = $(shell brew --prefix readline)/include
 
-all:$(NAME)
+NAME = minibash
 
-bonus:$(BONUS_NAME)
+SRCS = minibash.c get_cmd_info.c \
+       builtins/cd/cd.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
+       builtins/export/change_val.c builtins/export/check_key.c builtins/export/export.c builtins/export/sort_export.c \
+       builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c\
+       execution/check_builtins.c execution/exec_try.c execution/execute_command.c \
+       execution/execute_single_command.c execution/get_cmd.c execution/is_a_dir.c execution/linked_list_to_arr.c \
+       functions/exit_stat.c functions/ft_atoi.c functions/ft_isalnum.c functions/ft_isunder_alpha.c functions/ft_itoa.c \
+       functions/ft_malloc.c functions/ft_open.c functions/ft_split.c functions/ft_strchr.c functions/ft_strcmp.c \
+       functions/ft_strdup.c functions/ft_strjoin.c functions/ft_strlcpy.c functions/ft_strlen.c functions/ft_strncmp.c \
+       functions/ft_substr.c functions/ft_tolower.c functions/ft_write.c functions/remove_docs.c functions/unsigned_to_str.c \
+       functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+       parsing/parse_env/get_value.c parsing/parse_env/parse_env.c parsing/parse_env/linked_list.c \
+       parsing/parse_tree/build/adjust_redirectionals.c parsing/parse_tree/build/build_tree.c parsing/parse_tree/build/parse_tree.c \
+       parsing/parse_tree/check/check_here_doc.c parsing/parse_tree/check/check_opers.c parsing/parse_tree/check/check_q_p.c \
+       parsing/parse_tree/check/check_wildcard.c parsing/parse_tree/check/conditions.c parsing/parse_tree/get/get_environment.c \
+       parsing/parse_tree/get/get_files.c parsing/parse_tree/get/get_here_doc.c parsing/parse_tree/get/get_input_output.c \
+       parsing/parse_tree/get/get_wildcard.c parsing/parse_tree/split/split_by_oper.c parsing/parse_tree/split/split_by_parantheses.c \
+       parsing/parse_tree/split/split_by_space.c parsing/parse_tree/split/split_by_space2.c parsing/parse_tree/split/split_cmds.c  \
 
-$(NAME):$(O_FILES)
-	ar -rcs $(NAME) $(O_FILES)
-	$(CC) -fsanitize=address -g -L$(LINKREADLINELIB) -lreadline $(NAME) -o $(EXE) 
+OBJS = $(SRCS:.c=.o)
 
-# $(BONUS_NAME):$(BONUS_O_FILES)
-# 	ar -rcs $(BONUS_NAME) $(BONUS_O_FILES)
-# 	$(CC) $(BONUS_NAME) -o $(BONUS_EXE)
+all: $(NAME)
 
-%.o:%.c push_swap.h
-	$(CC) -fsanitize=address -g -I$(LINKREADLINELIB1) $(FLAGS) -c  $< -o $@
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS) -L $(LINKREADLINELIB)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(LINKREADLINEINC)
 
 clean:
-	rm -f $(O_FILES) $(BONUS_O_FILES)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME) $(EXE) $(EXE_BONUS)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
+
