@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 05:52:47 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/21 06:38:40 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 08:03:43 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_signal(int sig)
 	{
 		exit_stat(2, 1);
 		write(1, "\n", 1);
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}

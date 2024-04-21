@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/21 06:45:40 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 10:42:35 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ int	main(int argc, char *argv[], char *envp[])
 				dup2(all.tree->here_doc, STDIN_FILENO);
 			dup2(all.tree->input, STDIN_FILENO);
 			dup2(all.tree->output, STDOUT_FILENO);
-			if (!check_builtins(all.tree, &all))
+			if (all.tree->cmd[0] && !check_builtins(all.tree, &all))
 				execute_single_command(all.tree, all.envp, &all);
 			dup2(original_in, STDIN_FILENO);
 			dup2(original_out, STDOUT_FILENO);
 		}
 		else
 			execute(all.tree, all.envp, &all);
-		// fprintf(stderr, "pid is : %d\n", getpid());
+			// fprintf(stderr, "pid is : %d\n", getpid());
 		free (str);
 		remove_docs(&all);
 		ft_open(NULL, 0, NULL, 1);

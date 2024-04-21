@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:26:55 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/19 03:39:08 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:01:40 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 	int				flags;
 	char			*tmp;
 
+	// printf("path ---->%s",path);
 	if (close_mode > 1)
 		return (close_fd(&all_fd, close_mode), -1);
 	if (close_mode == 1)

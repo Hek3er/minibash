@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/21 06:45:09 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:36:59 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	delimiter_size(char *s, t_all *all)
 	i = 0;
 	count = 0;
 	cq = (t_check_quote){0};
-	while (s[i] == ' ')
+	while (is_white_space(s[i]))
 		i++;
 	if (!s[i] || s[i] == '(' || s[i] == ')' || cond_oper(s + i, NONE))
 		(all->error = "minibash: syntax error", exit_stat(258, 1));
@@ -51,7 +51,7 @@ static char	*get_delimiter(char *s, t_all *all)
 		return (NULL);
 	i = 0;
 	cq = (t_check_quote){0};
-	while (*s == ' ')
+	while (is_white_space(*s))
 		s++;
 	while (s[i])
 	{
@@ -74,16 +74,18 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 	char	*str;
 	int		i;
 	char	*remain;
+	int		same_size;
 
 	if (!delimiter)
 		return ;
 	signal(SIGINT, &handle_signal_doc);
 	while (1)
 	{
-		str = readline(">");
-		if (!str)
+		str = readline("> ");
+		if (!str || set_delim(0, 0))
 			break ;
-		if (!ft_strncmp(str, delimiter, ft_strlen(delimiter) - 1))
+		same_size = ft_strlen(str) == ft_strlen(delimiter) - 1;
+		if (same_size && !ft_strncmp(str, delimiter, ft_strlen(delimiter) - 1))
 		{
 			free(str);
 			break ;
@@ -121,14 +123,14 @@ void	check_here_doc(char *str, t_all *all)
 	hd = (t_check_hdoc){0};
 	while (*str)
 	{
-		(check_quotes(*str, &hd.c_q), check_parentheses(*str, &hd.i_p));
-		if (!hd.i_p && hd.p_tracker)
-			hd.here_doc_i++;
-		hd.p_tracker = hd.i_p;
-		if (*str == ')' && !cond_q(hd.c_q))
-			hd.here_doc_i--;
-		if (cond_oper(str, AND) || cond_oper(str, OR) || cond_oper(str, PIPE)\
-		 || *str == '(' && !cond_q(hd.c_q))
+		check_quotes(*str, &hd.c_q);
+		check_parentheses(*str, &hd.i_p);
+		// if (!hd.i_p && hd.p_tracker)
+		// 	hd.here_doc_i++;
+		// hd.p_tracker = hd.i_p;
+		// if (*str == ')' && !cond_q(hd.c_q))
+		// 	hd.here_doc_i--;
+		if (cond_oper(str, AND) || cond_oper(str, OR) || cond_oper(str, PIPE))
 			hd.here_doc_i++;
 		if (!cond_q(hd.c_q) && cond_oper(str, H_DOC))
 			create_doc(hd.here_doc_i, str + 2, all);

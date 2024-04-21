@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_environment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/18 23:09:49 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:38:50 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	delim_check(char c, int i)
 {
 	if (i == 0 && (c == '-' || (c >= '0' && c <= '9')))
 		return (0);
-	if (c == ' ' || c == '\n')
+	if (is_white_space(c))
 		return (0);
 	if (c == '$' && i == 0)
 		return (1);
@@ -105,7 +105,7 @@ void	get_environment(t_all *all, char **s)
 		// printf("{%d %c}\n", delim_check(c, i),c);
 		if (c == ' ' || c == '"')
 			y = -1;
-		if (c == '$' && delim_check(c, y) && next_c != '?' && next_c != ' ' \
+		if (c == '$' && delim_check(c, y) && next_c != '?' && !is_white_space(next_c) \
 		&& !c_q.is_sq)
 			*s = add_env((*s), i, all);
 		i++;

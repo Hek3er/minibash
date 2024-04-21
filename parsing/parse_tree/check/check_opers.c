@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_opers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:42:22 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/19 00:39:00 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:37:06 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_opers(char *str, t_all *all)
 	while (str[i])
 	{
 		check_quotes(str[i], &c_q);
-		if (str[i] == ' ' && ++i)
+		if (is_white_space(str[i]) && ++i)
 			continue ;
 		if (!compare_oper(str + i, &i, oper) || cond_q(c_q))
 			(oper[0] = 0, oper[1] = 0);

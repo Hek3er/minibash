@@ -6,7 +6,7 @@
 /*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:53:51 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/20 07:41:56 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/04/21 09:14:38 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,15 @@ char**	get_wildcard(char **arr, t_all *all)
 {
 	t_str_list	*all_files;
 	char		**wc_marker;
+	int			arrSize;
 
 	all_files = NULL;
-	wc_marker = ft_malloc((arr_size(arr) + 1) * sizeof(char *), 0, all);
+	arrSize = arr_size(arr);
+	wc_marker = ft_malloc((arrSize + 1) * sizeof(char *), 0, all);
 	if (!wc_marker)
 		return (NULL);
-	wc_marker[arr_size(arr)] = NULL;
-	fill_arr_with_str(wc_marker, "0", all);
+	wc_marker[arrSize] = NULL;
+	fill_arr_with_str(wc_marker, "0", all, arrSize);
 	get_files(&all_files, ".", all);
 	find_wildcard(arr, all_files, wc_marker, all);
 	return (append_arr_to_arr(arr, wc_marker, all));

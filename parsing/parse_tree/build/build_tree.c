@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:07:21 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 17:47:10 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:04:38 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static t_tree	*add_branch(char **l_r, t_e_oper oper, int *doc_i, t_all *all)
 		// tree->input = get_input_output(tree->cmd, 0, pre_env_arr, error);
 		// tree->output = get_input_output(tree->cmd, 1, pre_env_arr, error);
 		// tree->here_doc = get_here_doc(l_r[0], &tree->input, *doc_i, error);
+		// printf("doc_i----> %d\n", *doc_i);
 		(*doc_i)++;
 	}
 	return (tree);
@@ -60,7 +61,6 @@ static void	handle_parentheses(void **data, t_all *all, t_e_oper opr, int *doc_i
 	if (all->error || !str)
 		return ;
 	(*tree)->here_doc = get_here_doc(str, &(*tree)->input, *doc_i, all);
-	(*doc_i)++;
 	if (!str)
 		return ;
 	build_tree(str, (t_tree **[2]){&(*tree)->left, root}, all, doc_i);

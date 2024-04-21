@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/21 05:55:17 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:34:23 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ int		ft_isunder_alpha(int c);
 int		ft_isalnum(int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_tolower(char *c);
+int		is_white_space(char c);
+
 
 /*
  * Parse tree
@@ -226,7 +228,7 @@ char	*split_by_parantheses(char *str, int *input, int *ouput, t_all *all);
 char	*adjust_redirectionals(char *str, t_all *all);
 int		get_cmd_info(t_tree *branch, t_all *all);
 int		arr_size(char **arr);
-void    fill_arr_with_str(char **arr, char *str, t_all *all);
+void    fill_arr_with_str(char **arr, char *str, t_all *all, int size);
 void	arr_dup(char **src, char **dst, int max_size);
 /*
  * Parse_env
