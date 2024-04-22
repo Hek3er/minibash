@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 02:07:07 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/22 22:04:03 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*add_env(char *str, int i, t_all *all)
 	if (keylen == 1)
 		return (str);
 	env = ft_getenv(str, i, all);
-	new_str = ft_malloc(ft_strlen(env) + ft_strlen(str) - keylen + 1, 0, all);
+	new_str = ft_malloc(ft_strlen(env) + (ft_strlen(str) - keylen + 1), 0, all);
 	if (!new_str)
 		return (NULL);
 	while (j < i)

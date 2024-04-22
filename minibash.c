@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 01:53:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:33:49 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	minibash_readline(char **str, t_all *all)
 	if (input)
 	{
 		add_history(input);
-		*str = input;
+		*str = ft_strdup(input, all);
+		free(input);
 	}
 }
 
