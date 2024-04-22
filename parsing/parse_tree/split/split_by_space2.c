@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:24:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/19 06:42:16 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/22 02:04:09 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ int	split_by_space2(t_split *all_s, t_all *all)
 	int		s_i;
 	int		arr_i;
 	char	*str;
+	int		flag;
 
+	flag =  0;
 	s_i = 0;
 	arr_i = 0;
 	str = all_s->str;
@@ -82,14 +84,15 @@ int	split_by_space2(t_split *all_s, t_all *all)
 	check_parentheses(str[s_i], &(all_s->c_p));
 	if (str[s_i] && str[s_i] != ' ')
 		add_str_to_arr(all_s, &s_i, arr_i++, all);
-	s_i++;
-	while (all_s->str[s_i])
+	while (all_s->str[s_i] != '\0')
 	{
 		if (!cond_space(str, s_i) && cond_space(str, s_i - 1) && \
 		!cond_q(all_s->c_q) && !all_s->c_p)
-			add_str_to_arr(all_s, &s_i, arr_i++, all);
+			(add_str_to_arr(all_s, &s_i, arr_i++, all), flag = 1);
 		check_quotes(str[s_i], &(all_s->c_q));
 		check_parentheses(str[s_i], &(all_s->c_p));
+		if (flag)
+			(flag = 0, s_i--);
 		s_i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 15:08:57 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/05 15:17:58 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/22 00:05:17 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ char	**linked_list_to_arr(t_all *all)
 	char	**arr;
 
 	tmp = all->env;
+	if (!tmp)
+		return (NULL);
+	i = 0;
 	while (tmp)
 	{
-		tmp = tmp->next;
 		i++;
+		tmp = tmp->next;
 	}
 	tmp = all->env;
-	arr = ft_malloc((sizeof(char *) * i + 1), 0, all);
+	arr = ft_malloc((sizeof(char *) * (i + 1)), 0, all);
 	if (!arr)	
 		return (NULL);
 	i = 0;

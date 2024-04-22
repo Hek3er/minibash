@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -g
+CFLAGS = -g -fsanitize=address
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include

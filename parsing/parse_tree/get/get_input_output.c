@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input_output.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/21 09:13:55 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/04/22 01:35:08 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int	get_input_output(char **arr, int expected, char** pre, t_all *all)
 
 	i = 0;
 	final_fd = expected;
+	if (!arr)
+		return (expected);
 	if (arr[i] && (cond_oper(arr[i], INPUT) || cond_oper(arr[i], OUTPUT) || \
 	cond_oper(arr[i], APPEND)) && !arr[i + 1])
 		return (expected);

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:44:54 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/19 06:26:34 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:13:11 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	check_builtins(t_tree *node, t_all *all)
 {
-	if (!ft_strcmp(ft_tolower(node->cmd[0]), "echo"))
+	if (!ft_strcmp(node->cmd[0], "echo"))
 		return (echo(all, node->cmd), 1);
 	else if (!ft_strcmp(ft_tolower(node->cmd[0]), "export"))
 		return (export(all, all->env, node->cmd), 1);
 	else if (!ft_strcmp(ft_tolower(node->cmd[0]), "unset"))
 		return (unset(all, all->env, node->cmd), 1);
-	else if (!ft_strcmp(ft_tolower(node->cmd[0]), "pwd"))
+	else if (!ft_strcmp(node->cmd[0], "pwd"))
 		return (pwd(all), 1);
 	else if (!ft_strcmp(ft_tolower(node->cmd[0]), "cd"))
 		return (cd(node->cmd, all), 1);

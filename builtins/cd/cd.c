@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:45:42 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/19 06:34:20 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:07:30 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	cd(char **arg, t_all *all)
 	}
 	else
 	{
+		if (arg[1][0] == '-')
+			arg[1] = get_value(all->env, "OLDPWD");
 		if (arg[1][ft_strlen(arg[1]) - 1] == '\\' && arg[2])
 		{
 			arg[1] = ft_strjoin(ft_substr(arg[1], 0, ft_strlen(arg[1]) - 1, all), " ", all);
