@@ -37,7 +37,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC)  $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS) -L $(LINKREADLINELIB)
 
-%.o: %.c
+%.o: %.c minibash.h
 	$(CC)  $(CFLAGS) -c $< -o $@ -I $(LINKREADLINEINC)
 
 clean:
