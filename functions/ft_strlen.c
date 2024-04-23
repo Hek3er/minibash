@@ -6,15 +6,15 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:50:50 by azainabi          #+#    #+#             */
-/*   Updated: 2024/03/14 20:15:26 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 03:53:15 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minibash.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])

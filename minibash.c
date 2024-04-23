@@ -6,11 +6,20 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 23:33:49 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:24:58 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minibash.h"
+
+static void	init_var(t_all *all, char **envp)
+{
+	all->original_in = dup(STDIN_FILENO);
+	all->original_out = dup(STDOUT_FILENO);
+	all->error = NULL;
+	all->env = parse_env(envp, all);
+	all->envp = linked_list_to_arr(all);
+}
 
 static void	minibash_readline(char **str, t_all *all)
 {
@@ -36,66 +45,55 @@ static void	minibash_readline(char **str, t_all *all)
 	}
 }
 
+static int	input_loop(t_all *all, char *str)
+{
+	set_delim(0, 1);
+	signal(SIGINT, &handle_signal);
+	signal(SIGQUIT, SIG_IGN);
+	all->tree = NULL;
+	minibash_readline(&str, all);
+	if (!str)
+	{
+		printf("exit\n");
+		return (2);
+	}
+	get_environment(all, &str);
+	if (str[0] == 0)
+	{
+		free(str);
+		return (1);
+	}
+	parse_tree(str, all);
+	if (all->error || set_delim(0, 0))
+	{
+		free(str);
+		return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	t_all	all;
+	int		input;
 
+	(void)argc;
+	(void)argv;
 	str = NULL;
-	all.original_in = dup(STDIN_FILENO);
-	all.original_out = dup(STDOUT_FILENO);
-	all.error = NULL;
-	all.env = parse_env(envp, &all);
-	all.envp = linked_list_to_arr(&all);
+	input = 0;
+	init_var(&all, envp);
 	while (1)
 	{
-		set_delim(0, 1);
-		signal(SIGINT, &handle_signal);
-		signal(SIGQUIT, SIG_IGN);
-		all.tree = NULL;
-		minibash_readline(&str, &all);
-		if (!str)
-		{
-			printf("exit\n");
+		input = input_loop(&all, str);
+		if (input == 1)
+			continue ;
+		else if (input == 2)
 			break ;
-		}
-		get_environment(&all, &str);
-		if (str[0] == 0)
-		{
-			free(str);
-			continue ;
-		}
-		parse_tree(str, &all);
-		if (all.error)
-		{
-			free(str);
-			continue ;
-		}
-		if (set_delim(0, 0))
-		{
-			free(str);
-			continue;
-		}
 		if (!all.tree->left && !all.tree->right && all.tree->oper == NONE)
-		{
-			// ft_write("here", 2, 1);
-			int	original_in = dup(STDIN_FILENO);
-			int	original_out = dup(STDOUT_FILENO);
-			// fprintf(stderr, "cmd_str : %s\n", all.tree->cmd_str);
-			get_cmd_info(all.tree, &all);
-			// fprintf(stderr, "node->input : %d, node->output : %d node->heredoc : %d\n", all.tree->input, all.tree->output, all.tree->here_doc);
-			if (all.tree->here_doc != 0)
-				dup2(all.tree->here_doc, STDIN_FILENO);
-			dup2(all.tree->input, STDIN_FILENO);
-			dup2(all.tree->output, STDOUT_FILENO);
-			if (all.tree->cmd[0] && !check_builtins(all.tree, &all))
-				execute_single_command(all.tree, all.envp, &all);
-			dup2(original_in, STDIN_FILENO);
-			dup2(original_out, STDOUT_FILENO);
-		}
+			execute_one_command(&all);
 		else
 			execute(all.tree, all.envp, &all);
-			// fprintf(stderr, "pid is : %d\n", getpid());
 		free (str);
 		remove_docs(&all);
 		ft_open(NULL, 0, NULL, 1);

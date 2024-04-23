@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 04:13:08 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/15 22:04:20 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 05:38:16 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	swap(t_env *tmp)
 static t_env	*sort_export(t_env *env)
 {
 	t_env	*tmp;
-	char	*temp_key;
-	char	*temp_value;
 	int		swapped;
 
 	swapped = 1;

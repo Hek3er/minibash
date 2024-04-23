@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_parantheses.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 10:57:04 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/21 11:45:52 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:06:21 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 // 	get_fds(s, input, output, all);
 // }
 
-static int	check_str(char *s, int *input, int *output, t_all *all)
+static int	check_str(char *s, t_all *all)
 {
 	int				i;
 	int				p_i;
@@ -116,7 +116,7 @@ static int	get_para_size(char *str, t_all *all)
 	return (size);
 }
 
-char	*split_by_parantheses(char *str, int *input, int *output, t_all *all)
+char	*split_by_parantheses(char *str, t_all *all)
 {
 	char	*new_str;
 	int		i;
@@ -124,7 +124,7 @@ char	*split_by_parantheses(char *str, int *input, int *output, t_all *all)
 
 	i = 0;
 	j = 0;
-	check_str(str, input, output, all);
+	check_str(str, all);
 	if (all->error)
 		return (NULL);
 	new_str = ft_malloc(get_para_size(str, all) + 1, 0, all);

@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include
@@ -10,16 +10,16 @@ RL_REPLACE_LINE = -L .brew/opt/readline/lib -I .brew/opt/readline/include
 NAME = minibash
 
 SRCS = minibash.c get_cmd_info.c \
-       builtins/cd/cd.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
+       builtins/cd/cd.c builtins/cd/cd_utils.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
        builtins/export/change_val.c builtins/export/check_key.c builtins/export/export.c builtins/export/sort_export.c \
-       builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c\
+       builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c execution/execute_one_command.c\
        execution/check_builtins.c execution/exec_try.c execution/execute_command.c \
        execution/execute_single_command.c execution/get_cmd.c execution/is_a_dir.c execution/linked_list_to_arr.c \
        functions/exit_stat.c functions/ft_atoi.c functions/ft_isalnum.c functions/ft_isunder_alpha.c functions/ft_itoa.c \
        functions/ft_malloc.c functions/ft_open.c functions/ft_split.c functions/ft_strchr.c functions/ft_strcmp.c \
        functions/ft_strdup.c functions/ft_strjoin.c functions/ft_strlcpy.c functions/ft_strlen.c functions/ft_strncmp.c \
        functions/ft_substr.c functions/ft_tolower.c functions/ft_write.c functions/remove_docs.c functions/unsigned_to_str.c \
-       functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+       functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c \
        functions/is_white_space.c \
        parsing/parse_env/get_value.c parsing/parse_env/parse_env.c parsing/parse_env/linked_list.c \
        parsing/parse_tree/build/adjust_redirectionals.c parsing/parse_tree/build/build_tree.c parsing/parse_tree/build/parse_tree.c \

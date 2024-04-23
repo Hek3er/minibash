@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/21 03:24:54 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 03:55:38 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	execute(t_tree	*root, char **envp, t_all *all)
 		get_cmd_info(root, all);
 		// fprintf(stderr, "*****************cmd is : %s arg is : %s heredoc : %d in : %d out : %d\n", root->cmd[0], root->cmd root->here_doc, root->input, root->output);
 		// if (!check_builtins(root, all))
-		execute_command(root, envp, all);
+		execute_command(root, all);
 	}
 	return (0);
 }

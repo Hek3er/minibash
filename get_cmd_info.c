@@ -6,12 +6,11 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 02:04:38 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:23:37 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minibash.h"
-
 
 int	get_cmd_info(t_tree *branch, t_all *all)
 {
@@ -27,10 +26,10 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 	branch->output = get_input_output(branch->cmd, 1, pre_env_arr, all);
 	branch->cmd = get_wildcard(branch->cmd, all);
 	if (branch->here_doc == 0)
-		branch->here_doc = get_here_doc(str, &branch->input, branch->doc_i, all);
+		branch->here_doc = \
+		get_here_doc(str, &branch->input, branch->doc_i, all);
 	all->envp = linked_list_to_arr(all);
 	if (all->error)
 		return (1);
 	return (0);
 }
-

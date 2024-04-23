@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 01:35:08 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:05:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	move_cmd(char **arr[2])
 static int	open_file(char *str, int oper_size, int expected, t_all *all)
 {
 	int	fd;
-	int	flags;
 
+	fd = 0;
 	if (expected == 0)
 		fd = ft_open(str, OPEN_READ, all, 0);
 	else if (expected == 1)

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:53:51 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 01:52:03 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:02:10 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char**	get_wildcard(char **arr, t_all *all)
 	if (!wc_marker)
 		return (NULL);
 	wc_marker[arrSize] = NULL;
-	fill_arr_with_str(wc_marker, "0", all, arrSize);
+	fill_arr_with_str(wc_marker, "0", arrSize);
 	get_files(&all_files, ".", all);
 	find_wildcard(arr, all_files, wc_marker, all);
 	return (append_arr_to_arr(arr, wc_marker, all));

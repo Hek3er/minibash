@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:07:21 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/21 11:04:38 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:06:53 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	handle_parentheses(void **data, t_all *all, t_e_oper opr, int *doc_i
 		*root = *tree;
 	if (all->error)
 		return ;
-	str = split_by_parantheses(str, &(*tree)->input, &(*tree)->output, all);
+	str = split_by_parantheses(str, all);
 	if (all->error || !str)
 		return ;
 	(*tree)->here_doc = get_here_doc(str, &(*tree)->input, *doc_i, all);

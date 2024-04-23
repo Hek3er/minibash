@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/19 07:36:45 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 03:54:51 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	handle_redirections_exec(t_tree *node)
 		dup2(node->output, STDOUT_FILENO);
 }
 
-void	execute_command(t_tree *node, char **envp, t_all *all)
+void	execute_command(t_tree *node, t_all *all)
 {
 	char		*path;
 	pid_t		id;

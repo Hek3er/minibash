@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 23:38:39 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 04:04:30 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	delimiter_size(char *s, t_all *all)
 {
-	char			*delim;
 	t_check_quote	cq;
 	int				i;
 	int				count;
@@ -69,11 +68,9 @@ static char	*get_delimiter(char *s, t_all *all)
 	return (delim);
 }
 
-static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
+static void	fill_doc(int doc_fd, char *delimiter)
 {
 	char	*str;
-	int		i;
-	char	*remain;
 	int		same_size;
 
 	if (!delimiter)
@@ -115,7 +112,7 @@ t_all *all)
 	doc_fd = ft_open(doc_name, OPEN_TRUNC, all, 0);
 	if (doc_fd < 0)
 		return ;
-	fill_doc(doc_fd, get_delimiter(str, all), all);
+	fill_doc(doc_fd, get_delimiter(str, all));
 	ft_open(NULL, 0, NULL, doc_fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 06:42:44 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/03 06:43:02 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/23 03:58:13 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i <= ft_strlen(s))
