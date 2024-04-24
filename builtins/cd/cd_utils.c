@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 04:43:55 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/23 05:37:29 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 08:26:36 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 int	no_arg_cd(char *cwd, t_all *all)
 {
 	char	*path;
+	char	*new_wd;
 
+	new_wd = ft_malloc(PATH_MAX, 0, all);
+	if (!new_wd)
+		return (1);
 	if (!check_key(all->env, "HOME"))
 		return (all->error = "minibash: cd: HOME not set", \
 		exit_stat(1, 1), 1);
@@ -30,7 +34,8 @@ int	no_arg_cd(char *cwd, t_all *all)
 		if (chdir(path) == -1)
 			return (all->error = strerror(errno), \
 			exit_stat(1, 1), 1);
-		change_val(&all->env, (char *[]){"PWD", getcwd(NULL, 0)}, 0, all);
+		getcwd(new_wd, PATH_MAX);
+		change_val(&all->env, (char *[]){"PWD", new_wd}, 0, all);
 		change_val(&all->env, (char *[]){"OLDPWD", cwd}, 0, all);
 	}
 	return (0);
@@ -38,6 +43,11 @@ int	no_arg_cd(char *cwd, t_all *all)
 
 int	handle_arg_cd(char **arg, char *cwd, t_all *all)
 {
+	char	*new_dir;
+
+	new_dir = ft_malloc(PATH_MAX, 0, all);
+	if (!new_dir)
+		return (1);
 	if (arg[1][0] == '-')
 		arg[1] = get_value(all->env, "OLDPWD");
 	if (arg[1][ft_strlen(arg[1]) - 1] == '\\' && arg[2])
@@ -53,8 +63,10 @@ int	handle_arg_cd(char **arg, char *cwd, t_all *all)
 		return (all->error = ft_strjoin(all->tmp, strerror(errno), all), \
 		exit_stat(1, 1), 1);
 	}
-	change_val(&all->env, (char *[]){"PWD", getcwd(NULL, 0)}, 0, all);
+	getcwd(new_dir, PATH_MAX);
+	change_val(&all->env, (char *[]){"PWD", new_dir}, 0, all);
 	change_val(&all->env, (char *[]){"OLDPWD", cwd}, 0, all);
+	free(new_dir);
 	return (0);
 }
 
