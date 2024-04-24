@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:22:23 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/09 01:22:32 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 08:59:11 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void	free_all(t_malloc *all_alloc)
 	{
 		// printf("yyyy\n");
 		// printf("%p\n",all_alloc->ptr);
-        free(all_alloc->ptr);
+		if (all_alloc->ptr !=  NULL)
+        	free(all_alloc->ptr);
         tmp = all_alloc;
         all_alloc = all_alloc->next;
         free(tmp);

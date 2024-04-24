@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/23 03:54:51 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:04:23 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	handle_redirections_exec(t_tree *node)
 		dup2(node->output, STDOUT_FILENO);
 }
 
-void	execute_command(t_tree *node, t_all *all)
+int	execute_command(t_tree *node, t_all *all)
 {
 	char		*path;
 	pid_t		id;
@@ -43,13 +43,13 @@ void	execute_command(t_tree *node, t_all *all)
 	perm = 0;
 	handle_redirections_exec(node);
 	if (node->cmd[0] == NULL)
-		return ;
+		return 0;
 	// fprintf(stderr, "node->stdin : %d, not->srdout : %d, node->here_doc : %d\n", STDIN_FILENO, STDOUT_FILENO, node->here_doc);
 	if (check_builtins(node, all))
 	{
 		dup2(all->original_in, STDIN_FILENO);
 		dup2(all->original_out, STDOUT_FILENO);
-		return ;
+		return (0);
 	}
 	signal(SIGINT, SIG_DFL);
 	id = fork();
@@ -97,5 +97,5 @@ void	execute_command(t_tree *node, t_all *all)
 	waitpid(id, &status, 0);
 	exit_stat(WEXITSTATUS(status), 1); // check if this is true
 	// fprintf(stderr, "exit stat is   : %d pid : %d\n", WEXITSTATUS(status), getpid());
-	// return (WEXITSTATUS(status));
+	return (WEXITSTATUS(status));
 }

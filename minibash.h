@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/23 05:31:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:02:21 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_all
 	int		original_in;
 	int		original_out;
 	int		delim_doc;
+	int		pipe_stat;
 	char	*error;
 	char	*tmp;
 	char	*tmp_val;
@@ -267,7 +268,7 @@ int			execute(t_tree	*root, char **envp, t_all *all);
 void		execute_single_command(t_tree *node, char **envp, t_all *all);
 void		is_a_dir(char *path, int *perm);
 char		**linked_list_to_arr(t_all *all);
-void		execute_command(t_tree *node, t_all *all);
+int			execute_command(t_tree *node, t_all *all);
 int			check_builtins(t_tree *node, t_all *all);
 int			set_delim(int flag, int set);
 void		handle_signal(int sig);

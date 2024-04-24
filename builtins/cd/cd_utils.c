@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 04:43:55 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/24 08:26:36 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 08:56:39 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	handle_arg_cd(char **arg, char *cwd, t_all *all)
 	getcwd(new_dir, PATH_MAX);
 	change_val(&all->env, (char *[]){"PWD", new_dir}, 0, all);
 	change_val(&all->env, (char *[]){"OLDPWD", cwd}, 0, all);
-	free(new_dir);
 	return (0);
 }
 

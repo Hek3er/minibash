@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/23 03:55:38 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:05:36 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	execute_left(t_tree *node, int *fd, char **envp, t_all *all)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	execute(node, envp, all);
-	exit(0);
+	all->pipe_stat = execute(node, envp, all);
+	exit(all->pipe_stat);
 }
 
 static void	execute_right(t_tree *node, int *fd, char **envp, t_all *all)
@@ -30,8 +30,8 @@ static void	execute_right(t_tree *node, int *fd, char **envp, t_all *all)
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
 	close(fd[0]);
-	execute(node, envp, all);
-	exit(0);
+	all->pipe_stat = execute(node, envp, all);
+	exit(all->pipe_stat);
 }
 
 static void execute_pipe(t_tree *node, char **envp, t_all *all)
@@ -39,7 +39,9 @@ static void execute_pipe(t_tree *node, char **envp, t_all *all)
     int		fd[2];
 	pid_t 	pid1;
 	pid_t 	pid2;
-	
+	int		status;
+
+	all->pipe_stat = 0;
 	if (pipe(fd) == -1)
 	{
 		perror("");
@@ -63,9 +65,9 @@ static void execute_pipe(t_tree *node, char **envp, t_all *all)
 		execute_right(node->right, fd, envp, all);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-	exit_stat(0, 1);
+	waitpid(pid1, &status, 0);
+	waitpid(pid2, &status, 0);
+	exit_stat(WEXITSTATUS(status), 1);
 }
 
 int	execute_and(t_tree *node, t_all *all)
@@ -139,6 +141,9 @@ static void execute_parantheses(t_tree	*node, char **envp, t_all *all)
 
 int	execute(t_tree	*root, char **envp, t_all *all)
 {
+	int	status;
+
+	status = 0;
 	if (!root)
 		return 0;
 	if (root->oper == PIPE)
@@ -165,7 +170,7 @@ int	execute(t_tree	*root, char **envp, t_all *all)
 		get_cmd_info(root, all);
 		// fprintf(stderr, "*****************cmd is : %s arg is : %s heredoc : %d in : %d out : %d\n", root->cmd[0], root->cmd root->here_doc, root->input, root->output);
 		// if (!check_builtins(root, all))
-		execute_command(root, all);
+		status = execute_command(root, all);
 	}
-	return (0);
+	return (status);
 }
