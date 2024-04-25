@@ -20,7 +20,7 @@ SRCS = minibash.c get_cmd_info.c \
        functions/ft_strdup.c functions/ft_strjoin.c functions/ft_strlcpy.c functions/ft_strlen.c functions/ft_strncmp.c \
        functions/ft_substr.c functions/ft_tolower.c functions/ft_write.c functions/remove_docs.c functions/unsigned_to_str.c \
        functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c \
-       functions/is_white_space.c \
+       functions/is_white_space.c functions/condition.c \
        parsing/parse_env/get_value.c parsing/parse_env/parse_env.c parsing/parse_env/linked_list.c \
        parsing/parse_tree/build/adjust_redirectionals.c parsing/parse_tree/build/build_tree.c parsing/parse_tree/build/parse_tree.c \
        parsing/parse_tree/check/check_here_doc.c parsing/parse_tree/check/check_opers.c parsing/parse_tree/check/check_q_p.c \
@@ -28,7 +28,7 @@ SRCS = minibash.c get_cmd_info.c \
        parsing/parse_tree/get/get_files.c parsing/parse_tree/get/get_here_doc.c parsing/parse_tree/get/get_input_output.c \
        parsing/parse_tree/get/get_wildcard.c parsing/parse_tree/split/split_by_oper.c parsing/parse_tree/split/split_by_parantheses.c \
        parsing/parse_tree/split/split_by_space.c parsing/parse_tree/split/split_by_space2.c parsing/parse_tree/split/split_cmds.c  \
-       
+       parsing/parse_tree/get/get_environment2.c 
 
 OBJS = $(SRCS:.c=.o)
 

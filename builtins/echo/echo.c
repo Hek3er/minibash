@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:53:25 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/24 11:07:47 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:05:45 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	is_there_n(char *arg)
 	return (1);
 }
 
-static int	handle_arg(char **arg, int *flag, t_all *all, int *i)
+static int	handle_arg(char **arg, int *flag, int *i)
 {
-	int	j = 0;
+	// int	j = 0;
 	if (arg[*i][0] == '-')
 	{
 		if (arg[*i][1] == 'n' && is_there_n(arg[*i]))
@@ -48,19 +48,19 @@ static int	handle_arg(char **arg, int *flag, t_all *all, int *i)
 	// }
 	if (arg[*i])
 	{
-		j = 0;
-		while (arg[*i][j])
-		{
-			if (arg[*i][j] == '$' && arg[*i][j + 1] == '?')
-			{
-				ft_write(ft_itoa(exit_stat(0, 0), all), 1, 0);
-				// ft_write(" ", 1, 0);
-				exit_stat(0, 1);
-				j += 2;
-			}
-			write(1, &arg[*i][j], 1);
-			j++;
-		}
+		// j = 0;
+		// while (arg[*i][j])
+		// {
+		// 	if (arg[*i][j] == '$' && arg[*i][j + 1] == '?')
+		// 	{
+		// 		ft_write(ft_itoa(exit_stat(0, 0), all), 1, 0);
+		// 		// ft_write(" ", 1, 0);
+		// 		exit_stat(0, 1);
+		// 		j += 2;
+		// 	}
+		ft_write(arg[*i], 1, 0);
+		// 	j++;
+		// }
 		// ft_write(arg[*i], 1, 0);
 		if (arg[*i] && arg[*i + 1])
 			ft_write(" ", 1, 0);
@@ -85,7 +85,7 @@ int	echo(t_all *all, char **arg)
 	}
 	while (arg[i])
 	{
-		if (handle_arg(arg, &flag, all, &i))
+		if (handle_arg(arg, &flag, &i))
 			continue ;
 		i++;
 	}

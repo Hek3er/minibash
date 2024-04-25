@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:39:46 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/23 04:03:21 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:02:36 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void printTree(t_tree *root, int i, char *str, t_all *all) {
 			printf("in %d %s tree_node operator %d:(out %d in %d h_doc %d)\n\n",i ,str, root->oper, root->output, root->input, root->here_doc);
 		if (root->cmd_str)
 		{
-			get_cmd_info(root, all);
+			// get_cmd_info(root, all);
 			if (all->error)
 				printf("%s\n", all->error);
 			printf("in %d %s tree_node operator is : %d :(out %d in %d h_doc %d)\n",i, str, root->oper, root->output, root->input, root->here_doc);
