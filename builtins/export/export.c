@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 00:57:51 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/25 08:56:01 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:00:18 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	split_key_val(int i, char *arg, char **key_val, t_all *all)
 {
 	all->append = 0;
-	if (arg[i - 1] == '+')
+	if (arg[i - 1] == '+' && ft_isunder_alpha(arg[i - 2]))
 	{
 		key_val[0] = ft_substr(arg, 0, i - 1, all);
 		all->append = 1;
@@ -30,7 +30,7 @@ static int	split_key_val(int i, char *arg, char **key_val, t_all *all)
 	return (1);
 }
 
-static char	**parse_export(char **arg, int k, t_all *all)
+char	**parse_export(char **arg, int k, t_all *all)
 {
 	char	**key_val;
 	int		i;
@@ -56,34 +56,29 @@ static char	**parse_export(char **arg, int k, t_all *all)
 	return (key_val);
 }
 
-static void	parse_key(char **key_val, t_all *all)
+int	parse_key(char **key_val, t_all *all)
 {
 	int	i;
 
 	i = 1;
 	if (!ft_isunder_alpha(key_val[0][0]))
-	{
-		all->tmp = ft_strjoin(key_val[0], "': not a valid undentifier", all);
-		exit_stat(1, 1);
-		return ;
-	}
+		return (all->tmp = \
+		ft_strjoin(key_val[0], "': not a valid undentifier", all), \
+		exit_stat(1, 1), 1);
 	while (key_val[0][i] && i < ft_strlen(key_val[0]) - 1)
 	{
 		if (!ft_isunder_alpha(key_val[0][i]))
-		{
-			all->tmp = ft_strjoin(key_val[0], "': not a valid undentifier", all);
-			exit_stat(1, 1);
-			return ;
-		}
+			return (all->tmp = \
+			ft_strjoin(key_val[0], "': not a valid undentifier", \
+			all), exit_stat(1, 1), 1);
 		i++;
 	}
 	i = ft_strlen(key_val[0]) - 1;
 	if (!(ft_isalnum(key_val[0][i])) && !(key_val[0][i] == '+'))
-	{
-		all->tmp = ft_strjoin(key_val[0], "': not a valid undentifier", all);
-		exit_stat(1, 1);
-		return ;
-	}
+		return (all->tmp = \
+		ft_strjoin(key_val[0], "': not a valid undentifier", all), \
+		exit_stat(1, 1), 1);
+	return (0);
 }
 
 void	export(t_all *all, t_env *env, char **arg)
@@ -93,6 +88,7 @@ void	export(t_all *all, t_env *env, char **arg)
 
 	k = 1;
 	all->tmp = NULL;
+	key_val = NULL;
 	if (!arg[k])
 	{
 		print_export(env);
@@ -100,16 +96,7 @@ void	export(t_all *all, t_env *env, char **arg)
 	}
 	while (arg[k])
 	{
-		key_val = parse_export(arg, k, all);
-		if (!key_val)
-			return ;
-		parse_key(key_val, all);
-		if (!check_key(env, key_val[0]))
-			(append_node(&env, key_val[0], key_val[1], all));
-		else
-		{
-			change_val(&env, key_val, all->append, all);
-		}
+		handle_export_arg(key_val, arg, k, all);
 		k++;
 	}
 	if (all->tmp)

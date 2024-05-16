@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 05:08:01 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/22 02:24:17 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:32:11 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	free_key_val(t_env **env, char *arg)
 	tmp = *env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, arg, (ft_strlen(tmp->key) + 1)))
+		if (tmp->key && !ft_strncmp(tmp->key, arg, (ft_strlen(tmp->key) + 1)))
 		{
 			if (prev == NULL)
 				*env = tmp->next;
@@ -33,6 +33,27 @@ static void	free_key_val(t_env **env, char *arg)
 		}
 		prev = tmp;
 		tmp = tmp->next;
+	}
+}
+
+static void	unset_empty_arg(char **cmd, int *flag, int i)
+{
+	ft_write("unset: `", 2, 0);
+	ft_write(cmd[i], 2, 0);
+	ft_write("\" is not a valid identifier", 2, 1);
+	exit_stat(1, 1);
+	*flag = 1;
+}
+
+static void	check_unset_arg(char **cmd, int *flag, int i, int j)
+{
+	if (!ft_isunder_alpha(cmd[i][j]))
+	{
+		ft_write("minibash: unset: `", 2, 0);
+		ft_write(cmd[i], 2, 0);
+		ft_write("\" is not a valid identifier", 2, 1);
+		exit_stat(1, 1);
+		*flag = 1;
 	}
 }
 
@@ -49,23 +70,10 @@ int	unset(t_all *all, t_env *env, char **cmd)
 		get_environment(all, &(cmd[i]));
 		j = 0;
 		if (!cmd[i][j])
-		{
-			ft_write("unset: `", 2, 0);
-			ft_write(cmd[i], 2, 0);
-			ft_write("\" is not a valid identifier", 2, 1);
-			exit_stat(1, 1);
-			flag = 1;
-		}
+			unset_empty_arg(cmd, &flag, i);
 		while (cmd[i][j])
 		{
-			if (!ft_isalnum(cmd[i][j]) || !ft_isunder_alpha(cmd[i][j]))
-			{
-				ft_write("minibash: unset: `", 2, 0);
-				ft_write(cmd[i], 2, 0);
-				ft_write("\" is not a valid identifier", 2, 1);
-				exit_stat(1, 1);
-				flag = 1;
-			}
+			check_unset_arg(cmd, &flag, i, j);
 			j++;
 		}
 		free_key_val(&env, cmd[i]);

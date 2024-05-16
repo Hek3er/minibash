@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:26:55 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/25 08:55:00 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:54:53 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ static void	close_all_fd(t_all_fd *all_fd)
 	all_fd = all_fd->next;
 	while (all_fd)
 	{
-		// ft_write("closing fd\n", 2, 0);
 		if (all_fd->fd > 1)
 			close(all_fd->fd);
-		all_fd = all_fd->next;		
+		all_fd = all_fd->next;
 	}
 }
 
@@ -52,7 +51,6 @@ static int	append_fd(t_all_fd *all_fd, int fd, t_all *all)
 	all_fd->next = node;
 	return (0);
 }
-
 
 int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 {
@@ -77,12 +75,7 @@ int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 		ft_write("minibash: ", 2, 0);
 		ft_write(path, 2, 0);
 		ft_write(": ", 2, 0);
-		// ft_write(strerror(errno), 2, 1);
-		// tmp = ft_strjoin("Minibash: ", path, all);
-		// tmp = ft_strjoin(tmp, " : ", all);
 		all->error = ft_strdup(strerror(errno), all);
-		// ft_write(all->error, 2, 1);
-		// all->error = ft_strjoin(tmp, "dd", all);
 		exit_stat(1, 1);
 	}
 	return (fd);

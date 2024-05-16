@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:24:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 02:04:09 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:20:30 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,36 +63,35 @@ static void	add_str_to_arr(t_split *all_s, int *s_i, int arr_i, t_all *all)
 {
 	all_s->arr[arr_i] = ft_malloc(str_size(all_s, *s_i) + 1, 0, all);
 	if (all_s->arr[arr_i] == NULL)
-        return ;
+		return ;
 	fill_str(all_s, all_s->arr[arr_i], s_i);
 	arr_i++;
 }
 
-int	split_by_space2(t_split *all_s, t_all *all)
+int	split_by_space2(t_split *all_s, t_all *all, int flag)
 {
 	int		s_i;
 	int		arr_i;
-	char	*str;
-	int		flag;
 
-	flag =  0;
 	s_i = 0;
 	arr_i = 0;
-	str = all_s->str;
 	all_s->c_q = (t_check_quote){0};
-	check_quotes(str[s_i], &(all_s->c_q));
-	check_parentheses(str[s_i], &(all_s->c_p));
-	if (str[s_i] && str[s_i] != ' ')
+	check_quotes((all_s->str)[s_i], &(all_s->c_q));
+	check_parentheses((all_s->str)[s_i], &(all_s->c_p));
+	if ((all_s->str)[s_i] && (all_s->str)[s_i] != ' ')
 		add_str_to_arr(all_s, &s_i, arr_i++, all);
 	while (all_s->str[s_i] != '\0')
 	{
-		if (!cond_space(str, s_i) && cond_space(str, s_i - 1) && \
-		!cond_q(all_s->c_q) && !all_s->c_p)
+		if (!cond_space((all_s->str), s_i) && cond_space((all_s->str), \
+		s_i - 1) && !cond_q(all_s->c_q) && !all_s->c_p)
 			(add_str_to_arr(all_s, &s_i, arr_i++, all), flag = 1);
-		check_quotes(str[s_i], &(all_s->c_q));
-		check_parentheses(str[s_i], &(all_s->c_p));
+		check_quotes((all_s->str)[s_i], &(all_s->c_q));
+		check_parentheses((all_s->str)[s_i], &(all_s->c_p));
 		if (flag)
-			(flag = 0, s_i--);
+		{
+			flag = 0;
+			s_i--;
+		}
 		s_i++;
 	}
 	return (1);

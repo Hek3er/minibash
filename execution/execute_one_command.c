@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 04:12:03 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/23 04:21:33 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/16 04:41:18 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 void	execute_one_command(t_all *all)
 {
-	int	original_in = dup(STDIN_FILENO);
-	int	original_out = dup(STDOUT_FILENO);
+	int	original_in;
+	int	original_out;
+
+	original_in = dup(STDIN_FILENO);
+	original_out = dup(STDOUT_FILENO);
 	get_cmd_info(all->tree, all);
 	if (all->tree->here_doc != 0)
 		dup2(all->tree->here_doc, STDIN_FILENO);
-	dup2(all->tree->input, STDIN_FILENO);
+	else
+		dup2(all->tree->input, STDIN_FILENO);
 	dup2(all->tree->output, STDOUT_FILENO);
 	if (all->tree->cmd[0] && !check_builtins(all->tree, all))
 		execute_single_command(all->tree, all->envp, all);

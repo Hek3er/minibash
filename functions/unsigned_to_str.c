@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 11:59:44 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 17:01:13 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:55:52 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	unsigned_to_str2(unsigned int num, char *str)
 {
 	char	c;
 
-	c =  '0' + (num % 10);
+	c = '0' + (num % 10);
 	if (num < 10)
 	{
 		*str = c;

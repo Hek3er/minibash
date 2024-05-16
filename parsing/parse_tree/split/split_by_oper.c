@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:46:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 17:20:50 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:10:48 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,9 @@ static void	get_lens(char *s, t_e_oper oper_type, char c[2], int l_r_sizes[3])
 static void	append_str(char *str, char **arr, int size, t_all *all)
 {
 	char	*new_str;
-	int	i;
+	int		i;
 
 	i = 0;
-	// if (size == 0)
-	// {
-	// 	arr[0] = NULL;
-	// 	return ;
-	// }
 	new_str = ft_malloc(size + 1, 0, all);
 	if (!new_str)
 		return ;

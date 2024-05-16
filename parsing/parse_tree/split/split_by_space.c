@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:24:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/22 02:04:31 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:20:35 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**split_by_space(char *s, t_all *all)
 	if (all_s.arr == NULL)
 		return (NULL);
 	all_s.arr[all_s.arr_len] = NULL;
-	split_by_space2(&all_s, all);
+	split_by_space2(&all_s, all, 0);
 	if (all_s.c_q.is_dq || all_s.c_q.is_sq)
 		return (NULL);
 	return (all_s.arr);

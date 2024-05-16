@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:22:23 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/24 08:59:11 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:53:51 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ static void	free_all(t_malloc *all_alloc)
 
 	while (all_alloc)
 	{
-		// printf("yyyy\n");
-		// printf("%p\n",all_alloc->ptr);
-		if (all_alloc->ptr !=  NULL)
-        	free(all_alloc->ptr);
-        tmp = all_alloc;
-        all_alloc = all_alloc->next;
-        free(tmp);
+		if (all_alloc->ptr != NULL)
+			free(all_alloc->ptr);
+		tmp = all_alloc;
+		all_alloc = all_alloc->next;
+		free(tmp);
 	}
 }
 
@@ -52,11 +50,9 @@ void	*ft_malloc(unsigned int size, int free, t_all *all)
 		all_alloc.next = NULL;
 		return (NULL);
 	}
-	if(!all->error)
+	if (!all->error)
 	{
-		// printf("xxx\n");
 		ptr = malloc(size);
-		// printf("%p\n",ptr);
 		if (!ptr || add_node(&all_alloc, ptr))
 			return (all->error = "Minibash: Malloc has failed\n", NULL);
 	}

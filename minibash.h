@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/25 07:57:05 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/05/16 04:51:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@
 # define H_DOC_PATH "/tmp/"
 // # define H_DOC_PATH "./test/"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
+# define FORK_ERROR  "minibash: fork: Resource temporarily unavailable"
+# define PIPE_ERROR  "minibash: Pipe Failed"
 
 //Operators---------------------
 typedef enum e_oper_
@@ -128,6 +127,7 @@ typedef struct s_all
 	t_tree	*tree;
 	int		status;
 	int		append;
+	pid_t	id;
 	int		original_in;
 	int		original_out;
 	int		delim_doc;
@@ -136,6 +136,8 @@ typedef struct s_all
 	char	*tmp;
 	char	*tmp_val;
 	char	**envp;
+	char	**arr_holder;
+	char	**split_arr;
 }	t_all;
 
 typedef struct s_malloc
@@ -225,14 +227,14 @@ t_e_oper	split_cmds_queue(char *s, char ***left_right, t_all *all);
 char		**split_by_oper(char *str, t_e_oper oper_type, \
 			char c[2], t_all *all);
 char		**split_by_space(char *s, t_all *all);
-int			split_by_space2(t_split *all_s, t_all *all);
+int			split_by_space2(t_split *all_s, t_all *all, int flag);
 char		*split_by_parantheses(char *str, t_all *all);
 char		*adjust_redirectionals(char *str, t_all *all);
 int			get_cmd_info(t_tree *branch, t_all *all);
 int			arr_size(char **arr);
 void		fill_arr_with_str(char **arr, char *str, int size);
 void		arr_dup(char **src, char **dst, int max_size);
-char		*add_env(char *str, int i, t_all *all);
+char		*add_env(char *str, int *i, t_all *all);
 /*
  * Parse_env
 */
@@ -263,6 +265,9 @@ int			no_arg_cd(char *cwd, t_all *all);
 int			handle_arg_cd(char **arg, char *cwd, t_all *all);
 int			handle_parrent_directory(char *env_path, int i, \
 			int flag, t_all *all);
+void		handle_export_arg(char **key_val, char **arg, int k, t_all *all);
+char		**parse_export(char **arg, int k, t_all *all);
+int			parse_key(char **key_val, t_all *all);
 
 /*
  * Execution
@@ -278,6 +283,10 @@ int			set_delim(int flag, int set);
 void		handle_signal(int sig);
 int			set_delim(int flag, int set);
 void		handle_signal_doc(int sig);
+void		handle_signal_dfl(int sig);
 void		execute_one_command(t_all *all);
+void		execute_pipe(t_tree *node, char **envp, t_all *all);
+void		execute_right(t_tree *node, int *fd, char **envp, t_all *all);
+void		execute_left(t_tree *node, int *fd, char **envp, t_all *all);
 
 #endif

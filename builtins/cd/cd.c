@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:45:42 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/24 08:26:56 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:51:08 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ static int	get_prev_dir(t_all *all)
 	return (1);
 }
 
+int	calculate_backslash(char *cwd)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (cwd[i])
+	{
+		if (cwd[i] == '/')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 int	cd(char **arg, t_all *all)
 {
 	int		i;
@@ -50,7 +66,8 @@ int	cd(char **arg, t_all *all)
 	}
 	else
 	{
-		if (arg[1][0] == '.' && arg[1][1] == '.')
+		if (arg[1][0] == '.' && arg[1][1] == '.' && ft_strlen(arg[1]) <= 2 \
+		&& calculate_backslash(cwd) > 1)
 			return (get_prev_dir(all), 0);
 		if (handle_arg_cd(arg, cwd, all))
 			return (0);

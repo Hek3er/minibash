@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:08:42 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 16:21:11 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:04:15 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	cond_space(char *str, int i)
 
 int	cond_jump_quote(char c, t_check_quote c_q)
 {
-
 	if (c == '\'' && !c_q.is_dq)
 		return (1);
 	if (c == '\"' && !c_q.is_sq)

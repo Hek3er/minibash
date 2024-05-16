@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:11:13 by ealislam          #+#    #+#             */
-/*   Updated: 2024/02/27 10:42:03 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:33:38 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ static void	handle_star(char **file, char **patt)
 static int	validate_wildcard(char *file, char *patt)
 {
 	char	*original_patt;
-	original_patt = patt;
 
+	original_patt = patt;
 	if (*patt != '*' && *file != *patt)
 		return (0);
 	handle_star(&file, &patt);
 	while (*patt && *patt == *file)
-		(file++ && patt++);
+	{
+		file++;
+		patt++;
+	}
 	if (*file && *patt == '*')
 		return (validate_wildcard(file, patt));
 	if (*file && *patt && *patt != *file)

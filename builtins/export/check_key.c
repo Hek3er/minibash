@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 04:52:58 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/22 01:47:10 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:55:32 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_key(t_env *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
+		if (tmp->key && !ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
 			return (1);
 		tmp = tmp->next;
 	}

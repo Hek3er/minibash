@@ -6,11 +6,17 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:22:28 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/19 05:41:55 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:17:40 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minibash.h"
+
+void	malloc_error(void)
+{
+	ft_write("Malloc error", 2, 1);
+	exit(1);
+}
 
 t_env	*create_node(char *key, char *value, t_all *all)
 {
@@ -18,29 +24,19 @@ t_env	*create_node(char *key, char *value, t_all *all)
 
 	env = ft_malloc(sizeof(t_env), 0, all);
 	if (!env)
-	{
-		ft_write("Malloc error", 2, 1);
-		exit(2);
-	}
+		malloc_error();
 	env->key = ft_strdup(key, all);
 	if (!env->key)
-	{
-		ft_write("Malloc error", 2, 1);
-		exit(3);
-	}
+		malloc_error();
 	if (value)
 	{
 		env->value = ft_strdup(value, all);
 		if (!env->value)
-		{
-			ft_write("Malloc error", 2, 1);
-			exit(4);
-		}
+			malloc_error();
 	}
 	else if (!value)
 		env->value = NULL;
-	env->next = NULL;
-	return (env);
+	return (env->next = NULL, env);
 }
 
 void	append_node(t_env **head, char *key, char *value, t_all *all)

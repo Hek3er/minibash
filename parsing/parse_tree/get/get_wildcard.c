@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:53:51 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/23 04:02:10 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:33:28 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	**append_arr_to_arr(char **arr, char **wc_marker, t_all *all)
 			split_arr = split_by_space(arr[i], all);
 			arr_holder = arr;
 			arr = ft_malloc((arr_size(arr) + arr_size(split_arr) + 1) \
-			* sizeof(char *), 0 , all);
+			* sizeof(char *), 0, all);
 			arr_dup(arr_holder, arr, i);
 			arr_dup(split_arr, arr + i, arr_size(split_arr) + i);
 			arr_dup(arr_holder + i + 1, arr + arr_size(split_arr) + i, 0);
@@ -64,6 +64,7 @@ int	wildcard_exist(char *str)
 	}
 	return (0);
 }
+
 void	find_wildcard(char **arr, t_str_list *files, char **wc_marker, \
 t_all *all)
 {
@@ -94,21 +95,19 @@ t_all *all)
 	}
 }
 
-
-
-char**	get_wildcard(char **arr, t_all *all)
+char	**get_wildcard(char **arr, t_all *all)
 {
 	t_str_list	*all_files;
 	char		**wc_marker;
-	int			arrSize;
+	int			arr_len;
 
 	all_files = NULL;
-	arrSize = arr_size(arr);
-	wc_marker = ft_malloc((arrSize + 1) * sizeof(char *), 0, all);
+	arr_len = arr_size(arr);
+	wc_marker = ft_malloc((arr_len + 1) * sizeof(char *), 0, all);
 	if (!wc_marker)
 		return (NULL);
-	wc_marker[arrSize] = NULL;
-	fill_arr_with_str(wc_marker, "0", arrSize);
+	wc_marker[arr_len] = NULL;
+	fill_arr_with_str(wc_marker, "0", arr_len);
 	get_files(&all_files, ".", all);
 	find_wildcard(arr, all_files, wc_marker, all);
 	return (append_arr_to_arr(arr, wc_marker, all));

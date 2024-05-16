@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_arr_with_str.c                                :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 08:56:28 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/25 10:52:18 by azainabi         ###   ########.fr       */
+/*   Created: 2024/04/25 10:30:22 by azainabi          #+#    #+#             */
+/*   Updated: 2024/05/14 16:35:09 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minibash.h"
+#include "../../minibash.h"
 
-void	fill_arr_with_str(char **arr, char *str, int size)
+void	handle_export_arg(char **key_val, char **arg, int k, t_all *all)
 {
-	int	i;
+	t_env	*env;
 
-	i = 0;
-	while (i < size)
-	{
-		arr[i] = str;
-		i++;
-	}
+	env = all->env;
+	key_val = parse_export(arg, k, all);
+	if (!key_val)
+		return ;
+	if (parse_key(key_val, all))
+		return ;
+	if (!check_key(env, key_val[0]))
+		append_node(&env, key_val[0], key_val[1], all);
+	else
+		change_val(&env, key_val, all->append, all);
 }

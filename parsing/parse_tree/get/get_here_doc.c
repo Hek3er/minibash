@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 11:19:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 17:16:44 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:08:00 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ int	get_here_doc(char *str, int *input_fd, int here_doc_i, t_all *all)
 	doc_fd = ft_open(doc_name, OPEN_READ, all, 0);
 	if (doc_fd < 0)
 		return (-1);
-	// if (*input_fd > 1)
-	// 	ft_open(NULL, 0, NULL, *input_fd);
 	*input_fd = 0;
 	return (doc_fd);
 }

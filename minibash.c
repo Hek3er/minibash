@@ -6,14 +6,16 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/25 09:03:02 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:50:01 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minibash.h"
 
-static void	init_var(t_all *all, char **envp)
+static void	init_var(t_all *all, char **envp, char **argv, int argc)
 {
+	(void)argc;
+	(void)argv;
 	all->original_in = dup(STDIN_FILENO);
 	all->original_out = dup(STDOUT_FILENO);
 	all->error = NULL;
@@ -27,12 +29,12 @@ static void	minibash_readline(char **str, t_all *all)
 
 	input = NULL;
 	if (!all->error && !exit_stat(0, 0))
-		input = readline("minibash 🙌 > ");
+		input = readline("minibash$ ");
 	else
 	{
 		if (all->error)
 			ft_write(all->error, 2, 1);
-		input = readline("minibash 💀 > ");
+		input = readline("minibash$ ");
 		all->error = NULL;
 	}
 	if (!input)
@@ -57,18 +59,11 @@ static int	input_loop(t_all *all, char *str)
 		return (2);
 	}
 	add_history(str);
-	get_environment(all, &str);
 	if (str[0] == 0)
-	{
-		free(str);
 		return (1);
-	}
 	parse_tree(str, all);
 	if (all->error || set_delim(0, 0))
-	{
-		free(str);
 		return (1);
-	}
 	return (0);
 }
 
@@ -78,11 +73,10 @@ int	main(int argc, char *argv[], char *envp[])
 	t_all	all;
 	int		input;
 
-	(void)argc;
-	(void)argv;
 	str = NULL;
 	input = 0;
-	init_var(&all, envp);
+	rl_catch_signals = 0;
+	init_var(&all, envp, argv, argc);
 	while (1)
 	{
 		input = input_loop(&all, str);

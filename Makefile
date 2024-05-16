@@ -3,17 +3,16 @@ CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include
-# 
-RL_REPLACE_LINE = -L .brew/opt/readline/lib -I .brew/opt/readline/include
-# 
 
-NAME = minibash
+RL_REPLACE_LINE = -L .brew/opt/readline/lib -I .brew/opt/readline/include
+
+NAME = minishell
 
 SRCS = minibash.c get_cmd_info.c \
        builtins/cd/cd.c builtins/cd/cd_utils.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
-       builtins/export/change_val.c builtins/export/check_key.c builtins/export/export.c builtins/export/sort_export.c \
-       builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c execution/execute_one_command.c\
-       execution/check_builtins.c execution/exec_try.c execution/execute_command.c \
+       builtins/export/change_val.c builtins/export/check_key.c builtins/export/export.c builtins/export/sort_export.c builtins/export/export_utils.c\
+       builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c execution/execute_one_command.c execution/execute_right_left.c\
+       execution/check_builtins.c execution/main_exec.c execution/execute_command.c execution/execute_pipe.c \
        execution/execute_single_command.c execution/get_cmd.c execution/is_a_dir.c execution/linked_list_to_arr.c \
        functions/exit_stat.c functions/ft_atoi.c functions/ft_isalnum.c functions/ft_isunder_alpha.c functions/ft_itoa.c \
        functions/ft_malloc.c functions/ft_open.c functions/ft_split.c functions/ft_strchr.c functions/ft_strcmp.c \

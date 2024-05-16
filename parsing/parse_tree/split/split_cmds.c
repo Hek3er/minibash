@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:28:22 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 17:28:57 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:30:16 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_e_oper	find_oper(char c, char next_c)
 
 static t_e_oper	split_cmds(char *s, char ***l_r, t_e_oper wanted, t_all *all)
 {
-	int				i;
-	int				i_p;
-	t_check_quote	c_q;
+	int					i;
+	int					i_p;
+	t_check_quote		c_q;
 	t_e_oper			oper;
 
 	i = 0;
@@ -44,7 +44,7 @@ static t_e_oper	split_cmds(char *s, char ***l_r, t_e_oper wanted, t_all *all)
 			return (PARENTHESES);
 		if (oper == wanted && !i_p && !cond_q(c_q))
 		{
-			*l_r = split_by_oper(s, oper, (char[2]){s[i], s[i + 1]}, all);
+			*l_r = split_by_oper(s, oper, (char [2]){s[i], s[i + 1]}, all);
 			return (oper);
 		}
 		i++;
@@ -54,9 +54,9 @@ static t_e_oper	split_cmds(char *s, char ***l_r, t_e_oper wanted, t_all *all)
 
 t_e_oper	split_cmds_queue(char *s, char ***left_right, t_all *all)
 {
-	int		*oper_arr;
+	int			*oper_arr;
 	t_e_oper	oper_found;
-	int		i;
+	int			i;
 
 	oper_arr = (int []){OR, AND, PIPE, PARENTHESES, NONE};
 	i = 0;

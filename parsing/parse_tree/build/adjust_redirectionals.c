@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:20:13 by ealislam          #+#    #+#             */
-/*   Updated: 2024/03/08 17:06:32 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:54:28 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*adjust_redirectionals(char *str, t_all *all)
 		if (str == NULL)
 			return (NULL);
 		if (oper_size)
-			i+= oper_size;
+			i += oper_size;
 		else
 			i++;
 	}

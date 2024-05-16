@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 01:51:24 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/23 05:38:25 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:37:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 int	pwd(t_all *all)
 {
 	t_env	*tmp;
+	char	*cwd;
 
+	cwd = ft_malloc(sizeof(char) * PATH_MAX, 0, all);
+	if (!cwd)
+		return (0);
 	tmp = all->env;
-	while (tmp)
+	while (tmp && tmp->value)
 	{
 		if (!ft_strcmp(tmp->key, "PWD"))
 		{
@@ -27,6 +31,7 @@ int	pwd(t_all *all)
 		}
 		tmp = tmp->next;
 	}
+	printf("%s\n", getcwd(cwd, PATH_MAX));
 	exit_stat(0, 1);
 	return (1);
 }

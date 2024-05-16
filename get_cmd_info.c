@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/25 08:24:48 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:07:07 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 
 	all->error = NULL;
 	str = branch->cmd_str;
-	branch->cmd = split_by_space(str, all);
 	pre_env_arr = split_by_space(str, all);
 	get_environment(all, &str);
+	branch->cmd = split_by_space(str, all);
 	branch->input = get_input_output(branch->cmd, 0, pre_env_arr, all);
 	branch->output = get_input_output(branch->cmd, 1, pre_env_arr, all);
 	branch->cmd = get_wildcard(branch->cmd, all);

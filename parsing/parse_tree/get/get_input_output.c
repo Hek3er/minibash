@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/23 04:05:19 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:09:53 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static int	ambiguity(char *str, char **next_str, char *pre, t_all *all)
 	if (arr && arr[0])
 		*next_str = arr[0];
 	if (arr && arr[1])
-		return (all->error = "Minibash: ambiguous redirect", exit_stat(1, 1), 1);
+		return (all->error = "Minibash: ambiguous redirect", \
+		exit_stat(1, 1), 1);
 	get_environment(all, &pre);
 	arr = split_by_space(pre, all);
 	if (arr && arr[1])
-		return (all->error = "Minibash: ambiguous redirect", exit_stat(1, 1), 1);
+		return (all->error = "Minibash: ambiguous redirect", \
+		exit_stat(1, 1), 1);
 	return (0);
 }
 
@@ -85,8 +87,6 @@ static int	check_if_output(char **arr_pre[2], int *pre_fd, int ex, t_all *all)
 		fd = open_file(arr_pre[0][1], oper_size, ex, all);
 	if (*pre_fd != fd && *pre_fd != ex && fd != ex)
 		ft_open(NULL, 0, NULL, *pre_fd);
-	// if (cond_oper(*arr_pre[0], H_DOC))
-	// 	(fd = *pre_fd, fprintf(stderr, "*--------pre_fd is : %d\n", *pre_fd) ,fd = 3);
 	if (fd > ex || cond_oper(*arr_pre[0], H_DOC))
 	{
 		move_cmd(arr_pre);
@@ -95,18 +95,7 @@ static int	check_if_output(char **arr_pre[2], int *pre_fd, int ex, t_all *all)
 	return (fd);
 }
 
-// void print_all(char **arr, char **pre)
-// {
-// 	int i = 0;
-// 	while (arr && arr[i])
-// 	{
-// 		printf("[%s (%s)]\n", arr[i], pre[i]);
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
-
-int	get_input_output(char **arr, int expected, char** pre, t_all *all)
+int	get_input_output(char **arr, int expected, char **pre, t_all *all)
 {
 	int	i;
 	int	fd;
@@ -114,15 +103,13 @@ int	get_input_output(char **arr, int expected, char** pre, t_all *all)
 
 	i = 0;
 	final_fd = expected;
-	if (!arr)
-		return (expected);
-	if (arr[i] && (cond_oper(arr[i], INPUT) || cond_oper(arr[i], OUTPUT) || \
-	cond_oper(arr[i], APPEND)) && !arr[i + 1])
+	if ((!arr) || (arr[i] && (cond_oper(arr[i], INPUT) || \
+	cond_oper(arr[i], OUTPUT) || cond_oper(arr[i], APPEND)) && !arr[i + 1]))
 		return (expected);
 	while (arr[i] && arr[i + 1])
 	{
 		if (all->error || (ambiguity(arr[i], arr + i + 1, pre[i + 1], all)))
-			return (expected) ;
+			return (expected);
 		if (pre && cond_redirect(arr[i]) && !cond_redirect(pre[i]) && ++i)
 			continue ;
 		fd = check_if_output((char **[2]){arr + i, pre + i}, &final_fd, \

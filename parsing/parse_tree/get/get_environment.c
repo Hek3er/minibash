@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/25 08:24:24 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:04:55 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	handle_question_mark(int *i, char **str, t_all *all)
 
 	j = 0;
 	status = ft_itoa(exit_stat(0, 0), all);
-	new_str = ft_malloc(ft_strlen(*str) + ft_strlen(status), 0, all);
+	new_str = ft_malloc(ft_strlen(*str) + ft_strlen(status) - 1, 0, all);
 	if (!new_str)
 		return ;
 	while (j < (*i))
@@ -51,7 +51,7 @@ static int	delim_check(int *i, int y, char **str, t_all *all)
 	if (next_c == '?')
 	{
 		handle_question_mark(i, str, all);
-		return (0);
+		return (1);
 	}
 	if (next_c == '-')
 		return (0);
@@ -59,8 +59,6 @@ static int	delim_check(int *i, int y, char **str, t_all *all)
 		return (1);
 	return (0);
 }
-
-
 
 void	get_environment(t_all *all, char **s)
 {
@@ -82,9 +80,9 @@ void	get_environment(t_all *all, char **s)
 			y = -1;
 		if (c == '$' && !c_q.is_sq && delim_check(&i, y, s, all) && \
 		!is_white_space(next_c))
-			*s = add_env((*s), i, all);
-		if ((*s)[i] =='\0')
-			break;
+			*s = add_env((*s), &i, all);
+		if ((*s)[i] == '\0')
+			break ;
 		i++;
 		y++;
 	}

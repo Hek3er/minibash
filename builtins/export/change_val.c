@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 04:55:58 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/25 08:53:55 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:20:45 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	change_val(t_env **env, char **key_val, int append, t_all *all)
 		if (!ft_strcmp(tmp->key, key_val[0]) && key_val[1])
 		{
 			all->tmp_val = ft_strdup(tmp->value, all);
-			// free(tmp->value);
 			if (key_val[1])
 			{
 				check_append(tmp, key_val[1], append, all);
