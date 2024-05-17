@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:44:54 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/25 10:39:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/17 03:08:55 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	check_builtins(t_tree *node, t_all *all)
 	else if (!ft_strcmp(ft_tolower(node->cmd[0]), "env"))
 		return (env(all->env), 1);
 	else if (!ft_strcmp(ft_tolower(node->cmd[0]), "exit"))
-		return (ft_exit(all), 1);
+		return (ft_exit(node->cmd, all), 1);
 	return (0);
 }

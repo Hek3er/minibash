@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/16 15:06:05 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/17 03:09:35 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	execute_command(t_tree *node, t_all *all)
 	if (all->id == -1)
 	{
 		ft_write(FORK_ERROR, 2, 1);
-		ft_exit(all);
+		exit(1);
 	}
 	execution_child(node, perm, path, all);
 	waitpid(all->id, &status, 0);

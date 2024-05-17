@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/16 04:51:19 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/17 03:08:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ int			pwd(t_all *all);
 int			unset(t_all *all, t_env *env, char **cmd);
 int			echo(t_all *all, char **arg);
 int			cd(char **arg, t_all *all);
-void		ft_exit(t_all *all);
+void		ft_exit(char **cmd, t_all *all);
 int			no_arg_cd(char *cwd, t_all *all);
 int			handle_arg_cd(char **arg, char *cwd, t_all *all);
 int			handle_parrent_directory(char *env_path, int i, \
