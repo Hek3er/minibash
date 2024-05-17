@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:24:12 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/25 10:40:23 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/17 02:56:51 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*find_cmd_path(char **paths, char *cmd, t_all *all)
 	char	*cmd_path;
 
 	i = 0;
-	while (paths[i])
+	while (paths[i] && cmd[0])
 	{
 		cmd_path = ft_strjoin(paths[i], "/", all);
 		cmd_path = ft_strjoin(cmd_path, cmd, all);
