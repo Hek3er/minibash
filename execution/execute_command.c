@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/17 03:09:35 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:37:47 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	execution_child(t_tree *node, int perm, char *path, t_all *all)
 {
 	if (all->id == 0)
 	{
+		signal(SIGINT, &handle_signal_dfl);
 		path = get_cmd_path(all, node->cmd[0]);
 		if (!path)
 		{
@@ -80,7 +81,7 @@ int	execute_command(t_tree *node, t_all *all)
 		return (0);
 	if (check_builtins(node, all))
 		return (0);
-	signal(SIGINT, &handle_signal_dfl);
+	signal(SIGINT, SIG_IGN);
 	all->id = fork();
 	if (all->id == -1)
 	{
