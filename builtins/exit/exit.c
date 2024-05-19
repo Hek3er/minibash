@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 23:19:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/17 03:13:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:13:26 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	ft_exit(char **cmd, t_all *all)
 	i = 0;
 	while (cmd[i])
 		i++;
-	ft_write("exit", 0, 1);
+	ft_write("exit", 1, 1);
 	if (i > 2)
 	{
 		ft_write("minibash: exit: too many arguments", 2, 1);
 		exit_st = 1;
 	}
-	if (cmd[1] && i < 2)
+	if (cmd[1] && i <= 2)
 		exit_st = ft_atoi(cmd[1]);
 	remove_docs(all);
 	ft_open(NULL, 0, NULL, 1);
