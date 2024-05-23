@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:06:16 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/23 04:43:03 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ char	*add_env(char *str, int *i, t_all *all)
 	while (str[j])
 		new_str[k++] = str[j++];
 	new_str[k] = '\0';
-	(*i) = 0;
+	(*i)--;
 	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 08:20:58 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/18 20:35:42 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:34:55 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t				i;
 	const unsigned char	*s_1;
 	const unsigned char	*s_2;
 
@@ -28,7 +27,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 			return (*s_1 - *s_2);
 		s_1++;
 		s_2++;
-		i++;
 	}
 	return (0);
 }
