@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 23:19:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/19 19:13:26 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/25 02:49:48 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exit(char **cmd, t_all *all)
 	int	exit_st;
 	int	i;
 
-	exit_st = 0;
+	exit_st = exit_stat(0, 0);
 	i = 0;
 	while (cmd[i])
 		i++;
