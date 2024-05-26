@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/17 03:08:19 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:27:06 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,5 +288,6 @@ void		execute_one_command(t_all *all);
 void		execute_pipe(t_tree *node, char **envp, t_all *all);
 void		execute_right(t_tree *node, int *fd, char **envp, t_all *all);
 void		execute_left(t_tree *node, int *fd, char **envp, t_all *all);
+void		error_execve(char *str);
 
 #endif

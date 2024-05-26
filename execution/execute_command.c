@@ -6,11 +6,20 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/18 20:37:47 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:27:47 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minibash.h"
+
+void	error_execve(char *str)
+{
+	ft_write("minibash: ", 2, 0);
+	ft_write(str, 2, 0);
+	ft_write(": ", 2, 0);
+	ft_write(strerror(errno), 2, 1);
+	exit(1);
+}
 
 static void	handle_redirections_exec(t_tree *node)
 {
@@ -43,10 +52,7 @@ static void	execution_child_command(t_tree *node, int perm, \
 		exit(126);
 	}
 	if (execve(path, node->cmd, all->envp) == -1)
-	{
-		perror("minibash: ");
-		exit(1);
-	}
+		error_execve(node->cmd[0]);
 }
 
 static void	execution_child(t_tree *node, int perm, char *path, t_all *all)

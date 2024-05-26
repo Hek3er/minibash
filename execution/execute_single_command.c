@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:18 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/16 15:06:11 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:27:22 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static void	exe(t_tree *node, char **envp, char *path, pid_t *pid)
 	{
 		signal(SIGINT, &handle_signal_dfl);
 		if (execve(path, node->cmd, envp) == -1)
-		{
-			perror("minibash: ");
-			exit(1);
-		}
+			error_execve(node->cmd[0]);
 	}
 }
 
