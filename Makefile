@@ -39,6 +39,8 @@ $(NAME): $(OBJS)
 %.o: %.c minibash.h
 	$(CC)  $(CFLAGS) -c $< -o $@ -I $(LINKREADLINEINC)
 
+bonus: all
+
 clean:
 	rm -f $(OBJS)
 

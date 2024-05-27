@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:24:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:20:35 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:40:36 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	count_arr_length(char *s)
 	return (count);
 }
 
-char	**split_by_space(char *s, t_all *all)
+char	**split_by_space(char *s, t_all *all, int jump_quote)
 {
 	t_split	all_s;
 
@@ -53,7 +53,7 @@ char	**split_by_space(char *s, t_all *all)
 	if (all_s.arr == NULL)
 		return (NULL);
 	all_s.arr[all_s.arr_len] = NULL;
-	split_by_space2(&all_s, all, 0);
+	split_by_space2(&all_s, all, 0, jump_quote);
 	if (all_s.c_q.is_dq || all_s.c_q.is_sq)
 		return (NULL);
 	return (all_s.arr);

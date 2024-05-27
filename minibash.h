@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/26 22:27:06 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:31:24 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_split
 	char			**arr;
 	int				arr_len;
 	int				c_p;
+	int				jump_quote;
 	t_check_quote	c_q;
 }	t_split;
 
@@ -127,6 +128,7 @@ typedef struct s_all
 	t_tree	*tree;
 	int		status;
 	int		append;
+	int		expand_flag;
 	pid_t	id;
 	int		original_in;
 	int		original_out;
@@ -214,7 +216,7 @@ void		check_here_doc(char *str, t_all *all);
 int			cond_oper(char *str, t_e_oper oper);
 int			cond_q(t_check_quote c_q);
 int			cond_space(char *str, int i);
-int			cond_jump_quote(char c, t_check_quote c_q);
+int			cond_jump_quote(char c, t_check_quote c_q, int jump_quote);
 int			cond_redirect(char *str);
 void		get_environment(t_all *all, char **s);
 void		get_files(t_str_list **all_files, char *path, t_all *all);
@@ -226,21 +228,21 @@ int			get_here_doc(char *str, int *input_fd, \
 t_e_oper	split_cmds_queue(char *s, char ***left_right, t_all *all);
 char		**split_by_oper(char *str, t_e_oper oper_type, \
 			char c[2], t_all *all);
-char		**split_by_space(char *s, t_all *all);
-int			split_by_space2(t_split *all_s, t_all *all, int flag);
+char		**split_by_space(char *s, t_all *all, int jump_quote);
+int			split_by_space2(t_split *all_s, t_all *all, int flag, int jump_quote);
 char		*split_by_parantheses(char *str, t_all *all);
-char		*adjust_redirectionals(char *str, t_all *all);
+void		adjust_redirectionals(char **str, t_all *all);
 int			get_cmd_info(t_tree *branch, t_all *all);
 int			arr_size(char **arr);
 void		fill_arr_with_str(char **arr, char *str, int size);
 void		arr_dup(char **src, char **dst, int max_size);
-char		*add_env(char *str, int *i, t_all *all);
+char		*add_env(char *str, int *i, t_all *all, t_check_quote *c_q);
 /*
  * Parse_env
 */
 void		append_node(t_env **head, char *key, char *value, t_all *all);
 t_env		*parse_env(char **env, t_all *all);
-char		*get_value(t_env *env, char *key);
+char		*get_value(t_env *env, char *key, t_all *all);
 
 /*
  * Parse_tree

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_doc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 11:19:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:08:00 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:41:43 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_if_doc_is_last(char *str, t_all *all)
 	is_last = 0;
 	i = 0;
 	str = move_until_paranthes_close(str);
-	arr = split_by_space(str, all);
+	arr = split_by_space(str, all, 0);
 	while (arr && arr[i])
 	{
 		if (cond_oper(arr[i], H_DOC))

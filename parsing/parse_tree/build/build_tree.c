@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:07:21 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 13:58:30 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:27:18 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_tree	*add_branch(char **l_r, t_e_oper oper, int *doc_i, t_all *all)
 	else
 	{
 		tree->cmd_str = ft_strdup(l_r[0], all);
+		// printf("******** %s \n", tree->cmd_str);
 		tree->doc_i = *doc_i;
 		(*doc_i)++;
 	}
