@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_wildcard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:53:51 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 16:33:28 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:41:58 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	**append_arr_to_arr(char **arr, char **wc_marker, t_all *all)
 	{
 		if (*wc_marker && **wc_marker == '1')
 		{
-			split_arr = split_by_space(arr[i], all);
+			split_arr = split_by_space(arr[i], all, 0);
 			arr_holder = arr;
 			arr = ft_malloc((arr_size(arr) + arr_size(split_arr) + 1) \
 			* sizeof(char *), 0, all);

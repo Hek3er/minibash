@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_space2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:24:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:20:30 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:47:28 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	str_size(t_split *all_s, int s_i)
 		check_parentheses(str[i], &(all_s->c_p));
 		if (cond_space(str, i) && !cond_q(all_s->c_q) && !all_s->c_p)
 			return (size);
-		if (!cond_jump_quote(str[i], all_s->c_q))
+		if (!cond_jump_quote(str[i], all_s->c_q, all_s->jump_quote))
 			size++;
 		i++;
 	}
@@ -48,7 +48,7 @@ static void	fill_str(t_split *all_s, char *dst, int *s_i)
 	{
 		check_quotes(str[i], &(all_s->c_q));
 		check_parentheses(str[i], &(all_s->c_p));
-		if (!cond_jump_quote(str[i], all_s->c_q))
+		if (!cond_jump_quote(str[i], all_s->c_q, all_s->jump_quote))
 		{
 			*dst = str[i];
 			dst++;
@@ -68,7 +68,7 @@ static void	add_str_to_arr(t_split *all_s, int *s_i, int arr_i, t_all *all)
 	arr_i++;
 }
 
-int	split_by_space2(t_split *all_s, t_all *all, int flag)
+int	split_by_space2(t_split *all_s, t_all *all, int flag, int jump_quote)
 {
 	int		s_i;
 	int		arr_i;
@@ -76,6 +76,7 @@ int	split_by_space2(t_split *all_s, t_all *all, int flag)
 	s_i = 0;
 	arr_i = 0;
 	all_s->c_q = (t_check_quote){0};
+	all_s->jump_quote = jump_quote;
 	check_quotes((all_s->str)[s_i], &(all_s->c_q));
 	check_parentheses((all_s->str)[s_i], &(all_s->c_p));
 	if ((all_s->str)[s_i] && (all_s->str)[s_i] != ' ')

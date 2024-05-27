@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adjust_redirectionals.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:20:13 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 13:54:28 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:27:21 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*append_space(char *str, int i, int oper_size, t_all *all)
 	return (new_str);
 }
 
-char	*adjust_redirectionals(char *str, t_all *all)
+void	adjust_redirectionals(char **str, t_all *all)
 {
 	int				i;
 	int				oper_size;
@@ -42,20 +42,20 @@ char	*adjust_redirectionals(char *str, t_all *all)
 
 	i = 0;
 	c_q = (t_check_quote){0};
-	while (str[i])
+	while ((*str)[i])
 	{
-		check_quotes(str[i], &c_q);
-		oper_size = cond_redirect(str + i);
-		if (!cond_q(c_q) && i != 0 && oper_size && str[i - 1] != ' ' && i++)
-			str = append_space(str, i - 1, oper_size, all);
-		if (!cond_q(c_q) && oper_size && str[i + oper_size] != ' ')
-			str = append_space(str, i + oper_size, oper_size, all);
-		if (str == NULL)
-			return (NULL);
+		check_quotes((*str)[i], &c_q);
+		oper_size = cond_redirect((*str) + i);
+		if (!cond_q(c_q) && i != 0 && oper_size && (*str)[i - 1] != ' ' && i++)
+			(*str) = append_space((*str), i - 1, oper_size, all);
+		if (!cond_q(c_q) && oper_size && (*str)[i + oper_size] != ' ')
+			(*str) = append_space((*str), i + oper_size, oper_size, all);
+		if ((*str) == NULL)
+			return ;
 		if (oper_size)
 			i += oper_size;
 		else
 			i++;
 	}
-	return (str);
+	// printf("%s \n", (*str));
 }

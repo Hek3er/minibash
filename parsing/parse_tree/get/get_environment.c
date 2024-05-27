@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:04:55 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:45:34 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,23 @@ static int	delim_check(int *i, int y, char **str, t_all *all)
 	}
 	if (next_c == '-')
 		return (0);
-	if (c == '$' && y >= 0)
+	if (c == '$' && y == 0)
 		return (1);
 	return (0);
+}
+
+static int	check_dollar_in_q(t_check_quote *c_q, int i, char **str)
+{
+	char	next_c;
+	next_c = (*str)[i + 1];
+	
+	if (c_q->is_dq)
+	{
+		if (is_alpha(next_c) || is_num(next_c))
+			return (1);
+		return (0);
+	}
+	return (1);
 }
 
 void	get_environment(t_all *all, char **s)
@@ -79,8 +93,8 @@ void	get_environment(t_all *all, char **s)
 		if (c == ' ' || c == '"')
 			y = -1;
 		if (c == '$' && !c_q.is_sq && delim_check(&i, y, s, all) && \
-		!is_white_space(next_c))
-			*s = add_env((*s), &i, all);
+		!is_white_space(next_c) && check_dollar_in_q(&c_q, i, s))
+			*s = add_env((*s), &i, all, &c_q);
 		if ((*s)[i] == '\0')
 			break ;
 		i++;

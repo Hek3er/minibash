@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:45:42 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/15 13:51:08 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:29:45 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_prev_dir(t_all *all)
 	current_dir = ft_malloc(PATH_MAX, 0, all);
 	if (!current_dir)
 		return (0);
-	env_path = get_value(all->env, "PWD");
+	env_path = get_value(all->env, "PWD", all);
 	i = ft_strlen(env_path);
 	if (handle_parrent_directory(env_path, i, flag, all))
 		return (0);

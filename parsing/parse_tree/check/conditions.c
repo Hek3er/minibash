@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conditions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:08:42 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:04:15 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:47:00 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	cond_space(char *str, int i)
 	return (0);
 }
 
-int	cond_jump_quote(char c, t_check_quote c_q)
+int	cond_jump_quote(char c, t_check_quote c_q, int jump_quote)
 {
+	if (jump_quote)
+		return (0);
 	if (c == '\'' && !c_q.is_dq)
 		return (1);
 	if (c == '\"' && !c_q.is_sq)
