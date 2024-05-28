@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include

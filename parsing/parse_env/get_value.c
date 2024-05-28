@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:19:57 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:28:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:51:28 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ char	*get_value(t_env *env, char *key, t_all *all)
 
 	if (!env || !key)
 		return (NULL);
-	if (key[0] == '\\') {
-		char *tmp = key;
-		char *tmp2 = ft_strjoin("'", tmp + 1, all);
-		key = ft_strjoin(tmp2, "'", all);
-		printf("key : %s\n", key);
-		return key;
+	if (key[0] == '\\')
+	{
+		all->t_val = key;
+		all->t_val2 = ft_strjoin("'", all->t_val + 1, all);
+		key = ft_strjoin(all->t_val2, "'", all);
+		return (key);
 	}
 	tmp = env;
 	while (tmp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 09:44:39 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:36:52 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	str = NULL;
 	input = 0;
-	// rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	init_var(&all, envp, argv, argc);
 	while (1)
 	{

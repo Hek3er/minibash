@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 15:15:35 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:35:16 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	my_strlen(char *str)
 	i = 0;
 	while (str && str[i] && delim_check(str[i], i))
 		i++;
-	if (str[i] && i < 1 && !delim_check(str[i], i))
+	if (str[i] && i <= 1 && !delim_check(str[i], i))
 		i++;
 	return (i);
 }
@@ -51,14 +51,15 @@ static char	*ft_getenv(char *str, int j, t_all *all)
 		key[i++] = str[j++];
 	key[i] = '\0';
 	if (ft_strcmp(key + 1, "\"") == 0)
-		return ("");
+		return ("\"");
 	else if (ft_strcmp(key + 1, "\'") == 0)
-		return ("");
+		return ("\'");
 	env = get_value(all->env, key + 1, all);
 	return (env);
 }
 
-char	*add_env(char *str, int *i, t_all *all, t_check_quote *c_q)
+
+char	*add_env(char *str, int *i, t_all *all)
 {
 	char	*new_str;
 	char	*env;
@@ -74,28 +75,27 @@ char	*add_env(char *str, int *i, t_all *all, t_check_quote *c_q)
 	if (all->expand_flag)
 	{
 		env = ft_strdup(str + (*i), all);
+		printf("env : %s\n", env);
 		if (!env)
 			return (NULL);
 	}
 	else
 		env = ft_getenv(str, *i, all);
-	new_str = ft_malloc(ft_strlen(env) + (ft_strlen(str) - keylen + 1 - (c_q->is_dq)), 0, all);
+	new_str = ft_malloc(ft_strlen(env) + ft_strlen(str) - keylen + 1, 0, all);
 	if (!new_str)
 		return (NULL);
-	while (j < *(i) - c_q->is_dq)
+	while (j < *(i))
 		new_str[k++] = str[j++];
 	while (env && *env)
 	{
 		if (env[0] == '\\' && env[1] == '$')
 		{
 			env++;
-			continue;
+			continue ;
 		}
 		new_str[k++] = *(env++);
 	}
-	// if (c_q->is_dq)
-	// 	j++;
-	if (keylen == 0 || c_q->is_dq)
+	if (keylen == 0)
 		j++;
 	j += keylen;
 	while (str[j])

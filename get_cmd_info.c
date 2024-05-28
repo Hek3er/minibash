@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 15:19:19 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:17:14 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static int	count_str_without_quotes(char *str)
 {
-	t_check_quote 	c_q;
+	t_check_quote	c_q;
 	int				i;
 	int				size;
-
 
 	c_q = (t_check_quote){0};
 	size = 0;
@@ -25,37 +24,39 @@ static int	count_str_without_quotes(char *str)
 	while (str[i])
 	{
 		check_quotes(str[i], &c_q);
-		if (cond_q(c_q) && ((str[i] == '"' && c_q.is_dq) || (str[i] == '\'' && c_q.is_sq)))
+		if (cond_q(c_q) && ((str[i] == '"' && c_q.is_dq) || \
+		(str[i] == '\'' && c_q.is_sq)))
 			i++;
 		if (!cond_q(c_q) && str[i] != '"' && str[i] != '\'')
 			size++;
-		if (cond_q(c_q))
+		if (cond_q(c_q) && !((str[i] == '"' && c_q.is_dq) || \
+		(str[i] == '\'' && c_q.is_sq)))
 			size++;
 		i++;
 	}
 	return (size);
 }
 
-static void	clone_to_new_str(char *src, char *dst)
+static void	clone_to_new_str(char *src, char *dst, t_check_quote c_q)
 {
-	t_check_quote 	c_q;
 	int				i;
 	int				j;
 
-	c_q = (t_check_quote){0};
 	i = 0;
 	j = 0;
 	while (src[i])
 	{
 		check_quotes(src[i], &c_q);
-		if (cond_q(c_q) && ((src[i] == '"' && c_q.is_dq) || (src[i] == '\'' && c_q.is_sq)))
+		if (cond_q(c_q) && ((src[i] == '"' && c_q.is_dq) || \
+		(src[i] == '\'' && c_q.is_sq)))
 			i++;
 		if (!cond_q(c_q) && src[i] != '"' && src[i] != '\'')
 		{
 			dst[j] = src[i];
 			j++;
 		}
-		if (cond_q(c_q))
+		if (cond_q(c_q) && !((src[i] == '"' && c_q.is_dq) || \
+		(src[i] == '\'' && c_q.is_sq)))
 		{
 			dst[j] = src[i];
 			j++;
@@ -73,10 +74,10 @@ static void	remove_quotes(char **str, t_all *all)
 	while (*str)
 	{
 		str_len = count_str_without_quotes(*str);
-		new_str = ft_malloc(str_len, 0, all);
+		new_str = ft_malloc(str_len + 1, 0, all);
 		if (!new_str)
 			return ;
-		clone_to_new_str(*str, new_str);
+		clone_to_new_str(*str, new_str, (t_check_quote){0});
 		*str = new_str;
 		str ++;
 	}

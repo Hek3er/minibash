@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adjust_redirectionals.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:20:13 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 15:27:21 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:51:49 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,4 @@ void	adjust_redirectionals(char **str, t_all *all)
 		else
 			i++;
 	}
-	// printf("%s \n", (*str));
 }

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:31:24 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:16:31 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,12 @@ typedef struct s_all
 	int		original_out;
 	int		delim_doc;
 	int		pipe_stat;
+	int		k;
+	int		j;
+	int		keylen;
 	char	*error;
+	char	*t_val;
+	char	*t_val2;
 	char	*tmp;
 	char	*tmp_val;
 	char	**envp;
@@ -229,14 +234,15 @@ t_e_oper	split_cmds_queue(char *s, char ***left_right, t_all *all);
 char		**split_by_oper(char *str, t_e_oper oper_type, \
 			char c[2], t_all *all);
 char		**split_by_space(char *s, t_all *all, int jump_quote);
-int			split_by_space2(t_split *all_s, t_all *all, int flag, int jump_quote);
+int			split_by_space2(t_split *all_s, t_all *all, int flag, \
+			int jump_quote);
 char		*split_by_parantheses(char *str, t_all *all);
 void		adjust_redirectionals(char **str, t_all *all);
 int			get_cmd_info(t_tree *branch, t_all *all);
 int			arr_size(char **arr);
 void		fill_arr_with_str(char **arr, char *str, int size);
 void		arr_dup(char **src, char **dst, int max_size);
-char		*add_env(char *str, int *i, t_all *all, t_check_quote *c_q);
+char		*add_env(char *str, int *i, t_all *all);
 /*
  * Parse_env
 */

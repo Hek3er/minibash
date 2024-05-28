@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 15:18:10 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:36:47 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int	delim_check(int *i, int y, char **str, t_all *all)
 static int	check_dollar_in_q(t_check_quote *c_q, int i, char **str)
 {
 	char	next_c;
+
 	next_c = (*str)[i + 1];
-	
 	if (c_q->is_dq)
 	{
 		if (is_alpha(next_c) || is_num(next_c))
@@ -85,6 +85,7 @@ void	get_environment(t_all *all, char **s)
 	c_q = (t_check_quote){0};
 	i = 0;
 	y = 0;
+	all->expand_flag = 0;
 	while ((*s)[i])
 	{
 		c = (*s)[i];
@@ -94,7 +95,7 @@ void	get_environment(t_all *all, char **s)
 			y = -1;
 		if (c == '$' && !c_q.is_sq && delim_check(&i, y, s, all) && \
 		!is_white_space(next_c) && check_dollar_in_q(&c_q, i, s))
-			*s = add_env((*s), &i, all, &c_q);
+			*s = add_env((*s), &i, all);
 		if ((*s)[i] == '\0')
 			break ;
 		i++;
