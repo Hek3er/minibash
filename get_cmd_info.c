@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 20:11:50 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:19:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	count_str_without_quotes(char *str)
 	while (str[i])
 	{
 		check_quotes(str[i], &c_q);
-		if (cond_q(c_q) && (str[i] == '"' || str[i] == '\''))
+		if (cond_q(c_q) && ((str[i] == '"' && c_q.is_dq) || (str[i] == '\'' && c_q.is_sq)))
 			i++;
 		if (!cond_q(c_q) && str[i] != '"' && str[i] != '\'')
 			size++;
@@ -48,14 +48,19 @@ static void	clone_to_new_str(char *src, char *dst)
 	while (src[i])
 	{
 		check_quotes(src[i], &c_q);
-		if (cond_q(c_q) && (src[i] == '"' || src[i] == '\''))
+		if (cond_q(c_q) && ((src[i] == '"' && c_q.is_dq) || (src[i] == '\'' && c_q.is_sq)))
 			i++;
 		if (!cond_q(c_q) && src[i] != '"' && src[i] != '\'')
+		{
 			dst[j] = src[i];
+			j++;
+		}
 		if (cond_q(c_q))
+		{
 			dst[j] = src[i];
+			j++;
+		}
 		i++;
-		j++;
 	}
 	dst[j] = '\0';
 }

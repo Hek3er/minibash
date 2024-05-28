@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 20:50:22 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:15:35 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ char	*add_env(char *str, int *i, t_all *all, t_check_quote *c_q)
 		}
 		new_str[k++] = *(env++);
 	}
-	if (c_q->is_dq)
-		j++;
+	// if (c_q->is_dq)
+	// 	j++;
 	if (keylen == 0 || c_q->is_dq)
 		j++;
 	j += keylen;
