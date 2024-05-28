@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 18:35:16 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:42:27 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,43 @@ static char	*ft_getenv(char *str, int j, t_all *all)
 	return (env);
 }
 
+char	*add_env2(char *str, char *env, int *i, t_all *all)
+{
+	char	*new_str;
+
+	new_str = ft_malloc(ft_strlen(env) + ft_strlen(str) - all->keylen + 1, \
+	0, all);
+	if (!new_str)
+		return (NULL);
+	while (all->j < *(i))
+		new_str[all->k++] = str[all->j++];
+	while (env && *env)
+	{
+		if (env[0] == '\\' && env[1] == '$')
+		{
+			env++;
+			continue ;
+		}
+		new_str[all->k++] = *(env++);
+	}
+	if (all->keylen == 0)
+		all->j++;
+	all->j += all->keylen;
+	while (str[all->j])
+		new_str[all->k++] = str[all->j++];
+	new_str[all->k] = '\0';
+	return (new_str);
+}
 
 char	*add_env(char *str, int *i, t_all *all)
 {
 	char	*new_str;
 	char	*env;
-	int		keylen;
-	int		j;
-	int		k;
 
-	j = 0;
-	k = 0;
-	keylen = my_strlen(str + *i);
-	if (keylen == 1)
+	all->j = 0;
+	all->k = 0;
+	all->keylen = my_strlen(str + *i);
+	if (all->keylen == 1)
 		return (str);
 	if (all->expand_flag)
 	{
@@ -81,26 +105,7 @@ char	*add_env(char *str, int *i, t_all *all)
 	}
 	else
 		env = ft_getenv(str, *i, all);
-	new_str = ft_malloc(ft_strlen(env) + ft_strlen(str) - keylen + 1, 0, all);
-	if (!new_str)
-		return (NULL);
-	while (j < *(i))
-		new_str[k++] = str[j++];
-	while (env && *env)
-	{
-		if (env[0] == '\\' && env[1] == '$')
-		{
-			env++;
-			continue ;
-		}
-		new_str[k++] = *(env++);
-	}
-	if (keylen == 0)
-		j++;
-	j += keylen;
-	while (str[j])
-		new_str[k++] = str[j++];
-	new_str[k] = '\0';
+	new_str = add_env2(str, env, i, all);
 	if (*i)
 		(*i)--;
 	return (new_str);
