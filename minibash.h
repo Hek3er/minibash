@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:31:24 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:47:17 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ typedef struct s_all
 	t_tree	*tree;
 	int		status;
 	int		append;
-	int		expand_flag;
 	pid_t	id;
 	int		original_in;
 	int		original_out;
@@ -242,7 +241,7 @@ char		*add_env(char *str, int *i, t_all *all, t_check_quote *c_q);
 */
 void		append_node(t_env **head, char *key, char *value, t_all *all);
 t_env		*parse_env(char **env, t_all *all);
-char		*get_value(t_env *env, char *key, t_all *all);
+char		*get_value(t_env *env, char *key);
 
 /*
  * Parse_tree

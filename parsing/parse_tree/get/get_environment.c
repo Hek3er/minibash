@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_environment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 20:45:34 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:01:42 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,13 @@ void	get_environment(t_all *all, char **s)
 		c = (*s)[i];
 		next_c = (*s)[i + 1];
 		check_quotes(c, &c_q);
-		if (c == ' ' || c == '"')
+		if (c == ' ' || c == '"' || c == '\'')
 			y = -1;
 		if (c == '$' && !c_q.is_sq && delim_check(&i, y, s, all) && \
 		!is_white_space(next_c) && check_dollar_in_q(&c_q, i, s))
+		{
 			*s = add_env((*s), &i, all, &c_q);
+		}
 		if ((*s)[i] == '\0')
 			break ;
 		i++;

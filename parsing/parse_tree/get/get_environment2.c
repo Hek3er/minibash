@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_environment2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 20:50:22 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:11:52 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static int	my_strlen(char *str)
 		i++;
 	if (str[i] && i < 1 && !delim_check(str[i], i))
 		i++;
+	// printf("cccc %c\n", str[i]);
+	// if (i == 1 && str[i] == '"')
+    //     return (0);
+	// if (str[i] == '\'' && str[i] == '"')
+    //     return (i);
 	return (i);
 }
 
@@ -50,11 +55,11 @@ static char	*ft_getenv(char *str, int j, t_all *all)
 	while (str[j] && i < key_len)
 		key[i++] = str[j++];
 	key[i] = '\0';
-	if (ft_strcmp(key + 1, "\"") == 0)
+	if (ft_strcmp(key + 1, "\"") == 0) //  ghir improvisit idon't know wesh 5asert chi la3ba a5ra
 		return ("");
 	else if (ft_strcmp(key + 1, "\'") == 0)
 		return ("");
-	env = get_value(all->env, key + 1, all);
+	env = get_value(all->env, key + 1);
 	return (env);
 }
 
@@ -71,30 +76,17 @@ char	*add_env(char *str, int *i, t_all *all, t_check_quote *c_q)
 	keylen = my_strlen(str + *i);
 	if (keylen == 1)
 		return (str);
-	if (all->expand_flag)
-	{
-		env = ft_strdup(str + (*i), all);
-		if (!env)
-			return (NULL);
-	}
-	else
-		env = ft_getenv(str, *i, all);
+	env = ft_getenv(str, *i, all);
 	new_str = ft_malloc(ft_strlen(env) + (ft_strlen(str) - keylen + 1 - (c_q->is_dq)), 0, all);
 	if (!new_str)
 		return (NULL);
+	// while (j < *(i) - c_q->is_dq)
 	while (j < *(i) - c_q->is_dq)
 		new_str[k++] = str[j++];
 	while (env && *env)
-	{
-		if (env[0] == '\\' && env[1] == '$')
-		{
-			env++;
-			continue;
-		}
 		new_str[k++] = *(env++);
-	}
-	if (c_q->is_dq)
-		j++;
+	// if (c_q->is_dq)
+	// 	j++;
 	if (keylen == 0 || c_q->is_dq)
 		j++;
 	j += keylen;

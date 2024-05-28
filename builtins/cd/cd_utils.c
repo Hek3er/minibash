@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 04:43:55 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:29:39 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:03:11 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	no_arg_cd(char *cwd, t_all *all)
 		exit_stat(1, 1), 1);
 	else
 	{
-		path = get_value(all->env, "HOME", all);
+		path = get_value(all->env, "HOME");
 		if (path && !path[0])
 			return (exit_stat(0, 1), 1);
 		if (!path)
@@ -49,7 +49,7 @@ int	handle_arg_cd(char **arg, char *cwd, t_all *all)
 	if (!new_dir)
 		return (1);
 	if (arg[1][0] == '-')
-		arg[1] = get_value(all->env, "OLDPWD", all);
+		arg[1] = get_value(all->env, "OLDPWD");
 	if (arg[1][ft_strlen(arg[1]) - 1] == '\\' && arg[2])
 	{
 		arg[1] = ft_strjoin(ft_substr(arg[1], 0, \
@@ -99,7 +99,7 @@ int	handle_parrent_directory(char *env_path, int i, int flag, t_all *all)
 	{
 		if (!flag)
 		{
-			new_cwd = ft_strjoin(get_value(all->env, "PWD", all), "/..", all);
+			new_cwd = ft_strjoin(get_value(all->env, "PWD"), "/..", all);
 			change_val(&all->env, (char *[]){"PWD", new_cwd}, 0, all);
 			change_val(&all->env, (char *[]){"OLDPWD", env_path}, 0, all);
 		}
