@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 05:52:47 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:08:26 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:20:24 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,31 @@ void	handle_signal_doc(int sig)
 	}
 }
 
+void	reset_terminal(void)
+{
+	struct	termios term;
+
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
+	{
+		perror("tcgetattr");
+		exit(1);
+	}
+	term.c_oflag = OPOST | ONLCR;
+	term.c_lflag = ICANON | ECHO | ECHOE | ECHOK;
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) == -1)
+	{
+		perror("tcsetattr");
+		exit(1);
+	}
+}
+
 void	handle_signal_dfl(int sig)
 {
-	write(2, "1\n", 2);
 	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
 		exit(130);
-	}
 	if (sig == SIGQUIT)
 	{
-		write(1, "\n", 1);
+		reset_terminal();
 		exit(131);
 	}
 }

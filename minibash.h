@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/03 14:23:42 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/04 22:24:47 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <errno.h>
 # include <string.h>
 # include <sys/stat.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
@@ -131,6 +132,7 @@ typedef struct s_all
 	int		append;
 	int		expand_flag;
 	pid_t	id;
+	int		op;
 	int		original_in;
 	int		original_out;
 	int		delim_doc;
@@ -302,5 +304,6 @@ void		execute_pipe(t_tree *node, char **envp, t_all *all);
 void		execute_right(t_tree *node, int *fd, char **envp, t_all *all);
 void		execute_left(t_tree *node, int *fd, char **envp, t_all *all);
 void		error_execve(char *str);
+void		reset_terminal(void);
 
 #endif

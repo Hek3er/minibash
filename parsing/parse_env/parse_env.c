@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:05:40 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/15 14:24:29 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:51:13 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	set_empty_env(t_env **head, t_all *all, t_var *var)
 {
 	append_node(head, "SHLVL", "1", all);
 	append_node(head, "PWD", getcwd(NULL, 0), all);
+	append_node(head, "OLDPWD", "", all);
 	var->str = ft_strjoin(getcwd(NULL, 0), "/minibash", all);
 	append_node(head, "_", var->str, all);
 	append_node(head, "PATH", "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin", \
@@ -41,6 +42,14 @@ static int	get_lenght_up_to_equal(char *s)
 	while (s[j] != '=')
 		j++;
 	return (j);
+}
+
+void	handle_shlvl(t_all *all, t_env *head, t_var *var)
+{
+	if (ft_atoi(var->tmp_val) < 999)
+		append_node(&head, var->tmp_key, ft_itoa(ft_atoi(var->tmp_val) + 1, all), all);
+	else
+		append_node(&head, var->tmp_key, "", all);
 }
 
 t_env	*parse_env(char **env, t_all *all)
@@ -61,9 +70,10 @@ t_env	*parse_env(char **env, t_all *all)
 		var.tmp_val = ft_substr(env[var.i], var.rem, var.j - var.rem, all);
 		if (!var.tmp_val)
 			(ft_write("Malloc error", 2, 1), exit(2));
-		if (!ft_strcmp(var.tmp_key, "SHLVL"))
-			append_node(&head, var.tmp_key, \
-			ft_itoa(ft_atoi(var.tmp_val) + 1, all), all);
+		if (var.tmp_val && var.tmp_val[0] == '$')
+			append_node(&head, var.tmp_key, ft_strjoin("\\", var.tmp_val, all), all);
+		else if (!ft_strcmp(var.tmp_key, "SHLVL"))
+			handle_shlvl(all, head, &var);
 		else
 			append_node(&head, var.tmp_key, var.tmp_val, all);
 		var.i++;

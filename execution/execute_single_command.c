@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:18 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:15:42 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:18:31 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 
 	perm = 0;
 	signal(SIGINT, SIG_IGN);
-	// printf("cmd[0] = %s\n", node->cmd[0]);
-	// for (int i = 0; node->cmd[i]; i++)
-	// 	printf("cmd : %s\n", node->cmd[i]);
 	if (node->cmd[0] == NULL)
 		return ;
 	path = get_cmd_path(all, node->cmd[0]);
@@ -85,6 +82,7 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 	else if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGQUIT)
 	{
 		write(1, "Quit : 3\n", 9);
+		reset_terminal();
 		exit_stat(131, 1);
 	}
 	else

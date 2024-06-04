@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:12:45 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:36:01 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	execute_command(t_tree *node, t_all *all)
 	perm = 0;
 	path = NULL;
 	// for(int i = 0; node->cmd[i]; i++)
-	// 	printf("cmd: %s, in : %d, out: %d, heredoc: %d\n", node->cmd[i], node->input, node->output, node->here_doc);
+	// 	fprintf(stderr, "cmd: %s, in : %d, out: %d, heredoc: %d\n", node->cmd[i], node->input, node->output, node->here_doc);
 	handle_redirections_exec(node);
 	if (node->cmd[0] == NULL || node->cmd[0][0] == '\0')
 		return (0);

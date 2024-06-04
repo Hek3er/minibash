@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 16:25:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:56:37 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	minibash_readline(char **str, t_all *all)
 	if (input)
 	{
 		*str = ft_strdup(input, all);
-		free(input);
+		// free(input);
 	}
 }
 
@@ -72,9 +72,12 @@ int	main(int argc, char *argv[], char *envp[])
 	str = NULL;
 	input = 0;
 	rl_catch_signals = 0;
+	if (!isatty(ttyslot()))
+		return (0);
 	init_var(&all, envp, argv, argc);
 	while (1)
 	{
+		all.op = 0;
 		input = input_loop(&all, str);
 		if (input == 1)
 			continue ;

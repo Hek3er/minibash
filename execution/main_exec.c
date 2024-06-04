@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/16 04:51:12 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 22:31:10 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ int	execute_and(t_tree *node, t_all *all)
 	else
 		dup2(node->input, STDIN_FILENO);
 	dup2(node->output, STDOUT_FILENO);
+	// fprintf(stderr, "AND : node->left: %s\n", node->left->cmd_str);
 	execute(node->left, all->envp, all);
-	if (exit_stat(0, 0) == 0)
+	if (exit_stat(0, 0) == 0) {
+		// fprintf(stderr, "AND : node->right: %s\n", node->right->cmd_str);
 		execute(node->right, all->envp, all);
+	}
 	dup2(old_stdin, STDIN_FILENO);
 	close(old_stdin);
 	dup2(old_stdout, STDOUT_FILENO);
@@ -46,9 +49,17 @@ int	execute_or(t_tree *node, t_all *all)
 	else
 		dup2(node->input, STDIN_FILENO);
 	dup2(node->output, STDOUT_FILENO);
+	// fprintf(stderr, "OR : node->left: %s\n", node->left->cmd_str);
 	execute(node->left, all->envp, all);
-	if (exit_stat(0, 0) != 0)
+	if (exit_stat(0, 0) != 0){
+		// fprintf(stderr, "OR : node->right: %s\n", node->right->cmd_str);
 		execute(node->right, all->envp, all);
+	}
+	if (all->op)
+	{
+		execute(node->right->right, all->envp, all);
+		all->op = 0;
+	}
 	dup2(old_stdin, STDIN_FILENO);
 	close(old_stdin);
 	dup2(old_stdout, STDOUT_FILENO);
@@ -87,8 +98,11 @@ int	execute(t_tree	*root, char **envp, t_all *all)
 		execute_pipe(root, envp, all);
 	if (root->oper == PARENTHESES)
 		execute_parantheses(root, envp, all);
-	if (root->oper == OR)
+	if (root->oper == OR) {
+		if (root->right->oper == AND)
+			all->op = 1;
 		execute_or(root, all);
+	}
 	if (root->oper == AND)
 		execute_and(root, all);
 	else if (root->oper == NONE)
