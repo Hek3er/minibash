@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:18 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/26 22:27:22 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:15:42 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	exe(t_tree *node, char **envp, char *path, pid_t *pid)
 	if (*pid == 0)
 	{
 		signal(SIGINT, &handle_signal_dfl);
+		signal(SIGQUIT, &handle_signal_dfl);
 		if (execve(path, node->cmd, envp) == -1)
 			error_execve(node->cmd[0]);
 	}
@@ -65,6 +66,11 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 
 	perm = 0;
 	signal(SIGINT, SIG_IGN);
+	// printf("cmd[0] = %s\n", node->cmd[0]);
+	// for (int i = 0; node->cmd[i]; i++)
+	// 	printf("cmd : %s\n", node->cmd[i]);
+	if (node->cmd[0] == NULL)
+		return ;
 	path = get_cmd_path(all, node->cmd[0]);
 	if (check_path(node, path, perm, all))
 		return ;
@@ -75,6 +81,11 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 	{
 		write(1, "\n", 1);
 		exit_stat(130, 1);
+	}
+	else if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGQUIT)
+	{
+		write(1, "Quit : 3\n", 9);
+		exit_stat(131, 1);
 	}
 	else
 		exit_stat(WEXITSTATUS(stat), 1);

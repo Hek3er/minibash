@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 00:57:51 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/14 16:00:18 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/02 01:04:30 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,20 @@ int	parse_key(char **key_val, t_all *all)
 	i = 1;
 	if (!ft_isunder_alpha(key_val[0][0]))
 		return (all->tmp = \
-		ft_strjoin(key_val[0], "': not a valid undentifier", all), \
+		ft_strjoin(key_val[0], "': not a valid undentifier1", all), \
 		exit_stat(1, 1), 1);
 	while (key_val[0][i] && i < ft_strlen(key_val[0]) - 1)
 	{
 		if (!ft_isunder_alpha(key_val[0][i]))
 			return (all->tmp = \
-			ft_strjoin(key_val[0], "': not a valid undentifier", \
+			ft_strjoin(key_val[0], "': not a valid undentifier2", \
 			all), exit_stat(1, 1), 1);
 		i++;
 	}
 	i = ft_strlen(key_val[0]) - 1;
 	if (!(ft_isalnum(key_val[0][i])) && !(key_val[0][i] == '+'))
 		return (all->tmp = \
-		ft_strjoin(key_val[0], "': not a valid undentifier", all), \
+		ft_strjoin(key_val[0], "': not a valid undentifier3", all), \
 		exit_stat(1, 1), 1);
 	return (0);
 }
@@ -96,6 +96,7 @@ void	export(t_all *all, t_env *env, char **arg)
 	}
 	while (arg[k])
 	{
+		// printf("arg[k] = %s\n", arg[k]);
 		handle_export_arg(key_val, arg, k, all);
 		k++;
 	}

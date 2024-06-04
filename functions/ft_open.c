@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:26:55 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/25 10:54:53 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:25:46 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	close_fd(t_all_fd *all_fd, int fd)
 		{
 			close(all_fd->fd);
 			all_fd->fd = -1;
-			return ;
+			// return ;
 		}
 		all_fd = all_fd->next;
 	}
@@ -70,6 +70,7 @@ int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 	else if (mode == OPEN_READ)
 		flags = O_RDONLY;
 	fd = open(path, flags, 0777);
+	fprintf(stderr, "fd : %d path: %s\n", fd, path);
 	if (fd < 0 || append_fd(&all_fd, fd, all))
 	{
 		ft_write("minibash: ", 2, 0);

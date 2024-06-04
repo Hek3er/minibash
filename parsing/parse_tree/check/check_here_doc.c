@@ -3,71 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/15 14:01:22 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:52:29 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minibash.h"
-
-static int	delimiter_size(char *s, t_all *all, t_check_quote cq)
-{
-	int				i;
-	int				count;
-
-	i = 0;
-	count = 0;
-	while (is_white_space(s[i]))
-		i++;
-	if (!s[i] || s[i] == '(' || s[i] == ')' || cond_oper(s + i, NONE))
-	{
-		all->error = "minibash: syntax error";
-		exit_stat(258, 1);
-	}
-	while (s[i])
-	{
-		check_quotes(s[i], &cq);
-		if (((!cq.is_dq && s[i] == '\'') || (!cq.is_sq && s[i] == '"')) && i++)
-			continue ;
-		if (!cond_q(cq) && (s[i] == '(' || s[i] == ')' || \
-		cond_oper(s + i, NONE) || s[i] == ' '))
-			break ;
-		i++;
-		count++;
-	}
-	return (count);
-}
-
-static char	*get_delimiter(char *s, t_all *all)
-{
-	char			*delim;
-	t_check_quote	cq;
-	int				i;
-
-	delim = ft_malloc(delimiter_size(s, all, (t_check_quote){0}) + 2, 0, all);
-	if (!delim)
-		return (NULL);
-	i = 0;
-	cq = (t_check_quote){0};
-	while (is_white_space(*s))
-		s++;
-	while (s[i])
-	{
-		check_quotes(s[i], &cq);
-		if (((!cq.is_dq && s[i] == '\'') || (!cq.is_sq && s[i] == '"')) && s++)
-			continue ;
-		if (!cond_q(cq) && (s[i] == '(' || s[i] == ')' || \
-		cond_oper(s + i, NONE) || s[i] == ' '))
-			break ;
-		delim[i] = s[i];
-		i++;
-	}
-	delim[i] = '\n';
-	delim[i + 1] = '\0';
-	return (delim);
-}
 
 static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 {
@@ -84,7 +27,8 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 			free(str);
 			break ;
 		}
-		get_environment(all, &str);
+		if (!all->quote_in_hdoc_delimiter)
+			get_environment(all, &str);
 		if (ft_strlen(str) == ft_strlen(delimiter) - 1 && \
 		!ft_strncmp(str, delimiter, ft_strlen(delimiter) - 1))
 		{
@@ -113,7 +57,7 @@ t_all *all)
 	doc_fd = ft_open(doc_name, OPEN_TRUNC, all, 0);
 	if (doc_fd < 0)
 		return ;
-	fill_doc(doc_fd, get_delimiter(str, all), all);
+	fill_doc(doc_fd, get_delimiter(str, all, (t_check_quote){0}), all);
 	ft_open(NULL, 0, NULL, doc_fd);
 }
 
@@ -122,6 +66,7 @@ void	check_here_doc(char *str, t_all *all)
 	t_check_hdoc	hd;
 
 	hd = (t_check_hdoc){0};
+	all->quote_in_hdoc_delimiter = 0;
 	while (*str)
 	{
 		check_quotes(*str, &hd.c_q);

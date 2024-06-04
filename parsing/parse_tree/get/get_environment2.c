@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 18:42:27 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:42:48 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,22 @@ char	*add_env2(char *str, char *env, int *i, t_all *all)
 {
 	char	*new_str;
 
-	new_str = ft_malloc(ft_strlen(env) + ft_strlen(str) - all->keylen + 1, \
-	0, all);
+	new_str = ft_malloc(ft_strlen(env) + ft_strlen(str) + \
+	(all->is_outside_dq * 2) - all->keylen, 0, all);
 	if (!new_str)
 		return (NULL);
 	while (all->j < *(i))
 		new_str[all->k++] = str[all->j++];
+	if (all->is_outside_dq)
+		new_str[all->k++] = '"';
 	while (env && *env)
 	{
-		if (env[0] == '\\' && env[1] == '$')
-		{
-			env++;
-			continue ;
-		}
+		// if (env[0] == '\\' && env[1] == '$' && env++)
+		// 	continue ;
 		new_str[all->k++] = *(env++);
 	}
+	if (all->is_outside_dq)
+		new_str[all->k++] = '"';
 	if (all->keylen == 0)
 		all->j++;
 	all->j += all->keylen;
@@ -86,7 +87,7 @@ char	*add_env2(char *str, char *env, int *i, t_all *all)
 	return (new_str);
 }
 
-char	*add_env(char *str, int *i, t_all *all)
+char	*add_env(char *str, int *i, t_all *all, t_check_quote c_q)
 {
 	char	*new_str;
 	char	*env;
@@ -96,17 +97,25 @@ char	*add_env(char *str, int *i, t_all *all)
 	all->keylen = my_strlen(str + *i);
 	if (all->keylen == 1)
 		return (str);
+	// if (all->expand_flag)
+	// {
+	// 	env = ft_strdup(str + (*i), all);
+	// 	if (!env)
+	// 		return (NULL);
+	// }
+	// else
+	env = ft_getenv(str, *i, all);
+	if (all->expand_flag)
+		env++;
+	all->is_outside_dq = 1;
+	if (c_q.is_dq || !all->add_quotes_to_env)
+		all->is_outside_dq = 0;
+	new_str = add_env2(str, env, i, all);
+	(*i)--;
 	if (all->expand_flag)
 	{
-		env = ft_strdup(str + (*i), all);
-		printf("env : %s\n", env);
-		if (!env)
-			return (NULL);
+		(*i)+= 2;
+		all->expand_flag = 0;
 	}
-	else
-		env = ft_getenv(str, *i, all);
-	new_str = add_env2(str, env, i, all);
-	if (*i)
-		(*i)--;
 	return (new_str);
 }

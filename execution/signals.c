@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 05:52:47 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/15 15:09:49 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:08:26 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,15 @@ void	handle_signal_doc(int sig)
 
 void	handle_signal_dfl(int sig)
 {
+	write(2, "1\n", 2);
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
 		exit(130);
+	}
+	if (sig == SIGQUIT)
+	{
+		write(1, "\n", 1);
+		exit(131);
 	}
 }

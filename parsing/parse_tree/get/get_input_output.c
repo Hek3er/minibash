@@ -6,7 +6,7 @@
 /*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 15:27:11 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:46:07 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,56 +70,49 @@ static int	open_file(char *str, int oper_size, int expected, t_all *all)
 	return (fd);
 }
 
-static int	check_if_output(char **arr_pre[2], int *pre_fd, int ex, t_all *all)
+static void	check_if_output(char **arr_pre[2], t_all *all, t_tree *b, int *i)
 {
 	int	cnd_oper_type;
-	int	oper_size;
-	int	fd;
 
-	fd = ex;
-	if (ex)
-		cnd_oper_type = (cond_oper(*arr_pre[0], OUTPUT) || \
-		cond_oper(*arr_pre[0], APPEND));
+	cnd_oper_type = (cond_oper(*arr_pre[0], OUTPUT) || \
+	cond_oper(*arr_pre[0], APPEND));
+	if (cnd_oper_type)
+		b->output = \
+		open_file(arr_pre[0][1], cond_redirect(*arr_pre[0]), 1, all);
 	else
+	{
 		cnd_oper_type = cond_oper(*arr_pre[0], INPUT);
-	oper_size = cond_redirect(*arr_pre[0]);
-	if (oper_size && cnd_oper_type)
-		fd = open_file(arr_pre[0][1], oper_size, ex, all);
-	if (*pre_fd != fd && *pre_fd != ex && fd != ex)
-		ft_open(NULL, 0, NULL, *pre_fd);
-	if (fd > ex || cond_oper(*arr_pre[0], H_DOC))
+		if (cnd_oper_type)
+			b->input = \
+			open_file(arr_pre[0][1], cond_redirect(*arr_pre[0]), 0, all);
+	}
+	if (cnd_oper_type || cond_oper(*arr_pre[0], H_DOC))
 	{
 		move_cmd(arr_pre);
 		move_cmd(arr_pre);
 	}
-	return (fd);
+	else
+		(*i)++;
 }
 
-int	get_input_output(char **arr, int expected, char **pre, t_all *all)
+void	get_input_output(char **arr, t_tree *branch, char **pre, t_all *all)
 {
 	int	i;
-	int	fd;
-	int	final_fd;
 
 	i = 0;
-	final_fd = expected;
 	if ((!arr) || (arr[i] && (cond_oper(arr[i], INPUT) || \
 	cond_oper(arr[i], OUTPUT) || cond_oper(arr[i], APPEND)) && !arr[i + 1]))
-		return (expected);
+		return ;
+	branch->input = 0;
+	branch->output = 1;
 	while (arr[i] && arr[i + 1])
 	{
 		if (all->error || (ambiguity(arr[i], arr + i + 1, pre[i + 1], all)))
-			return (expected);
+			return ;
 		if (pre && cond_redirect(arr[i]) && !cond_redirect(pre[i]) && ++i)
 			continue ;
-		fd = check_if_output((char **[2]){arr + i, pre + i}, &final_fd, \
-		expected, all);
-		if (fd == -1)
-			return (expected);
-		if (fd != expected)
-			final_fd = fd;
-		if (fd == expected)
-			i++;
+		check_if_output((char **[2]){arr + i, pre + i}, all, branch, &i);
+		if (branch->input == -1 || branch->output == -1)
+			return ;
 	}
-	return (final_fd);
 }

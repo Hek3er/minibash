@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:19:57 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/28 17:51:28 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:35:13 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ char	*get_value(t_env *env, char *key, t_all *all)
 
 	if (!env || !key)
 		return (NULL);
-	if (key[0] == '\\')
-	{
-		all->t_val = key;
-		all->t_val2 = ft_strjoin("'", all->t_val + 1, all);
-		key = ft_strjoin(all->t_val2, "'", all);
-		return (key);
-	}
+	// if (key[0] == '\\')
+	// {
+	// 	// printf("key : %s\n", key);
+	// 	all->t_val = key;
+	// 	all->t_val2 = ft_strjoin("'", all->t_val + 1, all);
+	// 	key = ft_strjoin(all->t_val2, "'", all);
+	// 	return (key);
+	// }
 	tmp = env;
 	while (tmp)
 	{
@@ -34,7 +35,12 @@ char	*get_value(t_env *env, char *key, t_all *all)
 			continue ;
 		}
 		if (!ft_strcmp(tmp->key, key))
+		{
+			if (tmp->value && tmp->value[0] == '\\')
+				all->expand_flag = 1;
+			// printf("key: %s, value : %s\n", tmp->key, tmp->value);
 			return (tmp->value);
+		}
 		tmp = tmp->next;
 	}
 	return (NULL);

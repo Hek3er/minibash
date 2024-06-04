@@ -6,13 +6,13 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 18:17:14 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:26:14 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minibash.h"
 
-static int	count_str_without_quotes(char *str)
+static int	str_length_without_quotes(char *str)
 {
 	t_check_quote	c_q;
 	int				i;
@@ -26,7 +26,10 @@ static int	count_str_without_quotes(char *str)
 		check_quotes(str[i], &c_q);
 		if (cond_q(c_q) && ((str[i] == '"' && c_q.is_dq) || \
 		(str[i] == '\'' && c_q.is_sq)))
+		{
 			i++;
+			continue ;
+		}
 		if (!cond_q(c_q) && str[i] != '"' && str[i] != '\'')
 			size++;
 		if (cond_q(c_q) && !((str[i] == '"' && c_q.is_dq) || \
@@ -49,14 +52,13 @@ static void	clone_to_new_str(char *src, char *dst, t_check_quote c_q)
 		check_quotes(src[i], &c_q);
 		if (cond_q(c_q) && ((src[i] == '"' && c_q.is_dq) || \
 		(src[i] == '\'' && c_q.is_sq)))
-			i++;
-		if (!cond_q(c_q) && src[i] != '"' && src[i] != '\'')
 		{
-			dst[j] = src[i];
-			j++;
+			i++;
+			continue ;
 		}
-		if (cond_q(c_q) && !((src[i] == '"' && c_q.is_dq) || \
-		(src[i] == '\'' && c_q.is_sq)))
+		if ((!cond_q(c_q) && src[i] != '"' && src[i] != '\'') || \
+		(cond_q(c_q) && !((src[i] == '"' && c_q.is_dq) || \
+		(src[i] == '\'' && c_q.is_sq))))
 		{
 			dst[j] = src[i];
 			j++;
@@ -73,7 +75,7 @@ static void	remove_quotes(char **str, t_all *all)
 
 	while (*str)
 	{
-		str_len = count_str_without_quotes(*str);
+		str_len = str_length_without_quotes(*str);
 		new_str = ft_malloc(str_len + 1, 0, all);
 		if (!new_str)
 			return ;
@@ -83,19 +85,58 @@ static void	remove_quotes(char **str, t_all *all)
 	}
 }
 
+void	get_cmd_array_quotes(t_tree *branch, t_all *all, char **str, int quote)
+{
+	*str = ft_strdup(branch->cmd_str, all);
+	all->add_quotes_to_env = quote;
+	get_environment(all, str);
+	branch->cmd = split_by_space(*str, all, 1);
+	remove_quotes(branch->cmd, all);
+}
+
+static void	move_redirectionals(t_tree *b, int index)
+{
+	int	j;
+
+	j = index;
+	while (b->cmd[j])
+	{
+		if (!b->cmd[j + 1])
+			b->cmd[j] = NULL;
+		b->cmd[j] = b->cmd[j + 1];
+		j++;
+	}
+}	
+
+void	remove_redirectionals(t_tree *b)
+{
+	int	i;
+
+	i = 0;
+	while (b->cmd[i] && b->cmd[i + 1])
+	{
+		if (cond_oper(b->cmd[i], INPUT) || cond_oper(b->cmd[i], OUTPUT) || \
+		cond_oper(b->cmd[i], H_DOC) || cond_oper(b->cmd[i], APPEND))
+		{
+			move_redirectionals(b, i);
+			move_redirectionals(b, i);
+		}
+		else
+			i++;
+	}
+}
+
 int	get_cmd_info(t_tree *branch, t_all *all)
 {
 	char	**pre_env_arr;
 	char	*str;
 
 	all->error = NULL;
-	str = branch->cmd_str;
-	pre_env_arr = split_by_space(str, all, 1);
-	get_environment(all, &str);
-	branch->cmd = split_by_space(str, all, 1);
-	branch->input = get_input_output(branch->cmd, 0, pre_env_arr, all);
-	branch->output = get_input_output(branch->cmd, 1, pre_env_arr, all);
-	remove_quotes(branch->cmd, all);
+	pre_env_arr = split_by_space(branch->cmd_str, all, 1);
+	get_cmd_array_quotes(branch, all, &str, 1);
+	get_input_output(branch->cmd, branch, pre_env_arr, all);
+	get_cmd_array_quotes(branch, all, &str, 0);
+	remove_redirectionals(branch);
 	branch->cmd = get_wildcard(branch->cmd, all);
 	if (branch->here_doc == 0)
 		branch->here_doc = \

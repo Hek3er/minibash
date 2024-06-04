@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g3 #-Wall -Werror -Wextra
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include
@@ -25,7 +25,7 @@ SRCS = minibash.c get_cmd_info.c \
        parsing/parse_tree/check/check_here_doc.c parsing/parse_tree/check/check_opers.c parsing/parse_tree/check/check_q_p.c \
        parsing/parse_tree/check/check_wildcard.c parsing/parse_tree/check/conditions.c parsing/parse_tree/get/get_environment.c \
        parsing/parse_tree/get/get_files.c parsing/parse_tree/get/get_here_doc.c parsing/parse_tree/get/get_input_output.c \
-       parsing/parse_tree/get/get_wildcard.c parsing/parse_tree/split/split_by_oper.c parsing/parse_tree/split/split_by_parantheses.c \
+       parsing/parse_tree/get/get_wildcard.c  parsing/parse_tree/get/get_hdoc_delimiter.c parsing/parse_tree/split/split_by_oper.c parsing/parse_tree/split/split_by_parantheses.c \
        parsing/parse_tree/split/split_by_space.c parsing/parse_tree/split/split_by_space2.c parsing/parse_tree/split/split_cmds.c  \
        parsing/parse_tree/get/get_environment2.c 
 

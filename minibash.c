@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 18:36:52 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:25:59 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static void	init_var(t_all *all, char **envp, char **argv, int argc)
 {
 	(void)argc;
 	(void)argv;
-	all->original_in = dup(STDIN_FILENO);
-	all->original_out = dup(STDOUT_FILENO);
+	all->expand_flag = 0;
 	all->error = NULL;
 	all->env = parse_env(envp, all);
 	all->envp = linked_list_to_arr(all);
@@ -54,10 +53,7 @@ static int	input_loop(t_all *all, char *str)
 	all->tree = NULL;
 	minibash_readline(&str, all);
 	if (!str)
-	{
-		printf("exit\n");
-		return (2);
-	}
+		ft_exit(NULL, all);
 	add_history(str);
 	if (str[0] == 0)
 		return (1);
@@ -88,7 +84,6 @@ int	main(int argc, char *argv[], char *envp[])
 			execute_one_command(&all);
 		else
 			execute(all.tree, all.envp, &all);
-		free (str);
 		remove_docs(&all);
 		ft_open(NULL, 0, NULL, 1);
 	}

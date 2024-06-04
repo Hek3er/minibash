@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:30:22 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/28 18:35:00 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:30:37 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	handle_export_arg(char **key_val, char **arg, int k, t_all *all)
 		return ;
 	if (parse_key(key_val, all))
 		return ;
-	if (key_val[1][0] == '$')
+	if (key_val[1] && key_val[1][0] == '$')
 	{
+		// all->expand_flag = 1;
 		tmp = ft_strdup(key_val[1], all);
 		if (!tmp)
 			return ;
 		key_val[1] = ft_strjoin("\\", tmp, all);
-		all->expand_flag = 1;
 		if (!key_val[1])
 			return ;
 	}
