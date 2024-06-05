@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 16:26:14 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:33:05 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	remove_quotes(char **str, t_all *all)
 	int				str_len;
 	char			*new_str;
 
-	while (*str)
+	while (str && *str)
 	{
 		str_len = str_length_without_quotes(*str);
 		new_str = ft_malloc(str_len + 1, 0, all);
@@ -83,15 +83,6 @@ static void	remove_quotes(char **str, t_all *all)
 		*str = new_str;
 		str ++;
 	}
-}
-
-void	get_cmd_array_quotes(t_tree *branch, t_all *all, char **str, int quote)
-{
-	*str = ft_strdup(branch->cmd_str, all);
-	all->add_quotes_to_env = quote;
-	get_environment(all, str);
-	branch->cmd = split_by_space(*str, all, 1);
-	remove_quotes(branch->cmd, all);
 }
 
 static void	move_redirectionals(t_tree *b, int index)
@@ -110,20 +101,32 @@ static void	move_redirectionals(t_tree *b, int index)
 
 void	remove_redirectionals(t_tree *b)
 {
-	int	i;
+	int				i;
 
+	t_check_quote	c_q;
 	i = 0;
-	while (b->cmd[i] && b->cmd[i + 1])
+	while (b->cmd && b->cmd[i])
 	{
-		if (cond_oper(b->cmd[i], INPUT) || cond_oper(b->cmd[i], OUTPUT) || \
-		cond_oper(b->cmd[i], H_DOC) || cond_oper(b->cmd[i], APPEND))
+		// printf("%s ***\n",b->cmd[i]);
+		if (!(ft_strlen(b->cmd[i]) > 2) && \
+		(cond_oper(b->cmd[i], INPUT) || cond_oper(b->cmd[i], OUTPUT) || \
+		cond_oper(b->cmd[i], H_DOC) || cond_oper(b->cmd[i], APPEND)))
 		{
+			// printf("xxx\n");
 			move_redirectionals(b, i);
 			move_redirectionals(b, i);
 		}
 		else
 			i++;
 	}
+}
+
+void	get_cmd_array_quotes(t_tree *branch, t_all *all, char **str, int quote)
+{
+	*str = ft_strdup(branch->cmd_str, all);
+	all->add_quotes_to_env = quote;
+	get_environment(all, str);
+	branch->cmd = split_by_space(*str, all, 1);
 }
 
 int	get_cmd_info(t_tree *branch, t_all *all)
@@ -133,10 +136,14 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 
 	all->error = NULL;
 	pre_env_arr = split_by_space(branch->cmd_str, all, 1);
-	get_cmd_array_quotes(branch, all, &str, 1);
-	get_input_output(branch->cmd, branch, pre_env_arr, all);
 	get_cmd_array_quotes(branch, all, &str, 0);
 	remove_redirectionals(branch);
+	remove_quotes(branch->cmd, all);
+	//-------may cause problems--------
+	get_cmd_array_quotes(branch, all, &str, 1);
+	get_input_output(branch->cmd, branch, pre_env_arr, all);
+	remove_quotes(branch->cmd, all);
+	//----------------------------------
 	branch->cmd = get_wildcard(branch->cmd, all);
 	if (branch->here_doc == 0)
 		branch->here_doc = \

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 05:08:01 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/14 16:32:11 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:34:17 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	unset(t_all *all, t_env *env, char **cmd)
 		while (cmd[i][j])
 		{
 			check_unset_arg(cmd, &flag, i, j);
+			if (flag)
+				return (1);
 			j++;
 		}
 		free_key_val(&env, cmd[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conditions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:08:42 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/27 14:47:00 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:06:45 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	cond_oper(char *str, t_e_oper oper)
 
 int	cond_redirect(char *str)
 {
+	if ((*str) && *(str + 1) && *(str + 2) != '\0')
+		return (0);
 	if (!str)
 		return (0);
 	if (*str == '>' && *(str + 1) == '>')

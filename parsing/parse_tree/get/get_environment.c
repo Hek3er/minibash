@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 15:25:43 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:26:02 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	handle_question_mark(int i, char **str, t_all *all)
 
 	j = 0;
 	status = ft_itoa(exit_stat(0, 0), all);
-	length = ft_strlen(*str) + ft_strlen(status);
+	length = ft_strlen(*str) + ft_strlen(status) - 1;
 	new_str = ft_malloc(length, 0, all);
 	if (!new_str)
 		return ;
@@ -54,11 +54,12 @@ static int	delim_check(int *i, int y, char **str, t_all *all)
 		handle_question_mark(*i, str, all);
 		return (0);
 	}
-	if (next_c == '-')
+	// printf("%c %c\n", c, next_c);
+	if (!(is_alpha(next_c) || is_num(next_c) || next_c != '"' || next_c != '\''))
 		return (0);
 	if (c == '$' && y >= 0)
 		return (1);
-	return (0);
+	return (1);
 }
 
 static int	check_dollar_in_q(t_check_quote *c_q, int i, char **str)
@@ -88,7 +89,7 @@ void	get_environment(t_all *all, char **s)
 	y = 0;
 	// printf("all->exfl : %d\n", all->expand_flag);
 	// all->expand_flag = 0;
-	while ((*s)[i])
+	while ((*s) && (*s)[i])
 	{
 		c = (*s)[i];
 		next_c = (*s)[i + 1];

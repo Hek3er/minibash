@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:30:22 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 15:30:37 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:40:29 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	handle_export_arg(char **key_val, char **arg, int k, t_all *all)
 		return ;
 	if (key_val[1] && key_val[1][0] == '$')
 	{
-		// all->expand_flag = 1;
 		tmp = ft_strdup(key_val[1], all);
 		if (!tmp)
 			return ;
@@ -33,8 +32,9 @@ void	handle_export_arg(char **key_val, char **arg, int k, t_all *all)
 		if (!key_val[1])
 			return ;
 	}
-	if (!check_key(env, key_val[0]))
+	if (!check_key(env, key_val[0])) {
 		append_node(&env, key_val[0], key_val[1], all);
+	}
 	else
 		change_val(&env, key_val, all->append, all);
 }

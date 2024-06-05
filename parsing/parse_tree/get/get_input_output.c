@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input_output.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/03 14:46:07 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:47:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static int	ambiguity(char *str, char **next_str, char *pre, t_all *all)
 	arr = split_by_space(*next_str, all, 0);
 	if (arr && arr[0])
 		*next_str = arr[0];
-	if (arr && arr[1])
+	if (arr && arr[0] && arr[1])
 		return (all->error = "Minibash: ambiguous redirect", \
 		exit_stat(1, 1), 1);
 	get_environment(all, &pre);
 	arr = split_by_space(pre, all, 0);
-	if (arr && arr[1])
+	if (arr && arr[0] && arr[1])
 		return (all->error = "Minibash: ambiguous redirect", \
 		exit_stat(1, 1), 1);
 	return (0);

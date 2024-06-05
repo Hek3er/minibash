@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/29 16:52:29 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:26:49 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 			free(str);
 			break ;
 		}
-		if (!all->quote_in_hdoc_delimiter)
-			get_environment(all, &str);
 		if (ft_strlen(str) == ft_strlen(delimiter) - 1 && \
 		!ft_strncmp(str, delimiter, ft_strlen(delimiter) - 1))
 		{
 			free(str);
 			break ;
 		}
+		if (!all->quote_in_hdoc_delimiter)
+			get_environment(all, &str);
 		ft_write(str, doc_fd, 0);
 		ft_write("\n", doc_fd, 0);
 		free(str);
