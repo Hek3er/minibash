@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 19:33:05 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:39:29 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ void	remove_redirectionals(t_tree *b)
 	i = 0;
 	while (b->cmd && b->cmd[i])
 	{
-		// printf("%s ***\n",b->cmd[i]);
+		printf("%s ***\n",b->cmd[i]);
 		if (!(ft_strlen(b->cmd[i]) > 2) && \
 		(cond_oper(b->cmd[i], INPUT) || cond_oper(b->cmd[i], OUTPUT) || \
 		cond_oper(b->cmd[i], H_DOC) || cond_oper(b->cmd[i], APPEND)))
 		{
-			// printf("xxx\n");
+			printf("xxx\n");
 			move_redirectionals(b, i);
 			move_redirectionals(b, i);
 		}
@@ -136,12 +136,13 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 
 	all->error = NULL;
 	pre_env_arr = split_by_space(branch->cmd_str, all, 1);
-	get_cmd_array_quotes(branch, all, &str, 0);
-	remove_redirectionals(branch);
-	remove_quotes(branch->cmd, all);
 	//-------may cause problems--------
 	get_cmd_array_quotes(branch, all, &str, 1);
 	get_input_output(branch->cmd, branch, pre_env_arr, all);
+	remove_quotes(branch->cmd, all);
+	//----------------------------------
+	get_cmd_array_quotes(branch, all, &str, 0);
+	remove_redirectionals(branch);
 	remove_quotes(branch->cmd, all);
 	//----------------------------------
 	branch->cmd = get_wildcard(branch->cmd, all);

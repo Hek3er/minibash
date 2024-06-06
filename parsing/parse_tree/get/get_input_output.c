@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input_output.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 17:47:43 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:44:16 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@ static int	ambiguity(char *str, char **next_str, char *pre, t_all *all)
 {
 	char	**arr;
 	int		is_diffrent;
+	char	**check_wildcard;
 
 	is_diffrent = ft_strcmp(*next_str, pre);
 	if (!(cond_oper(str, INPUT) || cond_oper(str, OUTPUT) || \
 	cond_oper(str, APPEND)))
 		return (0);
+	check_wildcard = get_wildcard((char *[]){*next_str, NULL}, all);
+	if (check_wildcard[0] && check_wildcard[1])
+		return (all->error = "Minibash: ambiguous redirect", \
+		exit_stat(1, 1), 1);
 	arr = split_by_space(*next_str, all, 0);
 	if (arr && arr[0])
 		*next_str = arr[0];

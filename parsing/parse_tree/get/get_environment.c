@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_environment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 17:26:02 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:17:35 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,12 @@ void	get_environment(t_all *all, char **s)
 	c_q = (t_check_quote){0};
 	i = 0;
 	y = 0;
-	// printf("all->exfl : %d\n", all->expand_flag);
-	// all->expand_flag = 0;
 	while ((*s) && (*s)[i])
 	{
 		c = (*s)[i];
 		next_c = (*s)[i + 1];
-		check_quotes(c, &c_q);
+		if (!all->env_for_hdoc)
+			check_quotes(c, &c_q);
 		if (c == ' ' || c == '"' || c == '\'')
 			y = -1;
 		if (c == '$' && !c_q.is_sq && delim_check(&i, y, s, all) && \
@@ -101,7 +100,6 @@ void	get_environment(t_all *all, char **s)
 			*s = add_env((*s), &i, all, c_q);
 		if (i >= 0 && (*s)[i] == '\0')
 			break ;
-		// all->expand_flag = 0;
 		i++;
 		y++;
 	}

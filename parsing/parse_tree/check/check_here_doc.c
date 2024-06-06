@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 17:26:49 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:33:57 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 
 	if (!delimiter)
 		return ;
+	if (all->quote_in_hdoc_delimiter)
+		all->env_for_hdoc = 0;
 	signal(SIGINT, &handle_signal_doc);
 	while (1)
 	{
@@ -67,6 +69,7 @@ void	check_here_doc(char *str, t_all *all)
 
 	hd = (t_check_hdoc){0};
 	all->quote_in_hdoc_delimiter = 0;
+	all->env_for_hdoc = 1;
 	while (*str)
 	{
 		check_quotes(*str, &hd.c_q);
@@ -79,6 +82,7 @@ void	check_here_doc(char *str, t_all *all)
 			return ;
 		str++;
 	}
+	all->env_for_hdoc = 0;
 	if (cond_q(hd.c_q))
 	{
 		all->error = "minibash: syntax error";

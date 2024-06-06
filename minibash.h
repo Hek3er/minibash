@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 22:24:47 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:04:52 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_all
 	int		quote_in_hdoc_delimiter;
 	int		is_outside_dq;
 	int		add_quotes_to_env;
+	int		env_for_hdoc;
 }	t_all;
 
 typedef struct s_malloc

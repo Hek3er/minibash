@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_environment2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 17:16:27 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:52:30 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,14 @@ char	*add_env(char *str, int *i, t_all *all, t_check_quote c_q)
 	all->keylen = my_strlen(str + *i);
 	if (all->keylen == 1)
 		return (str);
-	// if (all->expand_flag)
-	// {
-	// 	env = ft_strdup(str + (*i), all);
-	// 	if (!env)
-	// 		return (NULL);
-	// }
-	// else
-	
 	env = ft_getenv(str, *i, all);
 	if (all->expand_flag)
 		env++;
 	all->is_outside_dq = 1;
 	if (c_q.is_dq || env == NULL || !all->add_quotes_to_env)
 		all->is_outside_dq = 0;
+	if (cond_oper(env, NONE))
+		all->is_outside_dq = 1;
 	new_str = add_env2(str, env, i, all);
 	(*i)--;
 	if (all->expand_flag)

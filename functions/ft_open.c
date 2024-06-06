@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:26:55 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 21:27:20 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:06:12 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ static int	append_fd(t_all_fd *all_fd, int fd, t_all *all)
 	return (0);
 }
 
+static char	*wildcard_expand(char *path, t_all *all)
+{
+	char	**arr;
+	arr = get_wildcard((char *[]){path, NULL}, all);
+	if (arr && arr[0])
+		return (arr[0]);
+	else
+		return (path);
+}
+
 int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 {
 	static t_all_fd	all_fd = {-1, NULL};
@@ -69,8 +79,7 @@ int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 		flags = O_CREAT | O_APPEND | O_WRONLY;
 	else if (mode == OPEN_READ)
 		flags = O_RDONLY;
-	fd = open(path, flags, 0777);
-	// fprintf(stderr, "fd : %d path: %s\n", fd, path);
+	fd = open(wildcard_expand(path, all), flags, 0777);
 	if (fd < 0 || append_fd(&all_fd, fd, all))
 	{
 		ft_write("minibash: ", 2, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conditions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:08:42 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 18:06:45 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:42:09 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	cond_jump_quote(char c, t_check_quote c_q, int jump_quote)
 
 int	cond_oper(char *str, t_e_oper oper)
 {
+	if (!str)
+		return (NONE);
 	if ((*str == '<' && *(str + 1) == '<') && (oper == H_DOC || oper == NONE))
 		return (H_DOC);
 	if ((*str == '<' && *(str + 1) != '<') && (oper == INPUT || oper == NONE))
@@ -58,8 +60,6 @@ int	cond_oper(char *str, t_e_oper oper)
 
 int	cond_redirect(char *str)
 {
-	if ((*str) && *(str + 1) && *(str + 2) != '\0')
-		return (0);
 	if (!str)
 		return (0);
 	if (*str == '>' && *(str + 1) == '>')
