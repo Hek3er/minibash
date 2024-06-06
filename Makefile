@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -g3 -fsanitize=address #-Wall -Werror -Wextra
+CFLAGS = -g3 #-Wall -Werror -Wextra
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include

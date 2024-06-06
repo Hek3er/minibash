@@ -6,7 +6,7 @@
 /*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 14:39:29 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:12:46 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ void	remove_redirectionals(t_tree *b)
 	i = 0;
 	while (b->cmd && b->cmd[i])
 	{
-		printf("%s ***\n",b->cmd[i]);
+		// printf("%s ***\n",b->cmd[i]);
 		if (!(ft_strlen(b->cmd[i]) > 2) && \
 		(cond_oper(b->cmd[i], INPUT) || cond_oper(b->cmd[i], OUTPUT) || \
 		cond_oper(b->cmd[i], H_DOC) || cond_oper(b->cmd[i], APPEND)))
 		{
-			printf("xxx\n");
+			// printf("xxx\n");
 			move_redirectionals(b, i);
 			move_redirectionals(b, i);
 		}
@@ -123,10 +123,17 @@ void	remove_redirectionals(t_tree *b)
 
 void	get_cmd_array_quotes(t_tree *branch, t_all *all, char **str, int quote)
 {
+	int	i;
+
+	i = 0;
 	*str = ft_strdup(branch->cmd_str, all);
 	all->add_quotes_to_env = quote;
-	get_environment(all, str);
 	branch->cmd = split_by_space(*str, all, 1);
+	while (branch->cmd && branch->cmd[i])
+	{
+		get_environment(all, branch->cmd + i);
+		i++;
+	}
 }
 
 int	get_cmd_info(t_tree *branch, t_all *all)
