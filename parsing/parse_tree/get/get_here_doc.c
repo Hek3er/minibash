@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 11:19:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 18:32:17 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:20:59 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 static char	*move_until_paranthes_close(char *str)
 {
 	int				i;
-	t_check_quote	c_q;
 	int				c_p;
 
 	i = 0;
 	c_p = 0;
-	c_q = (t_check_quote){0};
 	if (str && str[i])
 		check_parentheses(str[i], &c_p);
 	while (str && str[i] && c_p)

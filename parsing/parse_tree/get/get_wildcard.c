@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_wildcard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:53:51 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 11:39:51 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:21:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,10 @@ static char	**append_arr_to_arr(char **arr, char **wc_marker, t_all *all)
 
 void	append_filename(char *filename, char **new_str, t_all *all)
 {
-	char	*tmp;
-
-	tmp = *new_str;
 	if (!*new_str)
 		*new_str = ft_strdup(filename, all);
 	else
 		*new_str = ft_strjoin(*new_str, filename, all);
-	tmp = *new_str;
 	*new_str = ft_strjoin(*new_str, " ", all);
 }
 
