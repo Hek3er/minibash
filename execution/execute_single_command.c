@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:18 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 14:57:43 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:15:14 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,23 @@ static void	exe(t_tree *node, char **envp, char *path, pid_t *pid)
 	}
 }
 
+static void	signal_handling(int stat)
+{
+	if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit_stat(130, 1);
+	}
+	else if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGQUIT)
+	{
+		write(1, "Quit : 3\n", 9);
+		reset_terminal();
+		exit_stat(131, 1);
+	}
+	else
+		exit_stat(WEXITSTATUS(stat), 1);
+}
+
 void	execute_single_command(t_tree *node, char **envp, t_all *all)
 {
 	char	*path;
@@ -74,19 +91,7 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 		return ;
 	exe(node, envp, path, &pid);
 	waitpid(pid, &stat, 0);
-	if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGINT)
-	{
-		write(1, "\n", 1);
-		exit_stat(130, 1);
-	}
-	else if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGQUIT)
-	{
-		write(1, "Quit : 3\n", 9);
-		reset_terminal();
-		exit_stat(131, 1);
-	}
-	else
-		exit_stat(WEXITSTATUS(stat), 1);
+	signal_handling(stat);
 	signal(SIGINT, &handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 }

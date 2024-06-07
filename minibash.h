@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 13:43:02 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:41:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,11 +261,18 @@ void		fill_arr_with_str(char **arr, char *str, int size);
 void		arr_dup(char **src, char **dst, int max_size);
 char		*add_env(char *str, int *i, t_all *all, t_check_quote c_q);
 void		remove_quotes(char **str, t_all *all);
+void		remove_redirectionals(t_tree *b);
+void		move_element(t_tree *b, int index);
+void		remove_quotes(char **str, t_all *all);
+void		seperate_env(t_tree *branch, t_all *all, int index, int *b_index);
+int			ambiguity(char *str, char **next_str, char *pre, t_all *all);
+
 /*
  * Parse_env
 */
 void		append_node(t_env **head, char *key, char *value, t_all *all);
 t_env		*parse_env(char **env, t_all *all);
+void		set_var(t_var *var, char **env, t_all *all);
 char		*get_value(t_env *env, char *key, t_all *all);
 
 /*

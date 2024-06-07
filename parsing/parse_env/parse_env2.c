@@ -1,38 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_value.c                                        :+:      :+:    :+:   */
+/*   parse_env2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 16:19:57 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:23:43 by azainabi         ###   ########.fr       */
+/*   Created: 2024/06/07 16:35:25 by azainabi          #+#    #+#             */
+/*   Updated: 2024/06/07 16:39:51 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minibash.h"
 
-char	*get_value(t_env *env, char *key, t_all *all)
+void	set_var(t_var *var, char **env, t_all *all)
 {
-	t_env	*tmp;
-
-	if (!env || !key)
-		return (NULL);
-	tmp = env;
-	while (tmp)
-	{
-		if (!tmp->key)
-		{
-			tmp = tmp->next;
-			continue ;
-		}
-		if (!ft_strcmp(tmp->key, key))
-		{
-			if (tmp->value && tmp->value[0] == '\\')
-				all->expand_flag = 1;
-			return (tmp->value);
-		}
-		tmp = tmp->next;
-	}
-	return (NULL);
+	var->j = ft_strlen(env[var->i]);
+	var->tmp_val = ft_substr(env[var->i], var->rem, var->j - var->rem, all);
 }

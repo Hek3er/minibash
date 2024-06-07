@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_environment2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 15:10:11 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:19:14 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ static char	*ft_getenv(char *str, int j, t_all *all)
 	while (str[j] && i < key_len)
 		key[i++] = str[j++];
 	key[i] = '\0';
-	// if (ft_strcmp(key + 1, "\"") == 0)
-	// 	return ("\"");
-	// else if (ft_strcmp(key + 1, "\'") == 0)
-	// 	return ("\'");
 	if (key_len == 0)
 		return (NULL);
 	env = get_value(all->env, key + 1, all);
@@ -75,11 +71,7 @@ char	*add_env2(char *str, char *env, int *i, t_all *all)
 	if (all->is_outside_dq)
 		new_str[all->k++] = '"';
 	while (env && *env)
-	{
-		// if (env[0] == '\\' && env[1] == '$' && env++)
-		// 	continue ;
 		new_str[all->k++] = *(env++);
-	}
 	if (all->is_outside_dq)
 		new_str[all->k++] = '"';
 	if (all->keylen == 0)
@@ -113,7 +105,7 @@ char	*add_env(char *str, int *i, t_all *all, t_check_quote c_q)
 	(*i)--;
 	if (all->expand_flag)
 	{
-		(*i)+= 2;
+		(*i) += 2;
 		all->expand_flag = 0;
 	}
 	return (new_str);

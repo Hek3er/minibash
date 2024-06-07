@@ -6,12 +6,11 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:45:15 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/05 17:02:12 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:18:26 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minibash.h"
-
 
 static int	delimiter_size(char *s, t_all *all, t_check_quote cq)
 {

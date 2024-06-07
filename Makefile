@@ -8,8 +8,8 @@ RL_REPLACE_LINE = -L .brew/opt/readline/lib -I .brew/opt/readline/include
 
 NAME = minishell
 
-SRCS = minibash.c get_cmd_info.c \
-       builtins/cd/cd.c builtins/cd/cd_utils.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
+SRCS = minibash.c get_cmd_info/get_cmd_info.c get_cmd_info/remove_quotes.c \
+       get_cmd_info/remove_redirections.c get_cmd_info/sep_env.c builtins/cd/cd.c builtins/cd/cd_utils.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
        builtins/export/change_val.c builtins/export/check_key.c builtins/export/export.c builtins/export/sort_export.c builtins/export/export_utils.c\
        builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c execution/execute_one_command.c execution/execute_right_left.c\
        execution/check_builtins.c execution/main_exec.c execution/execute_command.c execution/execute_pipe.c \
@@ -20,11 +20,11 @@ SRCS = minibash.c get_cmd_info.c \
        functions/ft_substr.c functions/ft_tolower.c functions/ft_write.c functions/remove_docs.c functions/unsigned_to_str.c \
        functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c \
        functions/is_white_space.c functions/condition.c \
-       parsing/parse_env/get_value.c parsing/parse_env/parse_env.c parsing/parse_env/linked_list.c \
+       parsing/parse_env/get_value.c parsing/parse_env/parse_env.c parsing/parse_env/linked_list.c parsing/parse_env/parse_env2.c \
        parsing/parse_tree/build/adjust_redirectionals.c parsing/parse_tree/build/build_tree.c parsing/parse_tree/build/parse_tree.c \
        parsing/parse_tree/check/check_here_doc.c parsing/parse_tree/check/check_opers.c parsing/parse_tree/check/check_q_p.c \
        parsing/parse_tree/check/check_wildcard.c parsing/parse_tree/check/conditions.c parsing/parse_tree/get/get_environment.c \
-       parsing/parse_tree/get/get_files.c parsing/parse_tree/get/get_here_doc.c parsing/parse_tree/get/get_input_output.c \
+       parsing/parse_tree/get/get_files.c parsing/parse_tree/get/get_here_doc.c parsing/parse_tree/get/get_input_output.c parsing/parse_tree/get/ambiguity.c \
        parsing/parse_tree/get/get_wildcard.c  parsing/parse_tree/get/get_hdoc_delimiter.c parsing/parse_tree/split/split_by_oper.c parsing/parse_tree/split/split_by_parantheses.c \
        parsing/parse_tree/split/split_by_space.c parsing/parse_tree/split/split_by_space2.c parsing/parse_tree/split/split_cmds.c  \
        parsing/parse_tree/get/get_environment2.c 

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 05:52:47 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 14:57:17 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:17:15 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	handle_signal_doc(int sig)
 
 void	reset_terminal(void)
 {
-	struct	termios term;
+	struct termios	term;
 
 	if (tcgetattr(STDIN_FILENO, &term) == -1)
 	{

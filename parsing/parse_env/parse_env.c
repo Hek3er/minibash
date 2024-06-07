@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:05:40 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 23:51:13 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:39:16 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static int	get_lenght_up_to_equal(char *s)
 void	handle_shlvl(t_all *all, t_env *head, t_var *var)
 {
 	if (ft_atoi(var->tmp_val) < 999)
-		append_node(&head, var->tmp_key, ft_itoa(ft_atoi(var->tmp_val) + 1, all), all);
+		append_node(&head, var->tmp_key, \
+		ft_itoa(ft_atoi(var->tmp_val) + 1, all), all);
 	else
 		append_node(&head, var->tmp_key, "", all);
 }
@@ -66,12 +67,12 @@ t_env	*parse_env(char **env, t_all *all)
 		var.j = get_lenght_up_to_equal(env[var.i]);
 		if (env[var.i][var.j] == '=')
 			copy_key(env, &var, all);
-		var.j = ft_strlen(env[var.i]);
-		var.tmp_val = ft_substr(env[var.i], var.rem, var.j - var.rem, all);
+		set_var(&var, env, all);
 		if (!var.tmp_val)
-			(ft_write("Malloc error", 2, 1), exit(2));
+			(ft_write("Malloc error", 2, 1), ft_exit(NULL, all));
 		if (var.tmp_val && var.tmp_val[0] == '$')
-			append_node(&head, var.tmp_key, ft_strjoin("\\", var.tmp_val, all), all);
+			append_node(&head, var.tmp_key, \
+			ft_strjoin("\\", var.tmp_val, all), all);
 		else if (!ft_strcmp(var.tmp_key, "SHLVL"))
 			handle_shlvl(all, head, &var);
 		else

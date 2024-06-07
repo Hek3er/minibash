@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:26:55 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 14:06:12 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:18:04 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	close_fd(t_all_fd *all_fd, int fd)
 		{
 			close(all_fd->fd);
 			all_fd->fd = -1;
-			// return ;
 		}
 		all_fd = all_fd->next;
 	}
@@ -55,6 +54,7 @@ static int	append_fd(t_all_fd *all_fd, int fd, t_all *all)
 static char	*wildcard_expand(char *path, t_all *all)
 {
 	char	**arr;
+
 	arr = get_wildcard((char *[]){path, NULL}, all);
 	if (arr && arr[0])
 		return (arr[0]);

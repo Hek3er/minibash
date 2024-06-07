@@ -3,24 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 12:33:57 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:21:53 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minibash.h"
 
-static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
+static void	read_to_doc(int doc_fd, char *delimiter, t_all *all)
 {
 	char	*str;
 
-	if (!delimiter)
-		return ;
-	if (all->quote_in_hdoc_delimiter)
-		all->env_for_hdoc = 0;
-	signal(SIGINT, &handle_signal_doc);
 	while (1)
 	{
 		str = readline("> ");
@@ -41,6 +36,16 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 		ft_write("\n", doc_fd, 0);
 		free(str);
 	}
+}
+
+static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
+{
+	if (!delimiter)
+		return ;
+	if (all->quote_in_hdoc_delimiter)
+		all->env_for_hdoc = 0;
+	signal(SIGINT, &handle_signal_doc);
+	read_to_doc(doc_fd, delimiter, all);
 	signal(SIGINT, &handle_signal);
 }
 

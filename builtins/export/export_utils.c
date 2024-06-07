@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:30:22 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/05 19:40:29 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:12:02 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void	handle_export_arg(char **key_val, char **arg, int k, t_all *all)
 		if (!key_val[1])
 			return ;
 	}
-	if (!check_key(env, key_val[0])) {
+	if (!check_key(env, key_val[0]))
 		append_node(&env, key_val[0], key_val[1], all);
-	}
 	else
 		change_val(&env, key_val, all->append, all);
 }
