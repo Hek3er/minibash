@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:39:46 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 22:31:29 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:22:44 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	parse_tree(char *s, t_all *all)
 
 	root = NULL;
 	doc_i = 0;
-	if ((check_here_doc(s, all), all->error) || \
-		(check_q_p(s, all), all->error) || \
+	if ((check_q_p(s, all), all->error) || \
+		(check_here_doc(s, all), all->error) || \
 		(check_opers(s, all), all->error) || \
 		(adjust_redirectionals(&s, all), all->error) || \
 		(build_tree(s, (t_tree **[2]){&all->tree, &root}, all, &doc_i), \

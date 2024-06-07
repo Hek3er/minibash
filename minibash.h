@@ -6,7 +6,7 @@
 /*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/06 11:04:52 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:43:02 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,15 @@ typedef struct s_all_fd
 	int				fd;
 	struct s_all_fd	*next;
 }	t_all_fd;
+
+typedef struct s_env_func
+{
+	int				i;
+	t_check_quote	c_q;
+	char			c;
+	char			y;
+	char			next_c;
+}	t_env_func;
 
 //binary tree***********************************
 typedef struct s_tree
@@ -251,6 +260,7 @@ int			arr_size(char **arr);
 void		fill_arr_with_str(char **arr, char *str, int size);
 void		arr_dup(char **src, char **dst, int max_size);
 char		*add_env(char *str, int *i, t_all *all, t_check_quote c_q);
+void		remove_quotes(char **str, t_all *all);
 /*
  * Parse_env
 */

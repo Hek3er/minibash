@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 00:57:51 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/05 21:41:05 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:03:30 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,20 @@ int	parse_key(char **key_val, t_all *all)
 	i = 1;
 	if (!ft_isunder_alpha(key_val[0][0]))
 		return (all->tmp = \
-		ft_strjoin(key_val[0], "': not a valid undentifier1", all), \
+		ft_strjoin(key_val[0], "': not a valid undentifier", all), \
 		exit_stat(1, 1), 1);
 	while (key_val[0][i] && i < ft_strlen(key_val[0]) - 1)
 	{
 		if (!ft_isunder_alpha(key_val[0][i]))
 			return (all->tmp = \
-			ft_strjoin(key_val[0], "': not a valid undentifier2", \
+			ft_strjoin(key_val[0], "': not a valid undentifier", \
 			all), exit_stat(1, 1), 1);
 		i++;
 	}
 	i = ft_strlen(key_val[0]) - 1;
 	if (!(ft_isalnum(key_val[0][i])) && !(key_val[0][i] == '+'))
 		return (all->tmp = \
-		ft_strjoin(key_val[0], "': not a valid undentifier3", all), \
+		ft_strjoin(key_val[0], "': not a valid undentifier", all), \
 		exit_stat(1, 1), 1);
 	return (0);
 }

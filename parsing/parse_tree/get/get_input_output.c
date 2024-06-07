@@ -6,7 +6,7 @@
 /*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 16:04:36 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:44:08 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	ambiguity(char *str, char **next_str, char *pre, t_all *all)
 		return (all->error = "Minibash: ambiguous redirect", \
 		exit_stat(1, 1), 1);
 	get_environment(all, &pre);
-	arr = split_by_space(pre, all, 0);
+	remove_quotes(&pre, all);
+	arr = split_by_space(pre, all, 1);
 	if (arr && (arr[0] && arr[1]))
 		return (all->error = "Minibash: ambiguous redirect", \
 		exit_stat(1, 1), 1);

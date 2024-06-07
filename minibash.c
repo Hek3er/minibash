@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 23:56:37 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:44:37 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	minibash_readline(char **str, t_all *all)
 	if (input)
 	{
 		*str = ft_strdup(input, all);
-		// free(input);
+		free(input);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 11:17:35 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:48:18 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,29 @@ static int	check_dollar_in_q(t_check_quote *c_q, int i, char **str)
 
 void	get_environment(t_all *all, char **s)
 {
-	int				i;
-	t_check_quote	c_q;
-	char			c;
-	char			y;
-	char			next_c;
+	t_env_func	env;
 
-	c_q = (t_check_quote){0};
-	i = 0;
-	y = 0;
-	while ((*s) && (*s)[i])
+	env = (t_env_func){0};
+	while ((*s) && (*s)[env.i])
 	{
-		c = (*s)[i];
-		next_c = (*s)[i + 1];
+		env.c = (*s)[env.i];
+		env.next_c = (*s)[env.i + 1];
 		if (!all->env_for_hdoc)
-			check_quotes(c, &c_q);
-		if (c == ' ' || c == '"' || c == '\'')
-			y = -1;
-		if (c == '$' && !c_q.is_sq && delim_check(&i, y, s, all) && \
-		!is_white_space(next_c) && check_dollar_in_q(&c_q, i, s))
-			*s = add_env((*s), &i, all, c_q);
-		if (i >= 0 && (*s)[i] == '\0')
+			check_quotes(env.c, &env.c_q);
+		if (all->env_for_hdoc && (env.next_c == '"' || env.next_c == '\''))
+		{
+			env.i++;
+			continue ;
+		}
+		if (env.c == ' ' || env.c == '"' || env.c == '\'')
+			env.y = -1;
+		if (env.c == '$' && !env.c_q.is_sq && \
+		delim_check(&env.i, env.y, s, all) && \
+		!is_white_space(env.next_c) && check_dollar_in_q(&env.c_q, env.i, s))
+			*s = add_env((*s), &env.i, all, env.c_q);
+		if (env.i >= 0 && (*s)[env.i] == '\0')
 			break ;
-		i++;
-		y++;
+		env.i++;
+		env.y++;
 	}
 }
