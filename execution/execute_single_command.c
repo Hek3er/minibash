@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:18 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 20:18:31 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:57:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static void	exe(t_tree *node, char **envp, char *path, pid_t *pid)
 	}
 	if (*pid == 0)
 	{
-		signal(SIGINT, &handle_signal_dfl);
-		signal(SIGQUIT, &handle_signal_dfl);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (execve(path, node->cmd, envp) == -1)
 			error_execve(node->cmd[0]);
 	}
@@ -66,6 +66,7 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 
 	perm = 0;
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (node->cmd[0] == NULL)
 		return ;
 	path = get_cmd_path(all, node->cmd[0]);
@@ -73,7 +74,6 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 		return ;
 	exe(node, envp, path, &pid);
 	waitpid(pid, &stat, 0);
-	signal(SIGINT, &handle_signal);
 	if (WIFSIGNALED(stat) && WTERMSIG(stat) == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -87,4 +87,6 @@ void	execute_single_command(t_tree *node, char **envp, t_all *all)
 	}
 	else
 		exit_stat(WEXITSTATUS(stat), 1);
+	signal(SIGINT, &handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 }

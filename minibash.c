@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/06 16:44:37 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:05:21 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,4 @@ int	main(int argc, char *argv[], char *envp[])
 		remove_docs(&all);
 		ft_open(NULL, 0, NULL, 1);
 	}
-	ft_malloc(0, 1, NULL);
 }

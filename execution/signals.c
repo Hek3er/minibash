@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 05:52:47 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/04 20:20:24 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:57:17 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	reset_terminal(void)
 		exit(1);
 	}
 	term.c_oflag = OPOST | ONLCR;
-	term.c_lflag = ICANON | ECHO | ECHOE | ECHOK;
+	term.c_lflag = ICANON | ECHO | ECHOE | ECHOK | ISIG;
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) == -1)
 	{
 		perror("tcsetattr");
