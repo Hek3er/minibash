@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:12:25 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:57:32 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	execution_child(t_tree *node, int perm, char *path, t_all *all)
 {
 	if (all->id == 0)
 	{
-		signal(SIGINT, &handle_signal_dfl);
-		signal(SIGQUIT, &handle_signal_dfl);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		path = get_cmd_path(all, node->cmd[0]);
 		if (!path)
 		{
@@ -89,6 +89,7 @@ int	execute_command(t_tree *node, t_all *all)
 	if (check_builtins(node, all))
 		return (0);
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	all->id = fork();
 	if (all->id == -1)
 	{
@@ -98,5 +99,6 @@ int	execute_command(t_tree *node, t_all *all)
 	execution_child(node, perm, path, all);
 	waitpid(all->id, &status, 0);
 	signal(SIGINT, &handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 	return (exit_stat(WEXITSTATUS(status), 1), WEXITSTATUS(status));
 }

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:41:43 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:56:53 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,6 @@ int			set_delim(int flag, int set);
 void		handle_signal(int sig);
 int			set_delim(int flag, int set);
 void		handle_signal_doc(int sig);
-void		handle_signal_dfl(int sig);
 void		execute_one_command(t_all *all);
 void		execute_pipe(t_tree *node, char **envp, t_all *all);
 void		execute_right(t_tree *node, int *fd, char **envp, t_all *all);

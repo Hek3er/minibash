@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 05:52:47 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:17:15 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:56:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,5 @@ void	reset_terminal(void)
 	{
 		perror("tcsetattr");
 		exit(1);
-	}
-}
-
-void	handle_signal_dfl(int sig)
-{
-	if (sig == SIGINT)
-		exit(130);
-	if (sig == SIGQUIT)
-	{
-		reset_terminal();
-		exit(131);
 	}
 }
