@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 00:57:51 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/06 17:03:30 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:51:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	export(t_all *all, t_env *env, char **arg)
 	}
 	while (arg[k])
 	{
-		printf("arg[k] = %s\n", arg[k]);
 		handle_export_arg(key_val, arg, k, all);
 		k++;
 	}

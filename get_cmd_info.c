@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 13:44:59 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:54:00 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	remove_redirectionals(t_tree *b)
 {
 	int				i;
 
-	t_check_quote	c_q;
 	i = 0;
 	while (b->cmd && b->cmd[i])
 	{
@@ -156,7 +155,6 @@ void	seperate_env(t_tree *branch, t_all *all, int index, int *b_index)
 	}
 	arr[i] = NULL;
 	branch->cmd = arr;
-	int y = 0;
 }
 
 void	get_cmd_array_quotes(t_tree *branch, t_all *all, char **str, int quote)
@@ -177,7 +175,7 @@ void	get_cmd_array_quotes(t_tree *branch, t_all *all, char **str, int quote)
 	}
 }
 
-void	remove_empty_element(t_tree *branch, t_all *all)
+void	remove_empty_element(t_tree *branch)
 {
 	int	i;
 
@@ -205,7 +203,6 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 	//----------------------------------
 	get_cmd_array_quotes(branch, all, &str, 0);
 	//----------------------------------
-	int i = 0;
 	// while (branch->cmd[i])
 	// {
 	// 	printf("=======%s\n", branch->cmd[i]);
@@ -220,7 +217,7 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 		branch->here_doc = \
 		get_here_doc(str, &branch->input, branch->doc_i, all);
 	all->envp = linked_list_to_arr(all);
-	remove_empty_element(branch, all);
+	remove_empty_element(branch);
 	if (all->error)
 		return (1);
 	// printf("ffffff %d %d\n",branch->input, branch->output );
