@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:24:12 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:29:50 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/09 00:25:04 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_cmd_path(t_all *all, char *cmd)
 	char	**paths;
 	char	*cmd_path;
 
-	if (strchr(cmd, '/'))
+	if (ft_strchr(cmd, '/'))
 		return (cmd);
 	env_path = get_value(all->env, "PATH", all);
 	if (!env_path)

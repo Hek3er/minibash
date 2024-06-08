@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:55:32 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:23:26 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:57:45 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ void	seperate_env(t_tree *branch, t_all *all, int index, int *b_index)
 	char	**env_seperated;
 	int		env_size;
 
-	env_seperated = split_by_space(*(branch->cmd + index), all, 0);
+	env_seperated = split_by_space(*(branch->cmd + index), all, 1);
 	env_size = arr_size(env_seperated);
 	if (!env_size)
 		(*b_index)++;
 	else
 		(*b_index) += env_size;
-	if (env_seperated && env_seperated[0] && !env_seperated[1])
-		return ;
 	arr = ft_malloc((arr_size(branch->cmd) + env_size) * sizeof(char *), \
 	0, all);
 	if (!arr)

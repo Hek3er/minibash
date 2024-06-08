@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:39:46 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 16:40:11 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 11:22:32 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	parse_tree(char *s, t_all *all)
 
 	root = NULL;
 	doc_i = 0;
+	all->add_quotes_to_env = 0;
 	if ((check_q_p(s, all), all->error) || \
 		(check_here_doc(s, all), all->error) || \
 		(check_opers(s, all), all->error) || \

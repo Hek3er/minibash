@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:16:36 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:22:28 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	execute_and(t_tree *node, t_all *all)
 		dup2(node->input, STDIN_FILENO);
 	dup2(node->output, STDOUT_FILENO);
 	execute(node->left, all->envp, all);
+	dup2(all->original_in, STDIN_FILENO);
+	dup2(all->original_out, STDOUT_FILENO);
 	if (exit_stat(0, 0) == 0)
 		execute(node->right, all->envp, all);
 	dup2(old_stdin, STDIN_FILENO);
@@ -47,6 +49,8 @@ int	execute_or(t_tree *node, t_all *all)
 		dup2(node->input, STDIN_FILENO);
 	dup2(node->output, STDOUT_FILENO);
 	execute(node->left, all->envp, all);
+	dup2(all->original_in, STDIN_FILENO);
+	dup2(all->original_out, STDOUT_FILENO);
 	if (exit_stat(0, 0) != 0)
 		execute(node->right, all->envp, all);
 	if (all->op)

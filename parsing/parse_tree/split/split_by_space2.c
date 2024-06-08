@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_space2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:24:35 by ealislam          #+#    #+#             */
-/*   Updated: 2024/05/28 18:17:46 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 10:43:58 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ static int	str_size(t_split *all_s, int s_i)
 static void	fill_str(t_split *all_s, char *dst, int *s_i)
 {
 	int		i;
-	char	*str;
+	char	*s;
 
 	i = *s_i;
-	str = all_s->str;
+	s = all_s->str;
 	all_s->c_q = (t_check_quote){0};
 	all_s->c_p = 0;
-	while ((str[i] && !cond_space(str, i)) || cond_q(all_s->c_q) || all_s->c_p)
+	while (s[i] && (!cond_space(s, i) || (cond_q(all_s->c_q) || all_s->c_p)))
 	{
-		check_quotes(str[i], &(all_s->c_q));
-		check_parentheses(str[i], &(all_s->c_p));
-		if (!cond_jump_quote(str[i], all_s->c_q, all_s->jump_quote))
+		check_quotes(s[i], &(all_s->c_q));
+		check_parentheses(s[i], &(all_s->c_p));
+		if (!cond_jump_quote(s[i], all_s->c_q, all_s->jump_quote))
 		{
-			*dst = str[i];
+			*dst = s[i];
 			dst++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 08:15:38 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 16:22:40 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 17:47:56 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,19 @@ int	get_cmd_info(t_tree *branch, t_all *all)
 {
 	char	**pre_env_arr;
 	char	*str;
+	char	**arr_check;
 
 	all->error = NULL;
 	pre_env_arr = split_by_space(branch->cmd_str, all, 1);
 	get_cmd_array_quotes(branch, all, &str, 1);
 	get_input_output(branch->cmd, branch, pre_env_arr, all);
 	remove_quotes(branch->cmd, all);
+	arr_check = branch->cmd;
 	get_cmd_array_quotes(branch, all, &str, 0);
-	remove_redirectionals(branch);
+	remove_redirectionals(branch, arr_check, all);
+	arr_check = branch->cmd;
+	get_cmd_array_quotes(branch, all, &str, 1);
+	compare_arrays(branch, arr_check, all);
 	remove_quotes(branch->cmd, all);
 	branch->cmd = get_wildcard(branch->cmd, all);
 	if (branch->here_doc == 0)

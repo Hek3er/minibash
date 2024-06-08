@@ -6,29 +6,11 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:47:29 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 16:43:03 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:10:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minibash.h"
-
-static void	move_cmd(char **arr[2])
-{
-	int	i;
-
-	i = 0;
-	while (arr[0][i])
-	{
-		if (!arr[0][i + 1])
-		{
-			arr[0][i] = NULL;
-			arr[1][i] = NULL;
-		}
-		arr[0][i] = arr[0][i + 1];
-		arr[1][i] = arr[1][i + 1];
-		i++;
-	}
-}
 
 static int	open_file(char *str, int oper_size, int expected, t_all *all)
 {
@@ -65,8 +47,7 @@ static void	check_if_output(char **arr_pre[2], t_all *all, t_tree *b, int *i)
 	}
 	if (cnd_oper_type || cond_oper(*arr_pre[0], H_DOC))
 	{
-		move_cmd(arr_pre);
-		move_cmd(arr_pre);
+		(*i) += 2;
 	}
 	else
 		(*i)++;

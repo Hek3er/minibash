@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra 
 LDFLAGS = -lreadline
 LINKREADLINELIB = $(shell brew --prefix readline)/lib
 LINKREADLINEINC = $(shell brew --prefix readline)/include
@@ -8,7 +8,7 @@ RL_REPLACE_LINE = -L .brew/opt/readline/lib -I .brew/opt/readline/include
 
 NAME = minishell
 
-SRCS = minibash.c get_cmd_info/get_cmd_info.c get_cmd_info/remove_quotes.c \
+SRCS = minibash.c get_cmd_info/get_cmd_info.c get_cmd_info/remove_quotes.c get_cmd_info/compare_arrays.c \
        get_cmd_info/remove_redirections.c get_cmd_info/sep_env.c builtins/cd/cd.c builtins/cd/cd_utils.c builtins/echo/echo.c builtins/env/env.c builtins/exit/exit.c \
        builtins/export/change_val.c builtins/export/check_key.c builtins/export/export.c builtins/export/sort_export.c builtins/export/export_utils.c\
        builtins/pwd/pwd.c builtins/unset/unset.c execution/signals.c execution/execute_one_command.c execution/execute_right_left.c\

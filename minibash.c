@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 15:59:35 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:13:29 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,18 @@ static int	input_loop(t_all *all, char *str)
 	return (0);
 }
 
+static void	start_exec(t_all *all)
+{
+	all->original_in = dup(STDIN_FILENO);
+	all->original_out = dup(STDOUT_FILENO);
+	if (!all->tree->left && !all->tree->right && all->tree->oper == NONE)
+		execute_one_command(all);
+	else
+		execute(all->tree, all->envp, all);
+	close(all->original_in);
+	close(all->original_out);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
@@ -83,10 +95,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		else if (input == 2)
 			break ;
-		if (!all.tree->left && !all.tree->right && all.tree->oper == NONE)
-			execute_one_command(&all);
-		else
-			execute(all.tree, all.envp, &all);
+		start_exec(&all);
 		remove_docs(&all);
 		ft_open(NULL, 0, NULL, 1);
 	}

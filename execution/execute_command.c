@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/07 16:57:32 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:14:30 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ static void	execution_child_command(t_tree *node, int perm, \
 
 static void	execution_child(t_tree *node, int perm, char *path, t_all *all)
 {
+	all->id = fork();
+	if (all->id == -1)
+	{
+		ft_write(FORK_ERROR, 2, 1);
+		exit(1);
+	}
 	if (all->id == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -84,18 +90,16 @@ int	execute_command(t_tree *node, t_all *all)
 	perm = 0;
 	path = NULL;
 	handle_redirections_exec(node);
-	if (node->cmd[0] == NULL || node->cmd[0][0] == '\0')
+	if (!node->cmd || node->cmd[0] == NULL || node->cmd[0][0] == '\0')
 		return (0);
 	if (check_builtins(node, all))
+	{
+		dup2(all->original_in, STDIN_FILENO);
+		dup2(all->original_out, STDOUT_FILENO);
 		return (0);
+	}
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	all->id = fork();
-	if (all->id == -1)
-	{
-		ft_write(FORK_ERROR, 2, 1);
-		exit(1);
-	}
 	execution_child(node, perm, path, all);
 	waitpid(all->id, &status, 0);
 	signal(SIGINT, &handle_signal);
