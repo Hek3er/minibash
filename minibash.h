@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/11 23:31:23 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 00:10:29 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <sys/ioctl.h>
 
 # define H_DOC_PATH "/tmp/"
-// # define H_DOC_PATH "./test/"
 
 # define FORK_ERROR  "minibash: fork: Resource temporarily unavailable"
 # define PIPE_ERROR  "minibash: Pipe Failed"
@@ -181,16 +180,6 @@ typedef struct s_size
 	unsigned int	s_to_nl;
 	unsigned int	s_to_null;
 }	t_size;
-
-/*
- * Get_next_line
-*/
-
-// char	*get_next_line(int fd, char **remain, t_all *all);
-// t_size	get_s(char *str);
-// void	str_join(char *cur_bfr, char **fnl_str, char *new_dst);
-// int		check_n(char *cur_bfr);
-// char	*free_and_return_null(char **remain, char **final, char **cur_buf);
 
 /*
  * Functions
