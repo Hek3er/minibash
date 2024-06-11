@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:55:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/08 15:53:37 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:36:39 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	delim_check(int *i, int y, char **str, t_all *all)
 		return (0);
 	}
 	if (!is_alpha(next_c) && !is_num(next_c) && next_c != '"' \
-	&& next_c != '\'' && next_c != '$')
+	&& next_c != '\'' && next_c != '$' && next_c != '_')
 		return (0);
 	if (c == '$' && y >= 0)
 		return (1);

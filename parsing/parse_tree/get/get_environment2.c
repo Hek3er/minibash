@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:24 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/08 15:53:18 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:37:31 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	delim_check(char c, int i)
 		return (1);
 	if (i == 1 && (is_dash(c) || is_num(c)))
 		return (0);
-	if (is_alpha(c) || is_num(c))
+	if (is_alpha(c) || is_num(c) || c == '_')
 		return (1);
 	return (0);
 }

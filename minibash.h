@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minibash.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/08 16:33:40 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:35:19 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <errno.h>
-# include <string.h>
 # include <sys/stat.h>
 # include <termios.h>
 # include <readline/readline.h>

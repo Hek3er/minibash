@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   condition.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:08:06 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/24 15:12:15 by ealislam         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:37:11 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_num(char c)
 
 int	is_dash(char c)
 {
-	if (c == '-' || c == '_')
+	if (c == '-')
 		return (1);
 	return (0);
 }
