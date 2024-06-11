@@ -18,7 +18,7 @@ SRCS = minibash.c get_cmd_info/get_cmd_info.c get_cmd_info/remove_quotes.c get_c
        functions/ft_malloc.c functions/ft_open.c functions/ft_split.c functions/ft_strchr.c functions/ft_strcmp.c \
        functions/ft_strdup.c functions/ft_strjoin.c functions/ft_strlcpy.c functions/ft_strlen.c functions/ft_strncmp.c \
        functions/ft_substr.c functions/ft_tolower.c functions/ft_write.c functions/remove_docs.c functions/unsigned_to_str.c \
-       functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c functions/ft_dup_and_close.c \
+       functions/arr_dup.c functions/arr_size.c functions/fill_arr_with_str.c execution/ft_dup_and_close.c \
        functions/is_white_space.c functions/condition.c \
        parsing/parse_env/get_value.c parsing/parse_env/parse_env.c parsing/parse_env/linked_list.c parsing/parse_env/parse_env2.c \
        parsing/parse_tree/build/adjust_redirectionals.c parsing/parse_tree/build/build_tree.c parsing/parse_tree/build/parse_tree.c \

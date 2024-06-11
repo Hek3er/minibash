@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:05:40 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/11 23:22:41 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:34:33 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	copy_key(char **env, t_var *var, t_all *all)
 	if (!var->tmp_key)
 	{
 		ft_write("Malloc error", 2, 1);
-		ft_exit(NULL, all);;
+		ft_exit(NULL, all);
 	}
 	var->rem = var->j + 1;
 }

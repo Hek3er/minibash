@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 22:52:22 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/11 23:11:43 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:34:48 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_dup2(int fd1, int fd2, t_all *all)
 	}
 }
 
-int	ft_closedir(DIR *dire, t_all *all)
+void	ft_closedir(DIR *dire, t_all *all)
 {
 	if (closedir(dire) == -1)
 	{
