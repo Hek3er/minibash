@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:20:39 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/08 15:13:29 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:00:11 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ static int	input_loop(t_all *all, char *str)
 
 static void	start_exec(t_all *all)
 {
-	all->original_in = dup(STDIN_FILENO);
-	all->original_out = dup(STDOUT_FILENO);
+	all->original_in = ft_dup(STDIN_FILENO, all);
+	all->original_out = ft_dup(STDOUT_FILENO, all);
 	if (!all->tree->left && !all->tree->right && all->tree->oper == NONE)
 		execute_one_command(all);
 	else
 		execute(all->tree, all->envp, all);
-	close(all->original_in);
-	close(all->original_out);
+	ft_close(all->original_in, all);
+	ft_close(all->original_out, all);
 }
 
 int	main(int argc, char *argv[], char *envp[])

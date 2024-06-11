@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 09:23:27 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/04 16:30:46 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:12:24 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	get_files(t_str_list **all_files, char *path, t_all *all)
 			head = tmp;
 		entry = readdir(dir);
 	}
-	closedir(dir);
+	ft_closedir(dir, all);
 	*all_files = head;
 	if (*all_files)
 		sort_list(*all_files);

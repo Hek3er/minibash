@@ -6,29 +6,29 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:34:59 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/08 15:14:30 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:20:21 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minibash.h"
 
-void	error_execve(char *str)
+void	error_execve(char *str, t_all *all)
 {
 	ft_write("minibash: ", 2, 0);
 	ft_write(str, 2, 0);
 	ft_write(": ", 2, 0);
 	ft_write(strerror(errno), 2, 1);
-	exit(1);
+	ft_exit(NULL, all);
 }
 
-static void	handle_redirections_exec(t_tree *node)
+static void	handle_redirections_exec(t_tree *node, t_all *all)
 {
 	if (node->here_doc != 0)
-		dup2(node->here_doc, STDIN_FILENO);
+		ft_dup2(node->here_doc, STDIN_FILENO, all);
 	if (node->input != 0)
-		dup2(node->input, STDIN_FILENO);
+		ft_dup2(node->input, STDIN_FILENO, all);
 	if (node->output != 1)
-		dup2(node->output, STDOUT_FILENO);
+		ft_dup2(node->output, STDOUT_FILENO, all);
 }
 
 static void	execution_child_command(t_tree *node, int perm, \
@@ -52,7 +52,7 @@ static void	execution_child_command(t_tree *node, int perm, \
 		exit(126);
 	}
 	if (execve(path, node->cmd, all->envp) == -1)
-		error_execve(node->cmd[0]);
+		error_execve(node->cmd[0], all);
 }
 
 static void	execution_child(t_tree *node, int perm, char *path, t_all *all)
@@ -61,7 +61,7 @@ static void	execution_child(t_tree *node, int perm, char *path, t_all *all)
 	if (all->id == -1)
 	{
 		ft_write(FORK_ERROR, 2, 1);
-		exit(1);
+		ft_exit(NULL, all);
 	}
 	if (all->id == 0)
 	{
@@ -89,13 +89,13 @@ int	execute_command(t_tree *node, t_all *all)
 
 	perm = 0;
 	path = NULL;
-	handle_redirections_exec(node);
+	handle_redirections_exec(node, all);
 	if (!node->cmd || node->cmd[0] == NULL || node->cmd[0][0] == '\0')
 		return (0);
 	if (check_builtins(node, all))
 	{
-		dup2(all->original_in, STDIN_FILENO);
-		dup2(all->original_out, STDOUT_FILENO);
+		ft_dup2(all->original_in, STDIN_FILENO, all);
+		ft_dup2(all->original_out, STDOUT_FILENO, all);
 		return (0);
 	}
 	signal(SIGINT, SIG_IGN);

@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 09:58:41 by ealislam          #+#    #+#             */
-/*   Updated: 2024/04/16 02:26:30 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:22:18 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strjoin(char const *s1, char const *s2, t_all *all)
 		return ((char *)s1);
 	str = ft_malloc(ft_strlen(s1) + ft_strlen(s2) + 1, 0, all);
 	if (str == NULL)
-		exit(12);
+		ft_exit(NULL, all);
 	result = str;
 	while (*s1)
 	{

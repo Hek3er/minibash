@@ -6,32 +6,32 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:26:55 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 16:18:04 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:07:43 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minibash.h"
 
-static void	close_fd(t_all_fd *all_fd, int fd)
+static void	close_fd(t_all_fd *all_fd, int fd, t_all *all)
 {
 	while (all_fd)
 	{
 		if (all_fd->fd == fd)
 		{
-			close(all_fd->fd);
+			ft_close(all_fd->fd, all);
 			all_fd->fd = -1;
 		}
 		all_fd = all_fd->next;
 	}
 }
 
-static void	close_all_fd(t_all_fd *all_fd)
+static void	close_all_fd(t_all_fd *all_fd, t_all *all)
 {
 	all_fd = all_fd->next;
 	while (all_fd)
 	{
 		if (all_fd->fd > 1)
-			close(all_fd->fd);
+			ft_close(all_fd->fd, all);
 		all_fd = all_fd->next;
 	}
 }
@@ -70,9 +70,9 @@ int	ft_open(char *path, t_e_open_modes mode, t_all *all, int close_mode)
 
 	flags = 0;
 	if (close_mode > 1)
-		return (close_fd(&all_fd, close_mode), -1);
+		return (close_fd(&all_fd, close_mode, all), -1);
 	if (close_mode == 1)
-		return (close_all_fd(&all_fd), all_fd.next = NULL, 0);
+		return (close_all_fd(&all_fd, all), all_fd.next = NULL, 0);
 	if (mode == OPEN_TRUNC)
 		flags = O_CREAT | O_TRUNC | O_WRONLY;
 	else if (mode == OPEN_APPEND)

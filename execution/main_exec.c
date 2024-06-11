@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/08 15:22:28 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:06:46 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ int	execute_and(t_tree *node, t_all *all)
 	int	old_stdin;
 	int	old_stdout;
 
-	old_stdin = dup(node->input);
-	old_stdout = dup(STDOUT_FILENO);
+	old_stdin = ft_dup(node->input, all);
+	old_stdout = ft_dup(STDOUT_FILENO, all);
 	if (node->here_doc)
-		dup2(node->here_doc, STDIN_FILENO);
+		ft_dup2(node->here_doc, STDIN_FILENO, all);
 	else
-		dup2(node->input, STDIN_FILENO);
-	dup2(node->output, STDOUT_FILENO);
+		ft_dup2(node->input, STDIN_FILENO, all);
+	ft_dup2(node->output, STDOUT_FILENO, all);
 	execute(node->left, all->envp, all);
-	dup2(all->original_in, STDIN_FILENO);
-	dup2(all->original_out, STDOUT_FILENO);
+	ft_dup2(all->original_in, STDIN_FILENO, all);
+	ft_dup2(all->original_out, STDOUT_FILENO, all);
 	if (exit_stat(0, 0) == 0)
 		execute(node->right, all->envp, all);
-	dup2(old_stdin, STDIN_FILENO);
-	close(old_stdin);
-	dup2(old_stdout, STDOUT_FILENO);
-	close(old_stdout);
+	ft_dup2(old_stdin, STDIN_FILENO, all);
+	ft_close(old_stdin, all);
+	ft_dup2(old_stdout, STDOUT_FILENO, all);
+	ft_close(old_stdout, all);
 	return (1);
 }
 
@@ -41,16 +41,16 @@ int	execute_or(t_tree *node, t_all *all)
 	int	old_stdin;
 	int	old_stdout;
 
-	old_stdin = dup(node->input);
-	old_stdout = dup(STDOUT_FILENO);
+	old_stdin = ft_dup(node->input, all);
+	old_stdout = ft_dup(STDOUT_FILENO, all);
 	if (node->here_doc)
-		dup2(node->here_doc, STDIN_FILENO);
+		ft_dup2(node->here_doc, STDIN_FILENO, all);
 	else
-		dup2(node->input, STDIN_FILENO);
-	dup2(node->output, STDOUT_FILENO);
+		ft_dup2(node->input, STDIN_FILENO, all);
+	ft_dup2(node->output, STDOUT_FILENO, all);
 	execute(node->left, all->envp, all);
-	dup2(all->original_in, STDIN_FILENO);
-	dup2(all->original_out, STDOUT_FILENO);
+	ft_dup2(all->original_in, STDIN_FILENO, all);
+	ft_dup2(all->original_out, STDOUT_FILENO, all);
 	if (exit_stat(0, 0) != 0)
 		execute(node->right, all->envp, all);
 	if (all->op)
@@ -58,10 +58,10 @@ int	execute_or(t_tree *node, t_all *all)
 		execute(node->right->right, all->envp, all);
 		all->op = 0;
 	}
-	dup2(old_stdin, STDIN_FILENO);
-	close(old_stdin);
-	dup2(old_stdout, STDOUT_FILENO);
-	close(old_stdout);
+	ft_dup2(old_stdin, STDIN_FILENO, all);
+	ft_close(old_stdin, all);
+	ft_dup2(old_stdout, STDOUT_FILENO, all);
+	ft_close(old_stdout, all);
 	return (1);
 }
 
@@ -70,18 +70,18 @@ static void	execute_parantheses(t_tree	*node, char **envp, t_all *all)
 	int	old_stdin;
 	int	old_stdout;
 
-	old_stdin = dup(node->input);
-	old_stdout = dup(STDOUT_FILENO);
+	old_stdin = ft_dup(node->input, all);
+	old_stdout = ft_dup(STDOUT_FILENO, all);
 	if (node->here_doc)
-		dup2(node->here_doc, STDIN_FILENO);
+		ft_dup2(node->here_doc, STDIN_FILENO, all);
 	else
-		dup2(node->input, STDIN_FILENO);
-	dup2(node->output, STDOUT_FILENO);
+		ft_dup2(node->input, STDIN_FILENO, all);
+	ft_dup2(node->output, STDOUT_FILENO, all);
 	execute(node->left, envp, all);
-	dup2(old_stdin, STDIN_FILENO);
-	close(old_stdin);
-	dup2(old_stdout, STDOUT_FILENO);
-	close(old_stdout);
+	ft_dup2(old_stdin, STDIN_FILENO, all);
+	ft_close(old_stdin, all);
+	ft_dup2(old_stdout, STDOUT_FILENO, all);
+	ft_close(old_stdout, all);
 }
 
 int	execute(t_tree	*root, char **envp, t_all *all)

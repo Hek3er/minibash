@@ -6,16 +6,16 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:22:28 by azainabi          #+#    #+#             */
-/*   Updated: 2024/04/25 12:17:40 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:23:00 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minibash.h"
 
-void	malloc_error(void)
+void	malloc_error(t_all *all)
 {
 	ft_write("Malloc error", 2, 1);
-	exit(1);
+	ft_exit(NULL, all);
 }
 
 t_env	*create_node(char *key, char *value, t_all *all)
@@ -24,15 +24,15 @@ t_env	*create_node(char *key, char *value, t_all *all)
 
 	env = ft_malloc(sizeof(t_env), 0, all);
 	if (!env)
-		malloc_error();
+		malloc_error(all);
 	env->key = ft_strdup(key, all);
 	if (!env->key)
-		malloc_error();
+		malloc_error(all);
 	if (value)
 	{
 		env->value = ft_strdup(value, all);
 		if (!env->value)
-			malloc_error();
+			malloc_error(all);
 	}
 	else if (!value)
 		env->value = NULL;
