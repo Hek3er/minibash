@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:01:52 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/12 00:10:29 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:19:15 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ int			handle_parrent_directory(char *env_path, int i, \
 void		handle_export_arg(char **key_val, char **arg, int k, t_all *all);
 char		**parse_export(char **arg, int k, t_all *all);
 int			parse_key(char **key_val, t_all *all);
+void		add_pwd_to_env(t_all *all, char *current_dir, char* env_path);
 
 /*
  * Execution

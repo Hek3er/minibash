@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 04:43:55 by azainabi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:29:39 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:20:55 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int	no_arg_cd(char *cwd, t_all *all)
 			return (all->error = strerror(errno), \
 			exit_stat(1, 1), 1);
 		getcwd(new_wd, PATH_MAX);
-		change_val(&all->env, (char *[]){"PWD", new_wd}, 0, all);
-		change_val(&all->env, (char *[]){"OLDPWD", cwd}, 0, all);
+		add_pwd_to_env(all, new_wd, cwd);
 	}
 	return (0);
 }
@@ -64,8 +63,7 @@ int	handle_arg_cd(char **arg, char *cwd, t_all *all)
 		exit_stat(1, 1), 1);
 	}
 	getcwd(new_dir, PATH_MAX);
-	change_val(&all->env, (char *[]){"PWD", new_dir}, 0, all);
-	change_val(&all->env, (char *[]){"OLDPWD", cwd}, 0, all);
+	add_pwd_to_env(all, new_dir, cwd);
 	return (0);
 }
 
@@ -100,8 +98,7 @@ int	handle_parrent_directory(char *env_path, int i, int flag, t_all *all)
 		if (!flag)
 		{
 			new_cwd = ft_strjoin(get_value(all->env, "PWD", all), "/..", all);
-			change_val(&all->env, (char *[]){"PWD", new_cwd}, 0, all);
-			change_val(&all->env, (char *[]){"OLDPWD", env_path}, 0, all);
+			add_pwd_to_env(all, new_cwd, env_path);
 		}
 		return (all->error = "cd: error retrieving current directory: getcwd: \
 		cannot access parent directories: No such file or directory", \
