@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_doc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 11:19:30 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 15:20:59 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:34:56 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	get_here_doc(char *str, int *input_fd, int here_doc_i, t_all *all)
 
 	if (!check_if_doc_is_last(str, all))
 		return (0);
-	str1 = unsigned_to_str(getpid(), all);
+	str1 = ttyname(STDIN_FILENO) + 5;
 	str2 = unsigned_to_str(here_doc_i, all);
 	doc_name = ft_strjoin(str1, str2, all);
 	doc_name = ft_strjoin(H_DOC_PATH, doc_name, all);

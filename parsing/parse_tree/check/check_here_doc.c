@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealislam <ealislam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:05:54 by ealislam          #+#    #+#             */
-/*   Updated: 2024/06/07 20:36:58 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:35:02 by ealislam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 static void	create_doc(unsigned int here_doc_i, char *str, \
 t_all *all)
 {
-	char	*pid;
+	// char	*pid;
 	char	*doc_i;
 	char	*doc_name;
 	int		doc_fd;
 
-	pid = unsigned_to_str(getpid(), all);
+	// pid = unsigned_to_str(getpid(), all);
 	doc_i = unsigned_to_str(here_doc_i, all);
-	doc_name = ft_strjoin(pid, doc_i, all);
+	doc_name = ft_strjoin(ttyname(STDIN_FILENO) + 5, doc_i, all);
 	doc_name = ft_strjoin(H_DOC_PATH, doc_name, all);
 	doc_fd = ft_open(doc_name, OPEN_TRUNC, all, 0);
 	if (doc_fd < 0)
