@@ -6,7 +6,7 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:05:40 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/11 23:34:33 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:10:22 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,22 @@ static void	copy_key(char **env, t_var *var, t_all *all)
 
 static void	set_empty_env(t_env **head, t_all *all, t_var *var)
 {
+	char	*cwd;
+
+	cwd = ft_malloc(PATH_MAX, 0, all);
+	if (!cwd)
+	{
+		ft_write("Malloc Failed", 2, 1);
+		ft_exit(NULL, all);
+	}
+	getcwd(cwd, PATH_MAX);
 	append_node(head, "SHLVL", "1", all);
-	append_node(head, "PWD", getcwd(NULL, 0), all);
+	append_node(head, "PWD", cwd, all);
 	append_node(head, "OLDPWD", "", all);
-	var->str = ft_strjoin(getcwd(NULL, 0), "/minibash", all);
-	append_node(head, "_", var->str, all);
 	append_node(head, "PATH", "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin", \
 	all);
+	var->str = ft_strjoin(cwd, "/minibash", all);
+	append_node(head, "_", var->str, all);
 }
 
 static int	get_lenght_up_to_equal(char *s)

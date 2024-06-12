@@ -59,12 +59,10 @@ static void	fill_doc(int doc_fd, char *delimiter, t_all *all)
 static void	create_doc(unsigned int here_doc_i, char *str, \
 t_all *all)
 {
-	// char	*pid;
 	char	*doc_i;
 	char	*doc_name;
 	int		doc_fd;
 
-	// pid = unsigned_to_str(getpid(), all);
 	doc_i = unsigned_to_str(here_doc_i, all);
 	doc_name = ft_strjoin(ttyname(STDIN_FILENO) + 5, doc_i, all);
 	doc_name = ft_strjoin(H_DOC_PATH, doc_name, all);

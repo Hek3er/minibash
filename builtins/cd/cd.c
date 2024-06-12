@@ -6,13 +6,13 @@
 /*   By: azainabi <azainabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:45:42 by azainabi          #+#    #+#             */
-/*   Updated: 2024/06/12 02:34:42 by azainabi         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:58:34 by azainabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minibash.h"
 
-void	add_pwd_to_env(t_all *all, char *current_dir, char* env_path)
+void	add_pwd_to_env(t_all *all, char *current_dir, char *env_path)
 {
 	if (!check_key(all->env, "PWD"))
 		append_node(&all->env, "PWD", current_dir, all);
